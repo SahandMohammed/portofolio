@@ -3,15 +3,16 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../lib/animations";
+import SectionBackground from "./SectionBackground";
 
 export default function Hero() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
+      className="snap-section relative flex items-center justify-center pt-20 overflow-visible"
     >
-      {/* Background with Gradient Loop */}
-      <div className="absolute inset-0 z-0 hero-gradient-bg" />
+      {/* Section-specific decorative elements */}
+      <SectionBackground variant="hero" />
 
       <motion.div
         variants={staggerContainer}

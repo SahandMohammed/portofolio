@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Cloud, Server, Shield, Settings } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../lib/animations";
+import SectionBackground from "./SectionBackground";
 
 const services = [
   {
@@ -33,16 +34,18 @@ const services = [
 
 export default function CloudServices() {
   return (
-    <section id="cloud-services" className="py-20 relative overflow-hidden">
-      {/* Background Decorative Element */}
-      <div className="absolute top-1/2 left-0 w-full h-[500px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 -skew-y-6 transform -z-10" />
+    <section
+      id="cloud-services"
+      className="snap-section py-20 relative overflow-visible flex items-center"
+    >
+      <SectionBackground variant="cloud" />
 
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6"
+        className="container mx-auto px-6 w-full"
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">

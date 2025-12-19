@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-[var(--surface-border)] bg-surface backdrop-blur-lg">
+    <footer className="snap-section border-t border-[var(--surface-border)] bg-surface backdrop-blur-lg flex items-center justify-center">
       <div className="container mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">

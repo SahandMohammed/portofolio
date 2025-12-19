@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Code, Server, Terminal, Cpu, Globe, Database } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../lib/animations";
+import SectionBackground from "./SectionBackground";
 
 const skills = [
   {
@@ -52,13 +53,17 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section
+      id="skills"
+      className="snap-section py-20 relative overflow-visible flex items-center"
+    >
+      <SectionBackground variant="skills" />
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6"
+        className="container mx-auto px-6 w-full"
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
