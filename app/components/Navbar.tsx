@@ -6,13 +6,14 @@ import { Menu, X, Code2, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/routing";
+import Link from "next/link";
 // Language switcher hidden for now - uncomment when ready
 // import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -66,14 +67,14 @@ export default function Navbar() {
         className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 justify-between items-center px-8 py-4 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg dark:bg-white/5 dark:border-white/10 ring-1 ring-black/5 cursor-pointer hover:shadow-xl hover:shadow-primary/10 hover:border-white/20 active:shadow-2xl active:shadow-primary/20 hover:backdrop-blur-2xl transition-shadow"
       >
         {/* Left group - Logo */}
-        <a href="#" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2 group">
           <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
             <Code2 className="text-primary group-hover:text-white w-5 h-5 transition-colors" />
           </div>
           <span className="font-bold text-lg tracking-tight text-foreground">
             Sahand
           </span>
-        </a>
+        </Link>
 
         {/* Center group - Nav Links */}
         <div className="flex items-center gap-1 relative z-10">
@@ -91,11 +92,13 @@ export default function Navbar() {
         {/* Right group - Actions */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2.5 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
+            className="p-2.5 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             aria-label="Toggle Theme"
           >
-            {theme === "dark" ? (
+            {resolvedTheme === "dark" ? (
               <Sun className="w-4 h-4" />
             ) : (
               <Moon className="w-4 h-4" />
@@ -124,19 +127,21 @@ export default function Navbar() {
           className="flex flex-col rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:border-white/10"
         >
           <div className="flex justify-between items-center p-4">
-            <a href="#" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="p-2 rounded-lg bg-primary/10">
                 <Code2 className="text-primary w-5 h-5" />
               </div>
               <span className="font-bold text-lg">Sahand</span>
-            </a>
+            </Link>
 
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:bg-white/10 text-foreground transition-colors"
+                onClick={() =>
+                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                }
+                className="p-2 rounded-full hover:bg-white/10 text-foreground transition-colors cursor-pointer"
               >
-                {theme === "dark" ? (
+                {resolvedTheme === "dark" ? (
                   <Sun className="w-5 h-5" />
                 ) : (
                   <Moon className="w-5 h-5" />
@@ -144,7 +149,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-foreground p-1 hover:bg-white/10 rounded-full transition-colors"
+                className="text-foreground p-1 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
               >
                 <AnimatePresence mode="wait">
                   <motion.div

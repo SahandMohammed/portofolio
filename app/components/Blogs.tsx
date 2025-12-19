@@ -93,7 +93,7 @@ export default function Blogs({ posts }: BlogsProps) {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <motion.div variants={fadeInUp} className="mt-12 text-center">
           <Link
             href="/blog"
             className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-surface border border-[var(--surface-border)] text-foreground font-medium transition-all duration-300 hover:bg-[var(--surface-border)] hover:scale-105 group"
@@ -101,7 +101,7 @@ export default function Blogs({ posts }: BlogsProps) {
             {t("viewAllPosts")}
             <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
           </Link>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
