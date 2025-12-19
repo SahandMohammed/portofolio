@@ -2,10 +2,13 @@
 
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
 import SectionBackground from "./SectionBackground";
 
 export default function Education() {
+  const t = useTranslations("Education");
+
   return (
     <section
       id="education"
@@ -21,12 +24,13 @@ export default function Education() {
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Academic <span className="text-gradient">Qualification</span>
+            {t.rich("title", {
+              gradient: (chunks) => (
+                <span className="text-gradient">{chunks}</span>
+              ),
+            })}
           </h2>
-          <p className="text-muted max-w-2xl mx-auto">
-            My educational background that laid the foundation for my
-            engineering journey.
-          </p>
+          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
         </motion.div>
 
         <div className="w-full">
@@ -45,10 +49,10 @@ export default function Education() {
 
               <div className="flex-1">
                 <h3 className="text-2xl font-bold text-foreground mb-2">
-                  Bachelor of Science in Software Engineering (BSE)
+                  {t("degree")}
                 </h3>
                 <h4 className="text-xl text-primary font-medium mb-4">
-                  Universiti Teknologi Malaysia (UTM)
+                  {t("university")}
                 </h4>
 
                 <div className="flex flex-wrap gap-4 text-muted text-sm mb-6">
@@ -58,15 +62,12 @@ export default function Education() {
                   </div> */}
                   <div className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
-                    <span>Johor Bahru, Malaysia</span>
+                    <span>{t("location")}</span>
                   </div>
                 </div>
 
                 <p className="text-muted leading-relaxed mb-6">
-                  Completed a comprehensive engineering curriculum focusing on
-                  software architecture, system design, algorithms, and
-                  application development lifecycles. Gained hands-on experience
-                  in full-stack development and agile methodologies.
+                  {t("description")}
                 </p>
 
                 <div className="flex flex-wrap gap-2">

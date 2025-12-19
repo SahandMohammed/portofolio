@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 interface SectionBackgroundProps {
-  variant: "hero" | "skills" | "cloud" | "projects" | "education";
+  variant: "hero" | "skills" | "cloud" | "projects" | "education" | "blogs";
 }
 
 // Section-specific decorative elements
@@ -484,6 +484,119 @@ export default function SectionBackground({ variant }: SectionBackgroundProps) {
             transform="rotate(120 50 50)"
           />
           <circle cx="50" cy="50" r="6" fill="#3b82f6" fillOpacity="0.6" />
+        </svg>
+      </>
+    ),
+
+    blogs: (
+      <>
+        {/* Blog gradient blob */}
+        <div className="absolute top-20 left-10 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-teal-500/15 via-green-500/10 to-transparent blur-3xl animate-blob" />
+        <div className="absolute bottom-20 right-0 w-[450px] h-[450px] rounded-full bg-gradient-to-l from-blue-500/15 via-indigo-500/10 to-transparent blur-3xl animate-blob animation-delay-2000" />
+
+        {/* Document/Article glyph */}
+        <svg
+          className="absolute top-1/3 right-10 w-24 h-28 opacity-15 animate-float"
+          viewBox="0 0 80 100"
+        >
+          <path
+            d="M10 10 L50 10 L70 30 L70 90 L10 90 Z"
+            fill="none"
+            stroke="url(#blogGrad)"
+            strokeWidth="2"
+          />
+          <path
+            d="M50 10 L50 30 L70 30"
+            fill="none"
+            stroke="url(#blogGrad)"
+            strokeWidth="2"
+          />
+          <line
+            x1="20"
+            y1="40"
+            x2="60"
+            y2="40"
+            stroke="url(#blogGrad)"
+            strokeWidth="2"
+          />
+          <line
+            x1="20"
+            y1="55"
+            x2="60"
+            y2="55"
+            stroke="url(#blogGrad)"
+            strokeWidth="2"
+          />
+          <line
+            x1="20"
+            y1="70"
+            x2="40"
+            y2="70"
+            stroke="url(#blogGrad)"
+            strokeWidth="2"
+          />
+          <defs>
+            <linearGradient id="blogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Fountain Pen glyph */}
+        <svg
+          className="absolute bottom-1/4 left-10 w-20 h-20 opacity-15 animate-float animation-delay-4000"
+          viewBox="0 0 100 100"
+        >
+          <path
+            d="M20 80 L30 90 L80 40 L70 30 Z"
+            fill="none"
+            stroke="#14b8a6"
+            strokeWidth="2"
+          />
+          <path
+            d="M20 80 L10 90 L30 90"
+            fill="none"
+            stroke="#14b8a6"
+            strokeWidth="2"
+          />
+          <line
+            x1="30"
+            y1="70"
+            x2="70"
+            y2="30"
+            stroke="#14b8a6"
+            strokeWidth="1"
+          />
+        </svg>
+
+        {/* Quotation marks */}
+        <svg
+          className="absolute top-20 left-1/4 w-16 h-16 opacity-10 animate-float animation-delay-2000"
+          viewBox="0 0 100 100"
+        >
+          <text
+            x="10"
+            y="70"
+            fontFamily="serif"
+            fontSize="80"
+            fill="none"
+            stroke="#3b82f6"
+            strokeWidth="1"
+          >
+            "
+          </text>
+          <text
+            x="50"
+            y="70"
+            fontFamily="serif"
+            fontSize="80"
+            fill="none"
+            stroke="#3b82f6"
+            strokeWidth="1"
+          >
+            "
+          </text>
         </svg>
       </>
     ),

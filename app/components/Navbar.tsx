@@ -4,12 +4,18 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/routing";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const t = useTranslations("Navbar");
 
   useEffect(() => {
     setMounted(true);
@@ -21,11 +27,14 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    // { name: "Education", href: "#education" },
-    { name: "Skills", href: "#skills" },
-    { name: "Services", href: "#cloud-services" },
-    { name: "Projects", href: "#projects" },
+    { name: t("about"), href: isHome ? "#about" : "/#about" },
+    { name: t("skills"), href: isHome ? "#skills" : "/#skills" },
+    {
+      name: t("services"),
+      href: isHome ? "#cloud-services" : "/#cloud-services",
+    },
+    { name: t("projects"), href: isHome ? "#projects" : "/#projects" },
+    { name: t("blog"), href: isHome ? "#blogs" : "/#blogs" },
   ];
 
   if (!mounted) return null;
@@ -77,13 +86,15 @@ export default function Navbar() {
             )}
           </button>
 
+          <LanguageSwitcher />
+
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="#contact"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
           >
-            Hire Me <ArrowRight className="w-4 h-4" />
+            {t("contact")} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </motion.a>
         </div>
       </motion.nav>
@@ -102,7 +113,9 @@ export default function Navbar() {
             <span className="font-bold text-lg">Sahand</span>
           </a>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            <div className="w-px h-6 bg-border mx-1"></div>
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full hover:bg-accent text-foreground"
@@ -147,7 +160,7 @@ export default function Navbar() {
                   className="p-3 text-center rounded-xl bg-primary text-white font-bold"
                   onClick={() => setIsOpen(false)}
                 >
-                  Hire Me
+                  {t("contact")}
                 </a>
               </div>
             </motion.div>

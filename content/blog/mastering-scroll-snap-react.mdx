@@ -1,0 +1,66 @@
+---
+title: "Mastering Scroll Snap in React"
+excerpt: "A comprehensive guide to implementing smooth, full-screen scroll snapping experiences using CSS and React hooks."
+date: "2025-11-22"
+category: "Frontend"
+image: "linear-gradient(to bottom right, #8b5cf6, #ec4899)"
+featured: false
+---
+
+Scroll snapping can significantly enhance the user experience of landing pages and portfolios. It provides a tactile, app-like feel that guides the user through your content one section at a time.
+
+## CSS Scroll Snap Basics
+
+The core of the technique relies on CSS properties. `scroll-snap-type` on the container and `scroll-snap-align` on the children. But getting it to feel "just right" requires a bit more finesse.
+
+```css
+.container {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.section {
+  scroll-snap-align: start;
+  height: 100vh;
+}
+```
+
+While this works for basic cases, handling dynamic content heights and ensuring accessibility requires careful consideration.
+
+## Integrating with React
+
+In React, we can enhance this behavior with hooks to track the active section, trigger animations, or pre-fetch content as the user scrolls. Using `IntersectionObserver` is key here.
+
+```jsx
+import { useEffect, useRef, useState } from "react";
+
+function useActiveSection(sectionRefs) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sectionRefs.current.indexOf(entry.target);
+            setActiveIndex(index);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sectionRefs.current.forEach((ref) => observer.observe(ref));
+    return () => observer.disconnect();
+  }, [sectionRefs]);
+
+  return activeIndex;
+}
+```
+
+## Best Practices
+
+1. **Always test on mobile** - Touch scrolling behaves differently
+2. **Consider accessibility** - Provide skip navigation for keyboard users
+3. **Performance matters** - Debounce scroll handlers appropriately
+4. **Fallback gracefully** - Not all browsers support scroll snap perfectly

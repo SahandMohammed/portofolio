@@ -2,10 +2,14 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
 import SectionBackground from "./SectionBackground";
+import TypeWriter from "./TypeWriter";
 
 export default function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     <section
       id="about"
@@ -23,14 +27,13 @@ export default function Hero() {
       >
         <motion.div variants={fadeInUp}>
           <span className="inline-block py-1 px-3 rounded-full bg-surface text-sm font-medium text-primary mb-6">
-            Available for Work
+            {t("available")}
           </span>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">
-            Hi, I'm <span className="text-gradient">Sahand Mohammed</span>
+            {t("greeting")} <TypeWriter text={t("name")} delay={80} />
           </h1>
           <p className="text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-8 leading-relaxed">
-            A Software Engineer specializing in building exceptional web and
-            mobile application experiences.
+            {t("role")}
           </p>
         </motion.div>
 
@@ -42,15 +45,15 @@ export default function Hero() {
             href="#projects"
             className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-primary px-8 font-medium text-white transition-all duration-300 hover:bg-primary/90 hover:scale-105"
           >
-            <span className="mr-2">View My Projects</span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <span className="mr-2">{t("viewProjects")}</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
           </a>
           <a
             href="/resume.pdf" // Placeholder
             className="group inline-flex h-12 items-center justify-center rounded-md border border-[var(--surface-border)] bg-surface px-8 font-medium text-foreground transition-all duration-300 hover:bg-[var(--surface-border)] hover:scale-105"
           >
             <Download className="mr-2 h-4 w-4" />
-            Download CV
+            {t("downloadCv")}
           </a>
         </motion.div>
 

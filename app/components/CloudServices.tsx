@@ -2,37 +2,32 @@
 
 import { motion } from "framer-motion";
 import { Cloud, Server, Shield, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
 import SectionBackground from "./SectionBackground";
 
-const services = [
-  {
-    title: "Cloud Infrastructure Setup",
-    description:
-      "Architecting and provisioning secure, scalable cloud environments on AWS, Google Cloud, or DigitalOcean tailored to your application needs.",
-    icon: Cloud,
-  },
-  {
-    title: "Server Administration",
-    description:
-      "Comprehensive management of Linux servers, including configuration, optimization, and routine maintenance to ensure peak performance.",
-    icon: Server,
-  },
-  {
-    title: "Environment Management",
-    description:
-      "Setting up isolated development, staging, and production environments to streamline the software development lifecycle.",
-    icon: Settings,
-  },
-  {
-    title: "Security & Compliance",
-    description:
-      "Implementing robust security protocols, firewalls, and access controls to protect your infrastructure and data.",
-    icon: Shield,
-  },
-];
-
 export default function CloudServices() {
+  const t = useTranslations("CloudServices");
+
+  const services = [
+    {
+      key: "infrastructure",
+      icon: Cloud,
+    },
+    {
+      key: "server",
+      icon: Server,
+    },
+    {
+      key: "environment",
+      icon: Settings,
+    },
+    {
+      key: "security",
+      icon: Shield,
+    },
+  ];
+
   return (
     <section
       id="cloud-services"
@@ -49,12 +44,13 @@ export default function CloudServices() {
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Cloud & <span className="text-gradient">DevOps</span>
+            {t.rich("title", {
+              gradient: (chunks) => (
+                <span className="text-gradient">{chunks}</span>
+              ),
+            })}
           </h2>
-          <p className="text-muted max-w-2xl mx-auto">
-            Beyond coding, I provide end-to-end infrastructure solutions to
-            ensure your applications run smoothly, securely, and efficiently.
-          </p>
+          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -70,10 +66,10 @@ export default function CloudServices() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold mb-2 text-foreground">
-                    {service.title}
+                    {t(`services.${service.key}.title`)}
                   </h3>
                   <p className="text-muted leading-relaxed">
-                    {service.description}
+                    {t(`services.${service.key}.description`)}
                   </p>
                 </div>
               </div>

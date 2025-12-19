@@ -1,0 +1,93 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Project",
+    "education": "Education",
+    "skills": "Skills",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "available": "Available for Work",
+    "greeting": "Hi, I'm",
+    "name": "Sahand Mohammed",
+    "role": "A Software Engineer specializing in building exceptional web and mobile application experiences.",
+    "viewProjects": "View My Projects",
+    "downloadCv": "Download CV"
+  },
+  "Sections": {
+    "latestArticlesTitle": "Latest <gradient>Articles</gradient>",
+    "subtitle": "Thoughts, tutorials, and insights on software development, design, and emerging technologies.",
+    "readArticle": "Read Article",
+    "backToArticles": "Back to Articles",
+    "shareArticle": "Share this article",
+    "thanksReading": "Thanks for reading!"
+  },
+  "CloudServices": {
+    "title": "Cloud & <gradient>DevOps</gradient>",
+    "subtitle": "Beyond coding, I provide end-to-end infrastructure solutions to ensure your applications run smoothly, securely, and efficiently.",
+    "services": {
+      "infrastructure": {
+        "title": "Cloud Infrastructure Setup",
+        "description": "Architecting and provisioning secure, scalable cloud environments on AWS, Google Cloud, or DigitalOcean tailored to your application needs."
+      },
+      "server": {
+        "title": "Server Administration",
+        "description": "Comprehensive management of Linux servers, including configuration, optimization, and routine maintenance to ensure peak performance."
+      },
+      "environment": {
+        "title": "Environment Management",
+        "description": "Setting up isolated development, staging, and production environments to streamline the software development lifecycle."
+      },
+      "security": {
+        "title": "Security & Compliance",
+        "description": "Implementing robust security protocols, firewalls, and access controls to protect your infrastructure and data."
+      }
+    }
+  },
+  "Education": {
+    "title": "Academic <gradient>Qualification</gradient>",
+    "subtitle": "My educational background that laid the foundation for my engineering journey.",
+    "degree": "Bachelor of Science in Software Engineering (BSE)",
+    "university": "Universiti Teknologi Malaysia (UTM)",
+    "location": "Johor Bahru, Malaysia",
+    "description": "Completed a comprehensive engineering curriculum focusing on software architecture, system design, algorithms, and application development lifecycles. Gained hands-on experience in full-stack development and agile methodologies."
+  },
+  "Projects": {
+    "title": "Featured <gradient>Projects</gradient>",
+    "subtitle": "A selection of projects that demonstrate my expertise in web and mobile development.",
+    "ecommerce": {
+      "title": "E-Commerce Platform",
+      "description": "A full-featured e-commerce web application built with Next.js and NestJS, featuring real-time inventory and secure payments."
+    },
+    "taskApp": {
+      "title": "Task Management App",
+      "description": "A collaborative task management tool for teams, built with Flutter and Firebase for real-time updates across devices."
+    },
+    "healthcare": {
+      "title": "Healthcare Portal",
+      "description": "Secure patient portal for accessing medical records and scheduling appointments, compliant with healthcare standards."
+    }
+  },
+  "Skills": {
+    "title": "Technical <gradient>Expertise</gradient>",
+    "subtitle": "A versatile technology stack that enables me to build end-to-end solutions.",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Building responsive, interactive, and performant user interfaces."
+    },
+    "backend": {
+      "title": "Backend Engineering",
+      "description": "Designing scalable architectures and robust server-side logic."
+    },
+    "devops": {
+      "title": "DevOps & Tools",
+      "description": "Streamlining deployment pipelines and ensuring system reliability."
+    }
+  },
+  "Footer": {
+    "rights": "© {year} Sahand Mohammed. All rights reserved."
+  }
+}

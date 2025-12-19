@@ -1,8 +1,11 @@
 "use client";
 
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="snap-section border-t border-[var(--surface-border)] bg-surface backdrop-blur-lg flex items-center justify-center">
       <div className="container mx-auto px-6 py-12">
@@ -12,7 +15,7 @@ export default function Footer() {
               Sahand<span className="text-primary">.dev</span>
             </span>
             <p className="text-muted text-sm mt-2">
-              © {new Date().getFullYear()} Sahand Mohammed. All rights reserved.
+              {t("rights", { year: new Date().getFullYear() })}
             </p>
           </div>
 

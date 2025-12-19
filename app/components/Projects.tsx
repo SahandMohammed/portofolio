@@ -2,40 +2,37 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
 import SectionBackground from "./SectionBackground";
 
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    description:
-      "A full-featured e-commerce web application built with Next.js and NestJS, featuring real-time inventory and secure payments.",
-    tags: ["Next.js", "NestJS", "PostgreSQL", "Stripe"],
-    image: "linear-gradient(to bottom right, #3b82f6, #8b5cf6)", // Placeholder
-    link: "#",
-    github: "#",
-  },
-  {
-    title: "Task Management App",
-    description:
-      "A collaborative task management tool for teams, built with Flutter and Firebase for real-time updates across devices.",
-    tags: ["Flutter", "Firebase", "Dart", "Mobile"],
-    image: "linear-gradient(to bottom right, #10b981, #3b82f6)", // Placeholder
-    link: "#",
-    github: "#",
-  },
-  {
-    title: "Healthcare Portal",
-    description:
-      "Secure patient portal for accessing medical records and scheduling appointments, compliant with healthcare standards.",
-    tags: ["React", "Spring Boot", "MySQL", "Docker"],
-    image: "linear-gradient(to bottom right, #f59e0b, #ef4444)", // Placeholder
-    link: "#",
-    github: "#",
-  },
-];
-
 export default function Projects() {
+  const t = useTranslations("Projects");
+
+  const projects = [
+    {
+      key: "ecommerce",
+      tags: ["Next.js", "NestJS", "PostgreSQL", "Stripe"],
+      image: "linear-gradient(to bottom right, #3b82f6, #8b5cf6)", // Placeholder
+      link: "#",
+      github: "#",
+    },
+    {
+      key: "taskApp",
+      tags: ["Flutter", "Firebase", "Dart", "Mobile"],
+      image: "linear-gradient(to bottom right, #10b981, #3b82f6)", // Placeholder
+      link: "#",
+      github: "#",
+    },
+    {
+      key: "healthcare",
+      tags: ["React", "Spring Boot", "MySQL", "Docker"],
+      image: "linear-gradient(to bottom right, #f59e0b, #ef4444)", // Placeholder
+      link: "#",
+      github: "#",
+    },
+  ];
+
   return (
     <section
       id="projects"
@@ -51,12 +48,13 @@ export default function Projects() {
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Featured <span className="text-gradient">Projects</span>
+            {t.rich("title", {
+              gradient: (chunks) => (
+                <span className="text-gradient">{chunks}</span>
+              ),
+            })}
           </h2>
-          <p className="text-muted max-w-2xl mx-auto">
-            A selection of projects that demonstrate my expertise in web and
-            mobile development.
-          </p>
+          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -88,10 +86,10 @@ export default function Projects() {
 
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                  {project.title}
+                  {t(`${project.key}.title`)}
                 </h3>
                 <p className="text-muted text-sm mb-4 line-clamp-3">
-                  {project.description}
+                  {t(`${project.key}.description`)}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (

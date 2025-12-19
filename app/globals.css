@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-background: var(--background);
@@ -130,6 +131,51 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Cursor Effect */
+.cursor-effect {
+  position: relative;
+  display: inline-block;
+}
+
+.cursor-effect::after {
+  content: "|";
+  position: absolute;
+  right: -0.1em;
+  top: 0;
+  font-weight: 300;
+  background: linear-gradient(to bottom, #60a5fa, #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: cursor-blink 1s ease-in-out infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Name reveal animation */
+@keyframes name-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-name-reveal {
+  animation: name-reveal 1.2s ease-out forwards;
+  animation-delay: 0.5s;
+  clip-path: inset(0 100% 0 0);
 }
 
 .hero-gradient-bg {

@@ -2,56 +2,61 @@
 
 import { motion } from "framer-motion";
 import { Code, Server, Terminal, Cpu, Globe, Database } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
 import SectionBackground from "./SectionBackground";
 
-const skills = [
-  {
-    category: "Frontend Development",
-    icon: Globe,
-    description:
-      "Building responsive, interactive, and performant user interfaces.",
-    items: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Flutter",
-      "Dart",
-    ],
-    gradient: "from-blue-500/20 to-cyan-500/20",
-    border: "group-hover:border-blue-500/50",
-  },
-  {
-    category: "Backend Engineering",
-    icon: Server,
-    description:
-      "Designing scalable architectures and robust server-side logic.",
-    items: [
-      "Node.js",
-      "NestJS",
-      "Express.js",
-      "Java",
-      "Spring Boot",
-      "PostgreSQL",
-      "Firebase",
-    ],
-    gradient: "from-purple-500/20 to-pink-500/20",
-    border: "group-hover:border-purple-500/50",
-  },
-  {
-    category: "DevOps & Tools",
-    icon: Terminal,
-    description:
-      " streamlining deployment pipelines and ensuring system reliability.",
-    items: ["Git", "Docker", "Jenkins", "CI/CD", "Jira", "Linux", "AWS Basics"],
-    gradient: "from-orange-500/20 to-red-500/20",
-    border: "group-hover:border-orange-500/50",
-  },
-];
-
 export default function Skills() {
+  const t = useTranslations("Skills");
+
+  const skills = [
+    {
+      key: "frontend",
+      icon: Globe,
+      items: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Flutter",
+        "Dart",
+      ],
+      gradient: "from-blue-500/20 to-cyan-500/20",
+      border: "group-hover:border-blue-500/50",
+    },
+    {
+      key: "backend",
+      icon: Server,
+      items: [
+        "Node.js",
+        "NestJS",
+        "Express.js",
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Firebase",
+      ],
+      gradient: "from-purple-500/20 to-pink-500/20",
+      border: "group-hover:border-purple-500/50",
+    },
+    {
+      key: "devops",
+      icon: Terminal,
+      items: [
+        "Git",
+        "Docker",
+        "Jenkins",
+        "CI/CD",
+        "Jira",
+        "Linux",
+        "AWS Basics",
+      ],
+      gradient: "from-orange-500/20 to-red-500/20",
+      border: "group-hover:border-orange-500/50",
+    },
+  ];
+
   return (
     <section
       id="skills"
@@ -67,18 +72,19 @@ export default function Skills() {
       >
         <motion.div variants={fadeInUp} className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Technical <span className="text-gradient">Expertise</span>
+            {t.rich("title", {
+              gradient: (chunks) => (
+                <span className="text-gradient">{chunks}</span>
+              ),
+            })}
           </h2>
-          <p className="text-muted max-w-2xl mx-auto">
-            A versatile technology stack that enables me to build end-to-end
-            solutions.
-          </p>
+          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skills.map((skill, idx) => (
             <motion.div
-              key={skill.category}
+              key={skill.key}
               variants={fadeInUp}
               className={`group relative p-8 rounded-3xl border border-[var(--surface-border)] bg-[var(--card-bg)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 ${skill.border}`}
             >
@@ -94,12 +100,12 @@ export default function Skills() {
                   <skill.icon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground">
-                  {skill.category}
+                  {t(`${skill.key}.title`)}
                 </h3>
               </div>
 
               <p className="text-muted text-sm mb-6 leading-relaxed">
-                {skill.description}
+                {t(`${skill.key}.description`)}
               </p>
 
               <div className="flex flex-wrap gap-2">
