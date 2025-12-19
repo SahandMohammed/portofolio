@@ -29,21 +29,33 @@ export interface BlogMeta {
 }
 
 /**
- * Get all blog posts metadata (without content)
+ * Get the blog directory for a specific locale
+ */
+function getBlogDir(locale: string = "en"): string {
+  return path.join(BLOG_DIR, locale);
+}
+
+/**
+ * Get all blog posts metadata (without content) for a specific locale
  * Sorted by date, newest first
  */
-export function getAllBlogPosts(): BlogMeta[] {
-  if (!fs.existsSync(BLOG_DIR)) {
-    return [];
+export function getAllBlogPosts(locale: string = "en"): BlogMeta[] {
+  const blogDir = getBlogDir(locale);
+
+  if (!fs.existsSync(blogDir)) {
+    // Fallback to default locale if locale-specific folder doesn't exist
+    const fallbackDir = getBlogDir("en");
+    if (!fs.existsSync(fallbackDir)) {
+      return [];
+    }
+    return getAllBlogPosts("en");
   }
 
-  const files = fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => file.endsWith(".mdx"));
+  const files = fs.readdirSync(blogDir).filter((file) => file.endsWith(".mdx"));
 
   const posts = files.map((file) => {
     const slug = file.replace(/\.mdx$/, "");
-    const filePath = path.join(BLOG_DIR, file);
+    const filePath = path.join(blogDir, file);
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
     const stats = readingTime(content);
@@ -52,8 +64,8 @@ export function getAllBlogPosts(): BlogMeta[] {
       slug,
       title: data.title || "Untitled",
       excerpt: data.excerpt || "",
-      date: formatDate(data.date),
-      readTime: stats.text,
+      date: formatDate(data.date, locale),
+      readTime: formatReadTime(stats.text, locale),
       category: data.category || "General",
       image: data.image || "linear-gradient(to bottom right, #3b82f6, #8b5cf6)",
       featured: data.featured || false,
@@ -69,12 +81,23 @@ export function getAllBlogPosts(): BlogMeta[] {
 }
 
 /**
- * Get a single blog post by slug (includes content)
+ * Get a single blog post by slug for a specific locale (includes content)
  */
-export function getBlogPostBySlug(slug: string): BlogPost | null {
-  const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
+export function getBlogPostBySlug(
+  slug: string,
+  locale: string = "en"
+): BlogPost | null {
+  const blogDir = getBlogDir(locale);
+  const filePath = path.join(blogDir, `${slug}.mdx`);
 
+  // If the file doesn't exist in the current locale, try fallback to English
   if (!fs.existsSync(filePath)) {
+    if (locale !== "en") {
+      const fallbackPath = path.join(getBlogDir("en"), `${slug}.mdx`);
+      if (fs.existsSync(fallbackPath)) {
+        return getBlogPostBySlug(slug, "en");
+      }
+    }
     return null;
   }
 
@@ -86,8 +109,8 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
     slug,
     title: data.title || "Untitled",
     excerpt: data.excerpt || "",
-    date: formatDate(data.date),
-    readTime: stats.text,
+    date: formatDate(data.date, locale),
+    readTime: formatReadTime(stats.text, locale),
     category: data.category || "General",
     image: data.image || "linear-gradient(to bottom right, #3b82f6, #8b5cf6)",
     featured: data.featured || false,
@@ -96,52 +119,95 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
 }
 
 /**
- * Get all blog slugs (for static generation)
+ * Get all blog slugs for a specific locale (for static generation)
  */
-export function getAllBlogSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) {
+export function getAllBlogSlugs(locale: string = "en"): string[] {
+  const blogDir = getBlogDir(locale);
+
+  if (!fs.existsSync(blogDir)) {
     return [];
   }
 
   return fs
-    .readdirSync(BLOG_DIR)
+    .readdirSync(blogDir)
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
 /**
- * Get featured blog posts
+ * Get all blog slugs across all locales (for static generation)
  */
-export function getFeaturedPosts(): BlogMeta[] {
-  return getAllBlogPosts().filter((post) => post.featured);
+export function getAllBlogSlugsAllLocales(): {
+  locale: string;
+  slug: string;
+}[] {
+  // Only include 'en' for now - add 'ckb' back when ready
+  const locales = ["en"];
+  const params: { locale: string; slug: string }[] = [];
+
+  locales.forEach((locale) => {
+    const slugs = getAllBlogSlugs(locale);
+    slugs.forEach((slug) => {
+      params.push({ locale, slug });
+    });
+  });
+
+  return params;
 }
 
 /**
- * Get posts by category
+ * Get featured blog posts for a specific locale
  */
-export function getPostsByCategory(category: string): BlogMeta[] {
-  return getAllBlogPosts().filter(
+export function getFeaturedPosts(locale: string = "en"): BlogMeta[] {
+  return getAllBlogPosts(locale).filter((post) => post.featured);
+}
+
+/**
+ * Get posts by category for a specific locale
+ */
+export function getPostsByCategory(
+  category: string,
+  locale: string = "en"
+): BlogMeta[] {
+  return getAllBlogPosts(locale).filter(
     (post) => post.category.toLowerCase() === category.toLowerCase()
   );
 }
 
 /**
- * Get all unique categories
+ * Get all unique categories for a specific locale
  */
-export function getAllCategories(): string[] {
-  const posts = getAllBlogPosts();
+export function getAllCategories(locale: string = "en"): string[] {
+  const posts = getAllBlogPosts(locale);
   const categories = new Set(posts.map((post) => post.category));
   return Array.from(categories);
 }
 
 /**
- * Format date string to readable format
+ * Format date string to readable format based on locale
  */
-function formatDate(date: string | Date): string {
+function formatDate(date: string | Date, locale: string = "en"): string {
   const d = new Date(date);
-  return d.toLocaleDateString("en-US", {
+  const localeMap: Record<string, string> = {
+    en: "en-US",
+    ckb: "ckb-IQ",
+  };
+
+  return d.toLocaleDateString(localeMap[locale] || "en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+}
+
+/**
+ * Format reading time based on locale
+ */
+function formatReadTime(time: string, locale: string = "en"): string {
+  if (locale === "ckb") {
+    // Convert "5 min read" to Kurdish format
+    const minutes = time.match(/\d+/)?.[0] || "5";
+    return `${minutes} خولەک خوێندنەوە`;
+  }
+  return time;
 }

@@ -7,8 +7,13 @@ import Footer from "../components/Footer";
 import Blogs from "../components/Blogs";
 import { getAllBlogPosts } from "../lib/blog";
 
-export default function Home() {
-  const posts = getAllBlogPosts();
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Home({ params }: PageProps) {
+  const { locale } = await params;
+  const posts = getAllBlogPosts(locale);
 
   return (
     <>

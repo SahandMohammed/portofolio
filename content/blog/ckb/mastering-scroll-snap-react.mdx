@@ -1,0 +1,66 @@
+---
+title: "فێربوونی Scroll Snap لە React"
+excerpt: "ڕێنمایی گشتگیر بۆ جێبەجێکردنی ئەزموونی سکرۆڵ سناپی نەرم و تەواو-شاشە بە بەکارهێنانی CSS و هووکەکانی React."
+date: "2025-11-22"
+category: "ڕووکار"
+image: "linear-gradient(to bottom right, #8b5cf6, #ec4899)"
+featured: false
+---
+
+سکرۆڵ سناپ دەتوانێت ئەزموونی بەکارهێنەر بۆ پەڕە سەرەتایی و پۆرتفۆلیۆکان زۆر باشتر بکات. هەستێکی وەک بەرنامە دەدات کە بەکارهێنەر بە ناوەڕۆکەکەتدا ڕێنمایی دەکات بەشێک بەشێک.
+
+## بنەماکانی Scroll Snap لە CSS
+
+ناوەڕۆکی تەکنیکەکە پشت دەبەستێت بە تایبەتمەندییەکانی CSS. `scroll-snap-type` لەسەر کۆنتەینەرەکە و `scroll-snap-align` لەسەر منداڵەکان. بەڵام بەدەستهێنانی هەستی "تەواو دروست" پێویستی بە وردبینی زیاتر هەیە.
+
+```css
+.container {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.section {
+  scroll-snap-align: start;
+  height: 100vh;
+}
+```
+
+لەگەڵ ئەوەی ئەمە بۆ حاڵەتە بنەڕەتییەکان کار دەکات، مامەڵەکردن لەگەڵ بەرزی ناوەڕۆکی گۆڕاو و دڵنیابوون لە دەستگەیشتن پێویستی بە وردبینی هەیە.
+
+## یەکگرتن لەگەڵ React
+
+لە React، دەتوانین ئەم ڕەفتارە بە هووکەکان باشتر بکەین بۆ چاودێری بەشی چالاک، چالاککردنی ئەنیمەیشن، یان پێشوەختە هێنانی ناوەڕۆک کاتێک بەکارهێنەر سکرۆڵ دەکات. بەکارهێنانی `IntersectionObserver` لێرەدا سەرەکییە.
+
+```jsx
+import { useEffect, useRef, useState } from "react";
+
+function useActiveSection(sectionRefs) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sectionRefs.current.indexOf(entry.target);
+            setActiveIndex(index);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sectionRefs.current.forEach((ref) => observer.observe(ref));
+    return () => observer.disconnect();
+  }, [sectionRefs]);
+
+  return activeIndex;
+}
+```
+
+## باشترین ڕێوشوێنەکان
+
+1. **هەمیشە لەسەر مۆبایل تاقی بکەرەوە** - سکرۆڵی لەمسە جیاواز ڕەفتار دەکات
+2. **بیر لە دەستگەیشتن بکەرەوە** - گەشتنی بازدانەوە بۆ بەکارهێنەرانی کیبۆرد دابین بکە
+3. **کارایی گرنگە** - هەندلەرەکانی سکرۆڵ بە گونجاوی debounce بکە
+4. **بە ڕێکی هەڵبکەوە** - هەموو وێبگەڕەکان سکرۆڵ سناپ بە تەواوی پشتگیری ناکەن

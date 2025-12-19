@@ -6,7 +6,8 @@ import { Menu, X, Code2, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/routing";
-import LanguageSwitcher from "./LanguageSwitcher";
+// Language switcher hidden for now - uncomment when ready
+// import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,12 +44,29 @@ export default function Navbar() {
     <>
       {/* Desktop Floating Navbar */}
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 items-center gap-2 p-2 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg dark:bg-white/5 dark:border-white/10 ring-1 ring-black/5"
+        initial={{ y: -100, opacity: 0, width: 780 }}
+        animate={{ y: 0, opacity: 1, width: 780 }}
+        whileHover={{
+          width: 850,
+          transition: {
+            type: "spring",
+            stiffness: 400,
+            damping: 25,
+          },
+        }}
+        whileTap={{
+          width: 820,
+          transition: {
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+          },
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 justify-between items-center px-8 py-4 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg dark:bg-white/5 dark:border-white/10 ring-1 ring-black/5 cursor-pointer hover:shadow-xl hover:shadow-primary/10 hover:border-white/20 active:shadow-2xl active:shadow-primary/20 hover:backdrop-blur-2xl transition-shadow"
       >
-        <a href="#" className="flex items-center gap-2 px-4 py-2 group">
+        {/* Left group - Logo */}
+        <a href="#" className="flex items-center gap-2 group">
           <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
             <Code2 className="text-primary group-hover:text-white w-5 h-5 transition-colors" />
           </div>
@@ -57,9 +75,8 @@ export default function Navbar() {
           </span>
         </a>
 
-        <div className="h-6 w-px bg-white/10 mx-2" />
-
-        <div className="flex items-center gap-1">
+        {/* Center group - Nav Links */}
+        <div className="flex items-center gap-1 relative z-10">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -71,9 +88,8 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="h-6 w-px bg-white/10 mx-2" />
-
-        <div className="flex items-center gap-2 pr-2">
+        {/* Right group - Actions */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="p-2.5 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
@@ -86,7 +102,8 @@ export default function Navbar() {
             )}
           </button>
 
-          <LanguageSwitcher />
+          {/* Language switcher hidden for now - uncomment when ready */}
+          {/* <LanguageSwitcher /> */}
 
           <motion.a
             whileHover={{ scale: 1.05 }}
@@ -114,8 +131,9 @@ export default function Navbar() {
           </a>
 
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-            <div className="w-px h-6 bg-border mx-1"></div>
+            {/* Language switcher hidden for now - uncomment when ready */}
+            {/* <LanguageSwitcher /> */}
+            {/* <div className="w-px h-6 bg-border mx-1"></div> */}
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full hover:bg-accent text-foreground"

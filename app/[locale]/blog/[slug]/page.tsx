@@ -1,23 +1,16 @@
 import { notFound } from "next/navigation";
-import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react";
-import Link from "next/link";
-import { getBlogPostBySlug, getAllBlogSlugs } from "../../../lib/blog";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
+import {
+  getBlogPostBySlug,
+  getAllBlogSlugsAllLocales,
+} from "../../../lib/blog";
 import MDXContent from "../../../components/MDXContent";
-import { routing } from "@/i18n/routing";
 
 // Generate static params for all blog posts and locales
 export async function generateStaticParams() {
-  const slugs = getAllBlogSlugs();
-  const params: { locale: string; slug: string }[] = [];
-
-  routing.locales.forEach((locale) => {
-    slugs.forEach((slug) => {
-      params.push({ locale, slug });
-    });
-  });
-
-  return params;
+  return getAllBlogSlugsAllLocales();
 }
 
 // Generate metadata for each blog post
@@ -27,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = getBlogPostBySlug(slug, locale);
 
   if (!post) {
     return { title: "Post Not Found" };
@@ -45,11 +38,14 @@ export default async function BlogPost({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = getBlogPostBySlug(slug, locale);
+  const t = await getTranslations("Sections");
 
   if (!post) {
     notFound();
   }
+
+  const isRtl = locale === "ckb";
 
   return (
     <main className="h-screen overflow-y-auto relative pt-30 pb-20 scroll-smooth">
@@ -65,15 +61,15 @@ export default async function BlogPost({
           className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8 group"
         >
           <ArrowLeft
-            className={`w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform ${
-              locale === "ckb" ? "rotate-180" : ""
+            className={`w-4 h-4 me-2 transform group-hover:-translate-x-1 transition-transform ${
+              isRtl ? "rotate-180 group-hover:translate-x-1" : ""
             }`}
           />
-          Back to Articles
+          {t("backToArticles")}
         </Link>
 
         <div>
-          <div className="mb-6 flex gap-4 text-sm text-muted-foreground">
+          <div className="mb-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span className="px-3 py-1 rounded-full bg-surface border border-white/10 text-primary font-medium">
               {post.category}
             </span>
@@ -102,11 +98,11 @@ export default async function BlogPost({
             <MDXContent source={post.content} />
           </div>
 
-          <div className="mt-16 pt-8 border-t border-white/10 flex justify-between items-center">
-            <div className="text-muted-foreground">Thanks for reading!</div>
+          <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
+            <div className="text-muted-foreground">{t("thanksReading")}</div>
             <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-surface transition-colors text-muted-foreground hover:text-foreground">
               <Share2 className="w-4 h-4" />
-              Share this article
+              {t("shareArticle")}
             </button>
           </div>
         </div>

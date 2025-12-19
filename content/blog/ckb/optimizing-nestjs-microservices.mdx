@@ -1,0 +1,65 @@
+---
+title: "باشکردنی مایکرۆسێرڤیسەکانی NestJS"
+excerpt: "باشترین ڕێوشوێنەکان بۆ دروستکردنی تەلارسازیی مایکرۆسێرڤیسی گونجاو بۆ گەشەکردن و چاککردنەوە بە بەکارهێنانی NestJS و RabbitMQ."
+date: "2025-10-15"
+category: "پشتەوە"
+image: "linear-gradient(to bottom right, #f59e0b, #ef4444)"
+featured: false
+---
+
+تەلارسازیی مایکرۆسێرڤیس گونجاوی بۆ گەشەکردن و لاوازی دەبەخشێت، بەڵام ئاڵۆزی لە پەیوەندی و یەکگرتنی داتا زیاد دەکات. NestJS چوارچێوەیەکی بەهێز دابین دەکات بۆ بەڕێوەبردنی ئەم ئاڵۆزییە.
+
+## بۆچی NestJS؟
+
+تەلارسازیی مۆدیولاری NestJS و پشتگیریی چینایەتی بۆ TypeScript دەیکاتە هەڵبژاردەیەکی نایاب بۆ خزمەتگوزارییەکانی پشتەوە. پشتگیریی سروشتیی بۆ چەندین چینی گواستنەوە، بە لەخۆگرتنی TCP، Redis، و RabbitMQ، پەیوەندی نێوان خزمەتگوزارییەکان ئاسان دەکات.
+
+```typescript
+// نموونەی ڕێکخستنی مایکرۆسێرڤیسی NestJS
+import { NestFactory } from "@nestjs/core";
+import { Transport, MicroserviceOptions } from "@nestjs/microservices";
+import { AppModule } from "./app.module";
+
+async function bootstrap() {
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: ["amqp://localhost:5672"],
+        queue: "orders_queue",
+        queueOptions: {
+          durable: false,
+        },
+      },
+    }
+  );
+  await app.listen();
+}
+bootstrap();
+```
+
+## بەکارهێنانی RabbitMQ
+
+ڕیزەکانی نامە پێویستن بۆ جیاکردنەوەی خزمەتگوزارییەکان. RabbitMQ بروکەرێکی تاقیکراوەی شەڕە کە بە ئاسانی لەگەڵ NestJS یەکدەگرێت. ڕێکخستنی دروستی گۆڕاوەکان و ڕیزەکان دڵنیایی دەدات کە نامەکانت بە متمانەوە گەیشتراون.
+
+### شێوازەکانی نامە
+
+NestJS دوو شێوازی سەرەکی بۆ نامەنێردن پشتگیری دەکات:
+
+1. **داواکاری-وەڵام** - پەیوەندیی هاوکات کە وەڵام چاوەڕوان دەکرێت
+2. **بە بنەمای ڕووداو** - ڕووداوی ناهاوکات کە ئاگرەکە دەکوژرێتەوە و دەڕوات
+
+```typescript
+// هەندلەری ڕووداو لە NestJS
+@EventPattern('order_created')
+async handleOrderCreated(@Payload() data: OrderCreatedEvent) {
+  await this.inventoryService.reserveItems(data.items);
+}
+```
+
+## تێبینییەکان بۆ گەشەکردن
+
+- **گەشەکردنی ئاسۆیی** - هەر مایکرۆسێرڤیسێک دەتوانێت بە سەربەخۆیی گەشە بکات
+- **شکێنەرەکانی چەرخ** - هەڵکەوتنەوە بۆ خزمەتگوزارییە شکستخواردووەکان جێبەجێ بکە
+- **چاودێری بڵاوکراو** - ئامرازەکانی وەک Jaeger بۆ دیتن بەکار بهێنە
+- **پشکنینی تەندروستی** - تەندروستی خزمەتگوزاری بە پێشوەختە چاودێری بکە

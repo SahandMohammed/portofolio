@@ -3,7 +3,8 @@ import { createNavigation } from "next-intl/navigation";
 
 export const routing = defineRouting({
   // A list of all locales that are supported
-  locales: ["en", "ckb"],
+  // Add "ckb" back when ready to enable Kurdish
+  locales: ["en"],
 
   // Used when no locale matches
   defaultLocale: "en",
