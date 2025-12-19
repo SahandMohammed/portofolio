@@ -56,9 +56,9 @@ export default function Hero() {
         className="container mx-auto px-6 z-10 text-center"
       >
         <motion.div variants={fadeInUp}>
-          <span className="inline-block py-1 px-3 rounded-full bg-surface text-sm font-medium text-primary mb-6">
+          {/* <span className="inline-block py-1 px-3 rounded-full bg-surface text-sm font-medium text-primary mb-6">
             {t("available")}
-          </span>
+          </span> */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">
             {t("greeting")} <TypeWriter text={t("name")} delay={80} />
           </h1>
