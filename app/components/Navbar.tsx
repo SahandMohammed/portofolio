@@ -71,7 +71,7 @@ export default function Navbar() {
           <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
             <Code2 className="text-primary group-hover:text-white w-5 h-5 transition-colors" />
           </div>
-          <span className="font-bold text-lg tracking-tight text-foreground">
+          <span className="font-syne font-bold text-lg tracking-tight text-foreground">
             Sahand
           </span>
         </Link>
@@ -131,7 +131,7 @@ export default function Navbar() {
               <div className="p-2 rounded-lg bg-primary/10">
                 <Code2 className="text-primary w-5 h-5" />
               </div>
-              <span className="font-bold text-lg">Sahand</span>
+              <span className="font-syne font-bold text-lg">Sahand</span>
             </Link>
 
             <div className="flex items-center gap-2">

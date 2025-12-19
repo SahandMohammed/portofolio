@@ -45,7 +45,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-5 space-y-6">
             <Link href="/" className="inline-block">
-              <span className="font-bold text-3xl tracking-tight text-foreground">
+              <span className="font-syne font-bold text-3xl tracking-tight text-foreground">
                 Sahand<span className="text-primary">.dev</span>
               </span>
             </Link>
