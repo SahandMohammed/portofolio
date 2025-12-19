@@ -118,72 +118,88 @@ export default function Navbar() {
 
       {/* Mobile Navbar */}
       <div className="md:hidden fixed top-0 w-full z-50 p-4">
-        <div
-          className={`flex justify-between items-center p-4 rounded-2xl border border-white/10 bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-300 ${
-            scrolled ? "bg-background/95" : ""
-          }`}
+        <motion.div
+          layout
+          transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          className="flex flex-col rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:border-white/10"
         >
-          <a href="#" className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-primary/10">
-              <Code2 className="text-primary w-5 h-5" />
+          <div className="flex justify-between items-center p-4">
+            <a href="#" className="flex items-center gap-2">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Code2 className="text-primary w-5 h-5" />
+              </div>
+              <span className="font-bold text-lg">Sahand</span>
+            </a>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-full hover:bg-white/10 text-foreground transition-colors"
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </button>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-foreground p-1 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={isOpen ? "close" : "open"}
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isOpen ? (
+                      <X className="w-6 h-6" />
+                    ) : (
+                      <Menu className="w-6 h-6" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </button>
             </div>
-            <span className="font-bold text-lg">Sahand</span>
-          </a>
-
-          <div className="flex items-center gap-2">
-            {/* Language switcher hidden for now - uncomment when ready */}
-            {/* <LanguageSwitcher /> */}
-            {/* <div className="w-px h-6 bg-border mx-1"></div> */}
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-accent text-foreground"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground p-1"
-            >
-              {isOpen ? <X /> : <Menu />}
-            </button>
           </div>
-        </div>
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              className="absolute top-20 left-4 right-4 p-4 rounded-2xl bg-background border border-white/10 shadow-2xl z-50 overflow-hidden"
-            >
-              <div className="flex flex-col gap-2">
-                {navLinks.map((link) => (
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 pb-4 flex flex-col gap-2">
+                  <div className="h-px bg-white/10 my-1" />
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      className="p-3 rounded-xl hover:bg-white/10 transition-colors text-muted-foreground hover:text-foreground font-medium flex items-center justify-between group"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" />
+                    </a>
+                  ))}
+                  <div className="h-px bg-white/10 my-2" />
                   <a
-                    key={link.name}
-                    href={link.href}
-                    className="p-3 rounded-xl hover:bg-accent hover:text-primary transition-colors text-muted-foreground font-medium"
+                    href="#contact"
+                    className="p-3 text-center rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                     onClick={() => setIsOpen(false)}
                   >
-                    {link.name}
+                    {t("contact")}
                   </a>
-                ))}
-                <div className="h-px bg-border my-2" />
-                <a
-                  href="#contact"
-                  className="p-3 text-center rounded-xl bg-primary text-white font-bold"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {t("contact")}
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </>
   );

@@ -73,16 +73,45 @@ body {
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  /* Only enable scroll snap on larger screens */
+  scroll-snap-type: none;
 }
 
-/* Each section snaps - requires exact height */
+/* Enable scroll snap on desktop */
+@media (min-width: 768px) {
+  .scroll-container {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Each section snaps - use min-height on mobile for content flexibility */
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  height: 100vh;
   width: 100%;
+  position: relative;
+  /* Mobile: allow content to determine height */
+  min-height: 100vh;
+  height: auto;
+  overflow: hidden; /* Prevent decorative elements from bleeding */
+}
+
+/* Desktop: enforce exact viewport height for proper snapping */
+@media (min-width: 768px) {
+  .snap-section {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: visible; /* Allow decorative elements on desktop */
+  }
+}
+
+/* Mobile: add extra padding for breathing room */
+@media (max-width: 767px) {
+  .snap-section {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
 }
 
 ::selection {
@@ -362,4 +391,37 @@ body {
       transparent 25%
     );
   pointer-events: none;
+}
+
+/* Gradient Loop Animation */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradient-continuous {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.btn-gradient-loop {
+  /* Pattern: Blue -> Purple -> Pink -> Blue -> Purple */
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #8b5cf6 25%,
+    #ec4899 50%,
+    #3b82f6 75%,
+    #8b5cf6 100%
+  );
+  background-size: 400% 100%;
+  animation: gradient-continuous 4s linear infinite;
 }

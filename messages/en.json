@@ -23,7 +23,8 @@
     "readArticle": "Read Article",
     "backToArticles": "Back to Articles",
     "shareArticle": "Share this article",
-    "thanksReading": "Thanks for reading!"
+    "thanksReading": "Thanks for reading!",
+    "viewAllPosts": "View All Posts"
   },
   "CloudServices": {
     "title": "Cloud & <gradient>DevOps</gradient>",
@@ -88,6 +89,31 @@
     }
   },
   "Footer": {
-    "rights": "© {year} Sahand Mohammed. All rights reserved."
+    "rights": "© {year} Sahand Mohammed. All rights reserved.",
+    "about": "Building digital experiences with passion and precision.",
+    "navigation": "Navigation",
+    "social": "Connect",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "projects": "Projects",
+      "blog": "Blog",
+      "contact": "Contact"
+    }
+  },
+  "Contact": {
+    "title": "Get in <gradient>Touch</gradient>",
+    "subtitle": "Have a project in mind or want to discuss collaboration opportunities? I'd love to hear from you.",
+    "getInTouch": "Contact Information",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your Name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "submit": "Send Message"
+    }
   }
 }

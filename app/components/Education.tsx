@@ -12,7 +12,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="snap-section py-20 relative overflow-visible flex items-center"
+      className="snap-section py-20 relative block md:flex md:items-center"
     >
       <SectionBackground variant="education" />
       <motion.div
@@ -72,7 +72,7 @@ export default function Education() {
 
                 <div className="flex flex-wrap gap-2">
                   {[
-                    "Software Mobile Engineering",
+                    "Software Engineering",
                     "System Analysis",
                     "Data Structures",
                     "Algorithms",

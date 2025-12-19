@@ -60,7 +60,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="snap-section py-20 relative overflow-visible flex items-center"
+      className="snap-section py-20 relative block md:flex md:items-center"
     >
       <SectionBackground variant="skills" />
       <motion.div

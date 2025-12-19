@@ -18,7 +18,7 @@ export default function Blogs({ posts }: BlogsProps) {
   return (
     <section
       id="blogs"
-      className="snap-section py-20 relative overflow-visible flex items-center"
+      className="snap-section py-20 relative block md:flex md:items-center"
     >
       <SectionBackground variant="blogs" />
       <motion.div
@@ -91,6 +91,16 @@ export default function Blogs({ posts }: BlogsProps) {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-surface border border-[var(--surface-border)] text-foreground font-medium transition-all duration-300 hover:bg-[var(--surface-border)] hover:scale-105 group"
+          >
+            {t("viewAllPosts")}
+            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+          </Link>
         </div>
       </motion.div>
     </section>

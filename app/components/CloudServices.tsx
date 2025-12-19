@@ -31,7 +31,7 @@ export default function CloudServices() {
   return (
     <section
       id="cloud-services"
-      className="snap-section py-20 relative overflow-visible flex items-center"
+      className="snap-section py-20 relative block md:flex md:items-center"
     >
       <SectionBackground variant="cloud" />
 

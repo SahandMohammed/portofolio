@@ -3,6 +3,7 @@ import Education from "../components/Education";
 import Skills from "../components/Skills";
 import CloudServices from "../components/CloudServices";
 import Projects from "../components/Projects";
+import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import Blogs from "../components/Blogs";
 import { getAllBlogPosts } from "../lib/blog";
@@ -13,7 +14,7 @@ interface PageProps {
 
 export default async function Home({ params }: PageProps) {
   const { locale } = await params;
-  const posts = getAllBlogPosts(locale);
+  const posts = getAllBlogPosts(locale).slice(0, 3);
 
   return (
     <>
@@ -29,6 +30,7 @@ export default async function Home({ params }: PageProps) {
         <Projects />
         <Education />
         <Blogs posts={posts} />
+        <Contact />
         <Footer />
       </div>
     </>

@@ -603,7 +603,7 @@ export default function SectionBackground({ variant }: SectionBackgroundProps) {
   };
 
   return (
-    <div className="absolute inset-0 overflow-visible pointer-events-none z-0">
+    <div className="hidden md:block absolute inset-0 overflow-visible pointer-events-none z-0">
       {variants[variant]}
     </div>
   );
