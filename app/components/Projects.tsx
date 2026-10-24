@@ -61,7 +61,7 @@ export default function Projects({ projects }: ProjectsProps) {
             <motion.div
               key={project.slug}
               variants={fadeInUp}
-              className="py-8 md:py-10 border-b border-black/12 dark:border-white/12"
+              className="py-8 md:py-10 border-b last:border-b-0 border-black/12 dark:border-white/12"
             >
               <Link
                 href={`/projects/${project.slug}`}

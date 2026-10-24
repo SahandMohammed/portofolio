@@ -86,7 +86,7 @@ export default function Skills() {
             <motion.div
               key={skill.key}
               variants={fadeInUp}
-              className="group py-8 md:py-10 border-b border-black/12 dark:border-white/12 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline transition-colors"
+              className="group py-8 md:py-10 border-b last:border-b-0 border-black/12 dark:border-white/12 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline transition-colors"
             >
               <div className="md:col-span-1 text-xs font-mono text-black/40 dark:text-white/40">
                 ({skill.num})

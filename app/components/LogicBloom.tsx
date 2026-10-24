@@ -20,7 +20,7 @@ export default function LogicBloom() {
         viewport={{ once: true, amount: 0.15 }}
         className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-t border-b border-black/12 dark:border-white/12 py-16 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-t border-black/12 dark:border-white/12 pt-16 md:py-24">
           {/* Left Column - LogicBloom Logo & Personal Note */}
           <motion.div variants={fadeInUp} className="lg:col-span-5 space-y-6">
             {/* LogicBloom Logo - flush aligned on the top-left */}

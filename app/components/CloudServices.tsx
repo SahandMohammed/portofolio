@@ -49,7 +49,7 @@ export default function CloudServices() {
               <motion.div
                 key={service.key}
                 variants={fadeInUp}
-                className={`py-8 sm:p-8 border-b border-black/12 dark:border-white/12 ${
+                className={`py-8 sm:p-8 border-b last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0 border-black/12 dark:border-white/12 ${
                   idx % 2 === 1
                     ? "sm:border-l sm:border-black/12 dark:sm:border-white/12"
                     : "sm:pl-0"

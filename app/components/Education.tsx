@@ -19,7 +19,7 @@ export default function Education() {
         viewport={{ once: true, amount: 0.15 }}
         className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-t border-black/12 dark:border-white/12 pt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start lg:border-t lg:border-black/12 dark:lg:border-white/12 lg:pt-12">
           {/* Left Editorial Heading */}
           <motion.div variants={fadeInUp} className="lg:col-span-5">
             <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.035em] text-[#09090f] dark:text-white leading-[1.02] mb-6">
@@ -37,7 +37,10 @@ export default function Education() {
           </motion.div>
 
           {/* Right Clean Editorial Specification (No boxy AI card) */}
-          <motion.div variants={fadeInUp} className="lg:col-span-7">
+          <motion.div
+            variants={fadeInUp}
+            className="lg:col-span-7 border-t border-black/12 dark:border-white/12 pt-8 lg:border-t-0 lg:pt-0"
+          >
             <div className="text-xs font-mono uppercase tracking-widest text-black/45 dark:text-white/45 mb-3">
               {t("location")}
             </div>

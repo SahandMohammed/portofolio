@@ -55,7 +55,10 @@ export default function Hero() {
               <motion.span variants={fadeInUp} className="block text-white">
                 {t("name")}
               </motion.span>
-              <motion.span variants={fadeInUp} className="block text-white/40 mt-1">
+              <motion.span
+                variants={fadeInUp}
+                className="block text-white/40 mt-1"
+              >
                 Software
               </motion.span>
               <motion.span variants={fadeInUp} className="block text-white/40">
@@ -151,9 +154,21 @@ export default function Hero() {
           {/* Center - 3 Sleek Dark Rounded-XL Preview Tiles */}
           <div className="hidden lg:flex items-center gap-3">
             {[
-              { label: "Web Platforms", sub: "Next.js / ASP.NET Core", href: "#projects" },
-              { label: "Mobile Apps", sub: "Flutter / Dart", href: "#projects" },
-              { label: "Cloud & DevOps", sub: "Linux / Docker", href: "#cloud-services" },
+              {
+                label: "Web Platforms",
+                sub: "Next.js / ASP.NET Core",
+                href: "#projects",
+              },
+              {
+                label: "Mobile Apps",
+                sub: "Flutter / Dart",
+                href: "#projects",
+              },
+              {
+                label: "Cloud & DevOps",
+                sub: "Linux / Docker",
+                href: "#cloud-services",
+              },
             ].map((item, idx) => (
               <a
                 key={idx}

@@ -51,7 +51,7 @@ export default function Experience() {
             <motion.div
               key={exp.key}
               variants={fadeInUp}
-              className="group py-8 md:py-10 border-b border-black/12 dark:border-white/12 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline transition-colors"
+              className="group py-8 md:py-10 border-b last:border-b-0 border-black/12 dark:border-white/12 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline transition-colors"
             >
               {/* Index & Period */}
               <div className="md:col-span-3 flex flex-col gap-1">
