@@ -6,9 +6,9 @@ import { EASE_ELEGANT } from "../lib/animations";
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0, transitionEnd: { transform: "none" } }}
-      transition={{ duration: 0.6, ease: EASE_ELEGANT }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.45, ease: EASE_ELEGANT }}
     >
       {children}
     </motion.div>

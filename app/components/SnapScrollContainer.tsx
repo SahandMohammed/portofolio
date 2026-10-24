@@ -16,18 +16,30 @@ export default function SnapScrollContainer({
     if (!container) return;
 
     const handleScroll = () => {
-      // Notify Navbar once the scroll position has passed the Hero section
-      const index = container.scrollTop > container.clientHeight - 80 ? 1 : 0;
+      const isContainerScrolling =
+        window.getComputedStyle(container).overflowY === "auto" ||
+        window.getComputedStyle(container).overflowY === "scroll";
+
+      const scrollTop = isContainerScrolling
+        ? container.scrollTop
+        : window.scrollY;
+      const viewportHeight = isContainerScrolling
+        ? container.clientHeight
+        : window.innerHeight;
+
+      const index = scrollTop > viewportHeight - 80 ? 1 : 0;
       window.dispatchEvent(
         new CustomEvent("sectionchange", { detail: { index } })
       );
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

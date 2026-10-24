@@ -14,14 +14,24 @@ export default function Hero() {
     targetId: string
   ) => {
     e.preventDefault();
-    const container = document.querySelector(".scroll-container");
+    const container = document.querySelector(
+      ".scroll-container"
+    ) as HTMLElement | null;
     const target = document.querySelector(targetId);
-    if (!container || !target) return;
+    if (!target) return;
 
-    const startTop = container.scrollTop;
-    const containerRect = container.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-    const distance = targetRect.top - containerRect.top;
+    const isContainerScrolling =
+      container &&
+      (window.getComputedStyle(container).overflowY === "auto" ||
+        window.getComputedStyle(container).overflowY === "scroll");
+
+    const startTop = isContainerScrolling
+      ? container.scrollTop
+      : window.scrollY;
+    const containerTop = isContainerScrolling
+      ? container.getBoundingClientRect().top
+      : 0;
+    const distance = target.getBoundingClientRect().top - containerTop;
     const duration = 850;
     let startTime: number | null = null;
 
@@ -31,7 +41,11 @@ export default function Hero() {
       const progress = Math.min(elapsed / duration, 1);
       // Elegant ease-out quint curve: 1 - (1 - t)^5
       const ease = 1 - Math.pow(1 - progress, 5);
-      container.scrollTop = startTop + distance * ease;
+      if (isContainerScrolling && container) {
+        container.scrollTop = startTop + distance * ease;
+      } else {
+        window.scrollTo(0, startTop + distance * ease);
+      }
 
       if (progress < 1) {
         requestAnimationFrame(step);

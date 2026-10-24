@@ -32,7 +32,13 @@ export default function TableOfContents({
 
   const getScrollContainer = useCallback((): HTMLElement | null => {
     if (typeof document === "undefined") return null;
-    return document.querySelector(".scroll-container") as HTMLElement | null;
+    const el = document.querySelector(".scroll-container") as HTMLElement | null;
+    if (!el) return null;
+    const overflowY = window.getComputedStyle(el).overflowY;
+    if (overflowY === "auto" || overflowY === "scroll") {
+      return el;
+    }
+    return null;
   }, []);
 
   // Keep active heading visible inside the compact TOC list if it overflows
@@ -57,8 +63,9 @@ export default function TableOfContents({
   useEffect(() => {
     if (items.length === 0) return;
 
-    const container = getScrollContainer();
-    const scrollTarget: HTMLElement | Window = container || window;
+    const rawContainer = document.querySelector(
+      ".scroll-container"
+    ) as HTMLElement | null;
     let rafId: number | null = null;
 
     const updateActiveHeading = () => {
@@ -68,6 +75,7 @@ export default function TableOfContents({
         return;
       }
 
+      const container = getScrollContainer();
       const scrollTop = container ? container.scrollTop : window.scrollY;
       const clientHeight = container
         ? container.clientHeight
@@ -138,11 +146,17 @@ export default function TableOfContents({
 
     updateActiveHeading();
 
-    scrollTarget.addEventListener("scroll", onScroll, { passive: true });
+    if (rawContainer) {
+      rawContainer.addEventListener("scroll", onScroll, { passive: true });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
 
     return () => {
-      scrollTarget.removeEventListener("scroll", onScroll);
+      if (rawContainer) {
+        rawContainer.removeEventListener("scroll", onScroll);
+      }
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (rafId !== null) {
         window.cancelAnimationFrame(rafId);

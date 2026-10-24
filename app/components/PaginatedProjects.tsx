@@ -29,7 +29,12 @@ export default function PaginatedProjects({
     if (page < 1 || page > totalPages || page === currentPage) return;
     setCurrentPage(page);
     const scrollContainer = document.querySelector(".scroll-container");
-    if (scrollContainer) {
+    const isContainerScrolling =
+      scrollContainer &&
+      (window.getComputedStyle(scrollContainer).overflowY === "auto" ||
+        window.getComputedStyle(scrollContainer).overflowY === "scroll");
+
+    if (isContainerScrolling && scrollContainer) {
       scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
