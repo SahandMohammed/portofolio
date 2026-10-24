@@ -2,6 +2,7 @@
   "Navbar": {
     "home": "Home",
     "about": "About",
+    "experience": "Experience",
     "services": "Services",
     "projects": "Project",
     "education": "Education",
@@ -47,6 +48,47 @@
         "description": "Implementing robust security protocols, firewalls, and access controls to protect your infrastructure and data."
       }
     }
+  },
+  "Experience": {
+    "title": "Professional <gradient>Experience</gradient>",
+    "subtitle": "My career journey across software engineering, enterprise systems, and product design.",
+    "items": {
+      "dreamIt": {
+        "role": "Software Project Support",
+        "company": "Dream IT for IT Solutions and Communication",
+        "location": "Sulaymaniyah",
+        "period": "MARCH 2026 - PRESENT",
+        "description": "Coordinated enterprise software projects and client support, including requirements gathering, workflow analysis, issue triage, and implementation follow-up. Translated customer feedback and business needs into development tasks, collaborated with developers to clarify and validate solutions, and helped ERP users adopt and troubleshoot software features."
+      },
+      "airport": {
+        "role": "Software Engineer Intern",
+        "company": "Jalal Talabani International Airport",
+        "location": "Sulaymaniyah",
+        "period": "SEPTEMBER 2025 - FEBRUARY 2026",
+        "description": "Developed an internal application for the airport’s Safety Management System (SMS) department using React, NestJS, and Microsoft SQL Server. Designed and implemented the Jalal Talabani International Airport website using Next.js, NestJS, and PostgreSQL as part of the airport's rebranding. Also supported system and network maintenance across airport facilities."
+      },
+      "seray": {
+        "role": "IT Specialist",
+        "company": "Seray Sahane Co. Ltd.",
+        "location": "Sulaymaniyah",
+        "period": "FEBRUARY 2021 - SEPTEMBER 2025 (Part Time)",
+        "description": "Supported users of the company's ERP system by investigating application problems and resolving day-to-day operational issues. Troubleshooting hardware, software, and network connectivity; maintained network and CCTV infrastructure."
+      },
+      "freelance": {
+        "role": "Freelance UI/UX Designer",
+        "company": "Independent",
+        "location": "Remote",
+        "period": "FEBRUARY 2022 - PRESENT",
+        "description": "Designed user interfaces and wireframes for 3+ web and mobile application projects using Figma. Created interactive prototypes focused on usability, layout consistency, and multi-role user flows. Collaborated with development teams to ensure design feasibility and conducted iterative design improvements based on user feedback and stakeholder requirements."
+      }
+    }
+  },
+  "LogicBloom": {
+    "badge": "(FOUNDER & OWNER)",
+    "title": "My Venture <gradient>LogicBloom</gradient>",
+    "heyNote": "I own LogicBloom — so if you ever see this logo out there, hey, it is me!",
+    "tagline": "Business, Progress Engineered.",
+    "description": "LogicBloom is my software and digital engineering venture dedicated to building modern web platforms, mobile applications, and reliable enterprise systems that turn business operations into engineered progress."
   },
   "Education": {
     "title": "Academic <gradient>Qualification</gradient>",

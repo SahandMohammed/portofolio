@@ -13,6 +13,7 @@ interface BlogsProps {
 
 export default function Blogs({ posts }: BlogsProps) {
   const t = useTranslations("Sections");
+  const displayedPosts = posts.slice(0, 3);
 
   return (
     <section
@@ -51,7 +52,7 @@ export default function Blogs({ posts }: BlogsProps) {
 
         {/* Clean Editorial Journal List (No AI Cards) */}
         <div className="border-t border-black/12 dark:border-white/12">
-          {posts.map((blog, idx) => (
+          {displayedPosts.map((blog, idx) => (
             <motion.div
               key={blog.slug}
               variants={fadeInUp}

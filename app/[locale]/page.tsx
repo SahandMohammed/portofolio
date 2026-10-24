@@ -1,4 +1,6 @@
 import Hero from "../components/Hero";
+import Experience from "../components/Experience";
+import LogicBloom from "../components/LogicBloom";
 import Education from "../components/Education";
 import Skills from "../components/Skills";
 import CloudServices from "../components/CloudServices";
@@ -17,7 +19,7 @@ interface PageProps {
 export default async function Home({ params }: PageProps) {
   const { locale } = await params;
   const posts = getAllBlogPosts(locale).slice(0, 3);
-  const projects = getFeaturedProjects(locale);
+  const projects = getFeaturedProjects(locale).slice(0, 3);
 
   return (
     <>
@@ -33,6 +35,8 @@ export default async function Home({ params }: PageProps) {
         <Projects projects={projects} />
         <Education />
         <Blogs posts={posts} />
+        <Experience />
+        <LogicBloom />
         <Contact />
         <Footer />
       </SnapScrollContainer>

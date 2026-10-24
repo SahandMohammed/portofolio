@@ -42,6 +42,7 @@ export default function Navbar() {
     },
     { name: t("projects"), href: isHome ? "#projects" : "/#projects" },
     { name: t("blog"), href: isHome ? "#blogs" : "/#blogs" },
+    { name: t("experience"), href: isHome ? "#experience" : "/#experience" },
   ];
 
   const toggleTheme = () => {

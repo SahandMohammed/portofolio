@@ -13,6 +13,7 @@ interface ProjectsProps {
 
 export default function Projects({ projects }: ProjectsProps) {
   const t = useTranslations("Projects");
+  const displayedProjects = projects.slice(0, 3);
 
   return (
     <section
@@ -56,7 +57,7 @@ export default function Projects({ projects }: ProjectsProps) {
 
         {/* Editorial Index List (Agency Portfolio Style, Linking to MDX Case Studies) */}
         <div className="border-t border-black/12 dark:border-white/12">
-          {projects.map((project, idx) => (
+          {displayedProjects.map((project, idx) => (
             <motion.div
               key={project.slug}
               variants={fadeInUp}
