@@ -2,48 +2,66 @@
 num: "04"
 order: 4
 title: "Support Desk — Service Operations Platform"
-excerpt: "A support and quality-management application for organizing tickets, client operations, issue tracking, and team workflows."
+excerpt: "A unified web platform for technical support, bug tracking, customer operations, quality assurance, and reporting, supported by secure document storage and Telegram integration."
 date: "2026-10-24"
 category: "Business Web Application"
 role: "Full-Stack Engineer"
-tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Cloudflare R2"]
+tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Cloudflare R2", "Telegram"]
 image: "/images/projects/support-desk-cover.svg"
 featured: false
 ---
 
-**Support Desk** is a business application focused on keeping customer support and internal service operations organized. It brings support requests, issue records, client information, and related administrative activities into a single working environment.
+**Support Desk** is a web-based platform for organizing technical support and related service operations. The application connects tickets, customer and branch records, bug reports, documentation, site visits, and quality-management activities within a single administrative experience.
 
-The project addresses a practical challenge: support work often spans conversations, documents, follow-ups, and several responsible people. Without a structured platform, progress and context can become difficult to track.
+The project addresses an operational problem common to support teams: important context is often scattered between messages, spreadsheets, attachments, and individual employees. A shared application provides a more consistent place to manage work and understand its progress.
 
-## Requirements & Operational Workflows
+## Requirements & Service Workflows
 
-The application was shaped around real service-management needs: capturing support requests, retaining context, following up on issues, and making work visible to the appropriate users.
+The system brings several connected workflows into one product, rather than treating support requests as isolated records. Tickets can be associated with customer and branch context, while bug reports have their own dedicated management and documentation experience.
 
-The broader workspace also includes client and branch records, bug tracking, documents, reporting, and quality-assurance workflows. The aim is to make these activities accessible through a common interface while keeping each workflow understandable.
+The application also covers site visits, subscription and invoice-related administration, and operational reports. Designing these areas together required clear boundaries between their responsibilities while keeping navigation and day-to-day interactions consistent.
 
-## Technology & Application Development
-
-The platform uses **Next.js, React, and TypeScript**, with **PostgreSQL** and **Prisma** supporting its data layer. The user interface uses modern component-based patterns, forms, and data-driven management views.
-
-My work includes developing and maintaining operational screens and the application logic that connects them. The design prioritizes clear information organization, reusable interfaces, and workflows that support everyday service teams.
-
-## Integrations & Media
-
-Support records frequently involve attachments or supporting documentation. The application integrates with **Cloudflare R2** for file storage, keeping document handling separate from the main web application.
-
-The project also includes a Telegram-based support intake integration, providing an additional channel for entering support requests. The public case study focuses on the integration's purpose rather than its internal processing, access configuration, or deployment design.
-
-<Callout title="Workflow Engineering">
-  The project demonstrates how support processes, quality checks, client context, and related records can be brought together in a structured operational application.
+<Callout title="Requirements-Driven Engineering">
+  The focus was a practical operations workspace: capture a request, preserve its context, make progress visible, and provide supporting information without requiring staff to switch between unrelated tools.
 </Callout>
 
-## Engineering Takeaways
+## Ticketing, Bugs & Customer Management
 
-Support software succeeds when it preserves context and reduces unnecessary effort for the people using it. This project offered experience with complex administrative interfaces, data relationships, external integrations, and the trade-offs involved in keeping business software flexible but coherent.
+The platform has dedicated screens and API functionality for ticket creation, updates, assignment, status handling, activity logs, and attachments. Bug tracking is a separate workflow with issue details, notes, attachments, and reporting exports.
 
-Selected implementation and operational details remain private.
+Customer records support individual branches, while related administrative features include documents, invoices, subscriptions, and site-visit records. Bringing this information into one platform makes it easier to understand the business context of a support issue without reducing every activity to a generic ticket.
+
+## Quality Assurance & ERP Knowledge
+
+A distinctive part of Support Desk is its **QA/QC workflow** for ERP testing. It includes an ERP catalog, reusable quality checks, checklists, test runs, and result reports.
+
+Testers can select a relevant ERP area, perform the applicable checks, and record pass/fail results. The application also provides ways to connect related ERP concepts, helping organize system knowledge alongside hands-on verification.
+
+This extends the platform beyond ordinary helpdesk functionality into structured software quality operations.
+
+## Integrations & Data Handling
+
+The application includes **Telegram-based ticket intake** as an additional support channel. The implementation accommodates text messages and voice-message input with transcription support, connecting that information to the ticketing workflow.
+
+Attachments and documents are stored using **Cloudflare R2** with private-access application handling. This keeps file storage separate from the main application while allowing authorized users to work with related records.
+
+The public case study intentionally avoids sharing internal access rules, integration settings, or messaging and storage configuration.
+
+## Technology & Application Design
+
+The platform is built with **Next.js, React, and TypeScript**, using **PostgreSQL and Prisma** for relational data. Its frontend uses reusable UI components and data-driven management screens, while its server-side application supports authentication, permissions, operational APIs, and report generation.
+
+A permission-based access model distinguishes responsibilities across tickets, bugs, clients, reports, quality workflows, and administration. The project also includes test coverage for selected authorization, quality, and integration behaviors.
+
+## Outcome & Engineering Perspective
+
+Support Desk demonstrates the design of a substantial business application spanning several related operational areas. Its value is not just the number of features, but the challenge of making ticketing, customer information, QA processes, and reporting work together in a coherent product.
+
+My engineering work on the system combines feature development, relational application design, reusable interface patterns, integrations, and ongoing refinement based on service-management requirements.
 
 ---
 
 **Project:** Support Desk  
-**Source:** Private application repository
+**Scope:** Support Operations, Quality Assurance & Full-Stack Engineering
+
+*Internal records, integration credentials, implementation procedures, and sensitive operational details are excluded.*

@@ -1,49 +1,63 @@
 ---
 num: "03"
 order: 3
-title: "JTIA — Airport Digital Platform"
-excerpt: "A web and administration platform for Jalal Talabani International Airport, combining public information, structured content, and systems integration."
+title: "JTIA — Airport Website & Administration"
+excerpt: "A multilingual airport website and administration platform built with Next.js and NestJS, bringing flight information, airport content, and management workflows into one digital experience."
 date: "2026-07-01"
 category: "Web Platform & Integration"
 role: "Full-Stack Engineer"
-tags: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Docker"]
+tags: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "TypeORM", "Docker"]
 image: "/images/projects/jtia-cover.svg"
 featured: true
 ---
 
-The **Jalal Talabani International Airport (JTIA)** project brought together public-facing web development and supporting administration workflows within an aviation context.
+The **Jalal Talabani International Airport (JTIA)** digital platform combines a public-facing airport website with an administrative application for managing the information visitors and airport personnel rely on. The project covers more than visual website development: it brings together multilingual content, flight information, structured operational data, backend services, and internal publishing workflows.
 
-Working on the platform involved more than presenting static information. Airport content changes over time, and publishing relevant information requires coordination between public interfaces, structured application data, and existing operational sources.
+My engineering involvement focused on building and connecting these application layers while keeping the public experience approachable and the administration tools practical for their users.
 
 ## Understanding the Requirements
 
-The project required considering two different audiences: airport visitors looking for clear, accessible information and authorized staff responsible for maintaining that information. This distinction influenced the separation between the public website and its supporting management capabilities.
+The project serves audiences with very different needs. Travelers and visitors need accessible flight information, travel guidance, airport services, and news. Administrative staff need a structured environment to maintain the content and data presented to those visitors.
 
-Requirements included structured treatment of flight-related information and airport content, together with the ability to manage data through a consistent administrative experience. A central consideration was how the web platform should relate to information already maintained elsewhere in the airport environment.
+Translating those needs into software required defining the boundaries between public pages, authenticated management workflows, and backend information services. Flight information in particular needed its own searchable and filterable experience, distinct from editorial content such as announcements and guides.
 
-## Application Stack
-
-The technical foundation combines **Next.js** for the web application and **NestJS** for backend services, using **TypeScript** across the stack and **PostgreSQL** for relational data.
-
-The broader development setup used a shared-code workspace to improve consistency across application boundaries. Database access and application delivery were supported by established tooling, including TypeORM and Docker-based deployment work.
-
-<Callout title="Systems Integration">
-  The project involved planning how airport web information could connect with existing operational data rather than treating every piece of information as a manually maintained standalone record.
+<Callout title="Engineering Focus">
+  The central challenge was creating a consistent experience across two surfaces: a public multilingual airport website and a protected management panel, both supported by the same application foundation.
 </Callout>
 
-## Building for a Public-Facing Environment
+## Public Airport Experience
 
-An airport website needs information architecture that works for a wide range of visitors. Development considerations included readable content, navigation, responsive layouts, and administrative tools appropriate for frequently changing data.
+The public application is built with **Next.js App Router, React, and TypeScript**. It includes flight search and information views, airline and destination pages, passenger guidance, news, weather-related information, and other airport content.
 
-The platform's scope included flight information, airlines, destinations, publications, and news-related content, alongside supporting administrative functionality. My engineering work focused on the relationship between the user-facing experience, the backend services, and the data those services expose.
+The website supports **English, Arabic, and Kurdish Sorani**, with language-aware routing and attention to right-to-left presentation. Responsive layouts make the information usable across different screen sizes, while metadata, canonical links, and structured content support search visibility.
 
-## Delivery & Lessons
+These features reflect the demands of a public information platform: navigation must remain clear even as the underlying information changes.
 
-The project also involved application packaging and deployment work in a containerized environment. That experience reinforced the importance of keeping application development, systems integration, and operational delivery aligned.
+## Administration & Content Workflows
 
-JTIA demonstrates full-stack development in a domain where accurate information presentation and integration with existing systems are important. Internal interfaces, infrastructure configuration, and operational details are intentionally excluded from this public case study.
+The protected management area supports the maintenance of flight records, airline and location information, news, banners, publications, and related content. It also includes user administration and a safety-report management area.
+
+The project uses dashboard views and reusable interfaces to bring different administrative activities into a cohesive workspace. This approach avoids treating each management screen as a separate application and makes it easier to extend content functionality over time.
+
+The safety-report functionality in this website's panel is **separate from the dedicated JTIA Safety Management System** presented in another portfolio case study.
+
+## Full-Stack Architecture
+
+The backend uses **NestJS, TypeScript, PostgreSQL, and TypeORM**, while the web and management experiences are delivered through Next.js. The repository is organized as a **pnpm monorepo**, including a shared TypeScript package for common API contracts, types, and validation schemas.
+
+This shared foundation supports consistent communication between frontend features and backend services without making the public website responsible for business logic or persistence concerns.
+
+The UI uses modern form and data-fetching tools, with **TanStack Query** supporting server-state interactions and reusable components supporting the management experience.
+
+## Delivery & Engineering Perspective
+
+The project includes Docker-based application packaging and automated delivery workflows using **GitHub Actions**. My contribution spans full-stack implementation, application organization, integration between client and API, and preparing the software for deployment.
+
+JTIA demonstrates experience building a substantial web platform around real organizational requirements, where public information design, administrative usability, localization, and dependable data management must work together.
 
 ---
 
 **Project:** Jalal Talabani International Airport  
-**Scope:** Website, administration, and integration engineering
+**Scope:** Public Website, Administration Panel & Full-Stack Engineering
+
+*Internal integration details, infrastructure configuration, and proprietary operational information are intentionally excluded.*

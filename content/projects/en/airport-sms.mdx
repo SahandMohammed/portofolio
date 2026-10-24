@@ -1,41 +1,63 @@
 ---
 num: "05"
 order: 5
-title: "Airport Safety Management System"
-excerpt: "A separate aviation safety software initiative focused on supporting structured safety-management activities and digital operational workflows."
+title: "JTIA — Safety Management System"
+excerpt: "A dedicated aviation safety application for recording and analyzing occurrences, managing reference data, and supporting operational reporting and auditability."
 date: "2026-10-24"
 category: "Aviation Software"
-role: "Software Engineer"
-tags: ["Safety Management", "Aviation", "Docker"]
+role: "Full-Stack Software Engineer"
+tags: ["React", "Vite", "NestJS", "TypeScript", "SQL Server", "TypeORM"]
 image: "/images/projects/airport-sms-cover.svg"
 featured: false
 ---
 
-The **Airport Safety Management System (SMS)** is a separate software project from the JTIA public website and administration platform. Its focus is the digital support of aviation safety-management activities within an operational environment.
+The **JTIA Safety Management System (SMS)** is a dedicated full-stack application for organizing aviation safety occurrence information. It provides a structured environment for recording reports, relating them to aviation-specific reference data, and reviewing patterns through operational dashboards and reports.
 
-Where a public airport website is designed to communicate information to travelers, a safety-oriented application must serve more specialized organizational work. That difference affects how requirements are interpreted and how users interact with the system.
+Unlike the airport's public website, this project is focused on a specialized internal workflow where the meaning, completeness, and traceability of recorded information matter.
 
-## Domain & Requirements
+## Translating Safety Requirements into Software
 
-Working on a safety-management application involves understanding the importance of structured information, clear user responsibilities, and workflows that are appropriate for an operational organization.
+Aviation occurrence records involve more than a simple title and description. The application's requirements call for structured fields that reflect the context of a reported event, including its classification, location, people involved, aircraft information where relevant, and environmental conditions.
 
-The project was approached as a dedicated application rather than an extension of the public airport website. Keeping the products conceptually separate helps reflect their different audiences and responsibilities.
+The engineering challenge was to turn those domain requirements into understandable interfaces while keeping the information suitable for later review and reporting. Separating reference information from occurrence records helps maintain consistency across data entry and analysis.
 
-## Software Delivery
-
-The work includes application packaging for **Docker-based delivery**, providing a consistent format for distributing and operating the application.
-
-This case study deliberately avoids listing unverified features, detailed safety procedures, or production performance claims. The project should be understood as a distinct aviation software engagement, with its technical scope described conservatively until more implementation details are ready for public presentation.
-
-<Callout title="Domain-Focused Engineering">
-  Different applications within the same organization can have fundamentally different users, requirements, and operational responsibilities. SMS was treated as its own software project rather than part of the airport's public-facing website.
+<Callout title="Domain-Driven Interface Design">
+  The application uses specialized reporting forms rather than a generic support-ticket interface, reflecting the distinct information needed to document and review aviation safety occurrences.
 </Callout>
 
-## Project Perspective
+## Occurrence Recording & Management
 
-The experience contributed to understanding how software requirements change across specialized domains. The key engineering theme is translating operational needs into structured digital experiences while preserving a clear boundary between public presentation and internal business software.
+The application contains dedicated workflows for **occurrence reports and safety occurrence reports**, with screens for creating, viewing, editing, and browsing records.
+
+Its reporting forms cover multiple kinds of related information, including aircraft involvement, personnel, casualty summaries, and environmental details. The system also provides structured reference data for aircraft, people, organizations, departments, locations, and aviation-specific classification dimensions.
+
+Those capabilities are supported by protected management interfaces, helping different authorized users work with the information appropriate to their responsibilities.
+
+## Dashboards, Reports & Auditability
+
+The application includes an operational dashboard and **today, historical, monthly, and yearly reporting views**. Its analytics cover occurrence classifications and trends, with chart-based presentations and printable reports.
+
+A dedicated audit-log area provides visibility into recorded system changes. User administration and role-aware application access are also part of the implemented software.
+
+Together, these features support both day-to-day record management and a broader view of occurrence data over time. They are described here as software capabilities, not as a claim of regulatory certification or completed external safety accreditation.
+
+## Full-Stack Technology
+
+The frontend uses **React, Vite, and TypeScript**, with **Tailwind CSS**, **TanStack Query**, and charting components supporting forms, data views, and reporting.
+
+The backend is developed with **NestJS and TypeScript**. Persistence uses **Microsoft SQL Server with TypeORM**, alongside modular API services for occurrences, master data, users, reference dimensions, and audit logs.
+
+This is a separate technology stack and product from the airport's Next.js public website and administration platform.
+
+## Application Delivery & Lessons
+
+The repository includes Docker-based application packaging as well as installation and deployment tooling. These provide a foundation for distributing the system across its intended operating environment without tying the case study to sensitive deployment procedures.
+
+Working on SMS demonstrates how full-stack engineering changes when the application serves a specialized operational domain. Form design, reference data, access control, and reporting become central concerns, and usability must be balanced with the need to capture meaningful information.
 
 ---
 
-**Domain:** Aviation Safety  
-**Project:** Separate from JTIA Website & Management Platform
+**Project:** Jalal Talabani International Airport — Safety Management System  
+**Scope:** Aviation Occurrence Management, Reporting & Full-Stack Development
+
+*Internal procedures, detailed record structures, access configuration, and proprietary implementation information remain private.*
