@@ -1,0 +1,37 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#070612"/>
+  <radialGradient id="g1" cx="50%" cy="100%" r="80%" fx="50%" fy="100%">
+    <stop offset="0%" stop-color="#6366F1" stop-opacity="0.55"/>
+    <stop offset="50%" stop-color="#312E81" stop-opacity="0.25"/>
+    <stop offset="100%" stop-color="#070612" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="675" fill="url(#g1)"/>
+  <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="240" y1="0" x2="240" y2="675"/>
+    <line x1="480" y1="0" x2="480" y2="675"/>
+    <line x1="720" y1="0" x2="720" y2="675"/>
+    <line x1="960" y1="0" x2="960" y2="675"/>
+  </g>
+  <!-- Architecture Diagram Boxes -->
+  <rect x="140" y="220" width="240" height="160" rx="16" fill="#111022" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <text x="260" y="290" fill="#FFFFFF" font-family="monospace" font-size="18" text-anchor="middle">Next.js 16 Edge</text>
+  <text x="260" y="320" fill="#9CA3AF" font-family="monospace" font-size="13" text-anchor="middle">App Router + RSC</text>
+
+  <path d="M380 300 L480 300" stroke="#818CF8" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="480,300 470,295 470,305" fill="#818CF8"/>
+
+  <rect x="480" y="220" width="240" height="160" rx="16" fill="#111022" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="600" y="290" fill="#FFFFFF" font-family="monospace" font-size="18" text-anchor="middle">NestJS API Gateway</text>
+  <text x="600" y="320" fill="#A5B4FC" font-family="monospace" font-size="13" text-anchor="middle">Redis + Event Bus</text>
+
+  <path d="M720 300 L820 300" stroke="#818CF8" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="820,300 810,295 810,305" fill="#818CF8"/>
+
+  <rect x="820" y="220" width="240" height="160" rx="16" fill="#111022" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <text x="940" y="290" fill="#FFFFFF" font-family="monospace" font-size="18" text-anchor="middle">PostgreSQL + Stripe</text>
+  <text x="940" y="320" fill="#9CA3AF" font-family="monospace" font-size="13" text-anchor="middle">ACID Transactions</text>
+</svg>

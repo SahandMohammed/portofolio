@@ -25,11 +25,11 @@ export default function Skills() {
       key: "backend",
       num: "02",
       items: [
+        "ASP.NET Core",
         "Node.js",
         "NestJS",
         "Express.js",
         "Java",
-        "Spring Boot",
         "PostgreSQL",
         "Firebase",
       ],

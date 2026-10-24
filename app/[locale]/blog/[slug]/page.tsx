@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import {
@@ -8,12 +8,10 @@ import {
 } from "../../../lib/blog";
 import MDXContent from "../../../components/MDXContent";
 
-// Generate static params for all blog posts and locales
 export async function generateStaticParams() {
   return getAllBlogSlugsAllLocales();
 }
 
-// Generate metadata for each blog post
 export async function generateMetadata({
   params,
 }: {
@@ -39,74 +37,96 @@ export default async function BlogPost({
 }) {
   const { slug, locale } = await params;
   const post = getBlogPostBySlug(slug, locale);
-  const t = await getTranslations("Sections");
+  const t = await getTranslations({ locale, namespace: "Sections" });
 
   if (!post) {
     notFound();
   }
 
   const isRtl = locale === "ckb";
+  const isPublicImage = post.image.startsWith("/");
 
   return (
-    <main className="h-screen overflow-y-auto relative pt-30 pb-20 scroll-smooth">
-      {/* Background Elements */}
-      <div className="fixed inset-0 pointer-events-none z-[-1]">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-3xl" />
-      </div>
+    <div className="scroll-container">
+      <div className="unified-bg" />
+      <div className="bg-glow" />
 
-      <article className="container mx-auto px-6 max-w-4xl">
+      <main className="min-h-screen pt-32 pb-24 px-8 lg:px-14 max-w-5xl mx-auto relative z-10">
+        {/* Back Navigation */}
         <Link
           href="/#blogs"
-          className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8 group"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-black/60 dark:text-white/60 hover:text-[#09090f] dark:hover:text-white transition-colors mb-10 group"
         >
           <ArrowLeft
-            className={`w-4 h-4 me-2 transform group-hover:-translate-x-1 transition-transform ${
+            className={`w-3.5 h-3.5 transition-transform group-hover:-translate-x-1 ${
               isRtl ? "rotate-180 group-hover:translate-x-1" : ""
             }`}
           />
-          {t("backToArticles")}
+          <span>{t("backToArticles")}</span>
         </Link>
 
-        <div>
-          <div className="mb-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
-            <span className="px-3 py-1 rounded-full bg-surface border border-white/10 text-primary font-medium">
-              {post.category}
-            </span>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>{post.date}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{post.readTime}</span>
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-foreground leading-tight">
-            {post.title}
-          </h1>
-
-          <div
-            className="w-full h-[400px] rounded-2xl mb-12 relative overflow-hidden"
-            style={{ background: post.image }}
-          >
-            <div className="absolute inset-0 bg-black/10" />
-          </div>
-
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <MDXContent source={post.content} />
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
-            <div className="text-muted-foreground">{t("thanksReading")}</div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-surface transition-colors text-muted-foreground hover:text-foreground">
-              <Share2 className="w-4 h-4" />
-              {t("shareArticle")}
-            </button>
-          </div>
+        {/* Top Meta Strip */}
+        <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-black/55 dark:text-white/55 mb-6">
+          <span className="px-3 py-1 rounded-full border border-black/15 dark:border-white/15 text-[#09090f] dark:text-white uppercase tracking-wider">
+            {post.category}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5" />
+            {post.date}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            {post.readTime}
+          </span>
         </div>
-      </article>
-    </main>
+
+        {/* Title & Excerpt */}
+        <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.035em] text-[#09090f] dark:text-white leading-[1.06] mb-6">
+          {post.title}
+        </h1>
+
+        <p className="text-lg md:text-xl text-[#09090f]/75 dark:text-white/75 leading-relaxed mb-10 max-w-3xl">
+          {post.excerpt}
+        </p>
+
+        {/* Cover Image from public/ or Gradient */}
+        <div className="w-full rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-[#070612] mb-14">
+          {isPublicImage ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-auto max-h-[500px] object-cover block"
+            />
+          ) : (
+            <div
+              className="w-full h-[360px] md:h-[420px]"
+              style={{ background: post.image }}
+            />
+          )}
+        </div>
+
+        {/* MDX Article Body */}
+        <article className="max-w-3xl mx-auto">
+          <MDXContent source={post.content} />
+        </article>
+
+        {/* Footer Strip */}
+        <div className="mt-20 pt-8 border-t border-black/12 dark:border-white/12 flex flex-wrap justify-between items-center gap-4">
+          <span className="text-sm text-black/60 dark:text-white/60">
+            {t("thanksReading")}
+          </span>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#09090f] dark:text-white hover:opacity-65 transition-opacity"
+          >
+            <ArrowLeft
+              className={`w-3.5 h-3.5 ${isRtl ? "rotate-180" : ""}`}
+            />
+            <span>{t("viewAllPosts")}</span>
+          </Link>
+        </div>
+      </main>
+    </div>
   );
 }

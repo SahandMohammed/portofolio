@@ -1,0 +1,66 @@
+---
+num: "01"
+order: 1
+title: "E-Commerce Platform"
+excerpt: "A full-featured e-commerce web application built with Next.js and NestJS, featuring real-time inventory synchronization and secure Stripe payments."
+date: "2026-04-15"
+category: "Web Platform"
+role: "Full-Stack Architect"
+tags: ["Next.js", "NestJS", "PostgreSQL", "Stripe"]
+image: "/images/projects/ecommerce-architecture.svg"
+liveUrl: "https://github.com/sahandmohammed"
+githubUrl: "https://github.com/sahandmohammed"
+featured: true
+---
+
+Building a high-volume e-commerce platform requires balancing sub-second storefront rendering with strict transactional guarantees on the backend. This project was architected from the ground up using **Next.js App Router** on the edge and a modular **NestJS** backend backed by **PostgreSQL** and **Redis**.
+
+![System Architecture: Next.js Edge Storefront communicating with NestJS microservices and PostgreSQL](/images/projects/ecommerce-architecture.svg)
+
+## Architectural Overview
+
+To prevent overselling during flash sales, inventory mutations are handled through pessimistic row-level locking in PostgreSQL combined with an event-driven Redis cache invalidation pipeline.
+
+<Callout title="Engineering Highlight">
+  Achieved 99.98% checkout reliability and sub-25ms inventory reservation latency under concurrent flash-sale load tests.
+</Callout>
+
+## Real-Time Inventory & Checkout Pipeline
+
+When a customer initiates a checkout session, the NestJS order service reserves stock atomically and creates a Stripe PaymentIntent with idempotency keys:
+
+```typescript
+@Injectable()
+export class CheckoutService {
+  async reserveAndCreateIntent(dto: CreateCheckoutDto) {
+    return this.dataSource.transaction(async (manager) => {
+      const items = await manager
+        .getRepository(InventoryItem)
+        .createQueryBuilder("item")
+        .setLock("pessimistic_write")
+        .whereInIds(dto.itemIds)
+        .getMany();
+
+      this.validateStockAvailability(items, dto.quantities);
+      await this.decrementStock(manager, items, dto.quantities);
+
+      return this.stripeService.createPaymentIntent({
+        amount: this.calculateTotal(items, dto.quantities),
+        currency: "usd",
+        idempotencyKey: dto.cartId,
+      });
+    });
+  }
+}
+```
+
+<Figure
+  src="/images/projects/system-metrics.svg"
+  caption="Production telemetry dashboard showing 18ms sync latency and 12.4k req/sec throughput."
+/>
+
+## Key Capabilities Delivered
+
+- **Edge-Cached Catalog**: Dynamic ISR and tag-based revalidation keep product pages instantaneous while reflecting price updates within milliseconds.
+- **Idempotent Webhook Engine**: Processes Stripe payment lifecycle events with automatic retry and dead-letter queue recovery.
+- **Multi-Warehouse Inventory**: Real-time stock routing based on customer proximity and warehouse availability.

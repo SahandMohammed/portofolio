@@ -19,6 +19,10 @@ export default function Hero() {
       icon: "https://cdn.simpleicons.org/react/087ea4",
     },
     {
+      name: "ASP.NET Core",
+      icon: "https://cdn.simpleicons.org/dotnet/512BD4",
+    },
+    {
       name: "Node.js",
       icon: "https://cdn.simpleicons.org/nodedotjs/339933",
     },
@@ -66,7 +70,7 @@ export default function Hero() {
                   <div
                     key={tech.name}
                     title={tech.name}
-                    className="w-11 h-11 rounded-full bg-white border-2 border-[#1e1568] flex items-center justify-center shadow-md transition-transform hover:-translate-y-1"
+                    className="relative w-11 h-11 rounded-full bg-white border-2 border-[#1e1568] flex items-center justify-center shadow-md transition-all duration-200 hover:z-20 hover:-translate-y-1 hover:scale-105 hover:shadow-lg cursor-pointer"
                   >
                     <img
                       src={tech.icon}
@@ -147,7 +151,7 @@ export default function Hero() {
           {/* Center - 3 Sleek Dark Rounded-XL Preview Tiles */}
           <div className="hidden lg:flex items-center gap-3">
             {[
-              { label: "Web Platforms", sub: "Next.js / NestJS", href: "#projects" },
+              { label: "Web Platforms", sub: "Next.js / ASP.NET Core", href: "#projects" },
               { label: "Mobile Apps", sub: "Flutter / Dart", href: "#projects" },
               { label: "Cloud & DevOps", sub: "Linux / Docker", href: "#cloud-services" },
             ].map((item, idx) => (

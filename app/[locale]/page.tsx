@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Blogs from "../components/Blogs";
 import SnapScrollContainer from "../components/SnapScrollContainer";
 import { getAllBlogPosts } from "../lib/blog";
+import { getFeaturedProjects } from "../lib/projects";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -16,6 +17,7 @@ interface PageProps {
 export default async function Home({ params }: PageProps) {
   const { locale } = await params;
   const posts = getAllBlogPosts(locale).slice(0, 3);
+  const projects = getFeaturedProjects(locale);
 
   return (
     <>
@@ -28,7 +30,7 @@ export default async function Home({ params }: PageProps) {
         <Hero />
         <Skills />
         <CloudServices />
-        <Projects />
+        <Projects projects={projects} />
         <Education />
         <Blogs posts={posts} />
         <Contact />

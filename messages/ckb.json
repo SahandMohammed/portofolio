@@ -23,7 +23,8 @@
     "readArticle": "خوێندنەوەی بابەت",
     "backToArticles": "گەڕانەوە بۆ بڵاوکراوەکان",
     "shareArticle": "بڵاوکردنەوەی بابەت",
-    "thanksReading": "سوپاس بۆ خوێندنەوە!"
+    "thanksReading": "سوپاس بۆ خوێندنەوە!",
+    "viewAllPosts": "هەموو بڵاوکراوەکان"
   },
   "CloudServices": {
     "title": "کڵاود و <gradient>دێڤئۆپس</gradient>",
@@ -58,6 +59,13 @@
   "Projects": {
     "title": "پڕۆژە <gradient>دیارەکان</gradient>",
     "subtitle": "هەڵبژاردەیەک لە پڕۆژەکان کە شارەزاییم لە پەرەپێدانی وێب و مۆبایل نیشان دەدەن.",
+    "viewAllProjects": "هەموو پڕۆژەکان",
+    "backToProjects": "گەڕانەوە بۆ پڕۆژەکان",
+    "livePreview": "بینینی ڕاستەوخۆ",
+    "sourceCode": "کۆدی سەرچاوە",
+    "roleLabel": "ڕۆڵ",
+    "techStackLabel": "تەکنەلۆژیاکان",
+    "viewCaseStudy": "خوێندنەوەی وردەکاری",
     "ecommerce": {
       "title": "پلاتفۆرمی بازرگانی ئەلیکترۆنی",
       "description": "بەرنامەیەکی وێبی بازرگانی ئەلیکترۆنی تەواو کە بە Next.js و NestJS دروستکراوە، خاوەنی کۆگای کاتی ڕاستەقینە و پارەدانی پارێزراوە."

@@ -59,6 +59,13 @@
   "Projects": {
     "title": "Featured <gradient>Projects</gradient>",
     "subtitle": "A selection of projects that demonstrate my expertise in web and mobile development.",
+    "viewAllProjects": "View All Projects",
+    "backToProjects": "Back to Projects",
+    "livePreview": "Live Preview",
+    "sourceCode": "Source Code",
+    "roleLabel": "Role",
+    "techStackLabel": "Tech Stack",
+    "viewCaseStudy": "Read Case Study",
     "ecommerce": {
       "title": "E-Commerce Platform",
       "description": "A full-featured e-commerce web application built with Next.js and NestJS, featuring real-time inventory and secure payments."
