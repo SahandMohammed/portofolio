@@ -6,17 +6,17 @@ import {
   Calendar,
   Clock,
   Github,
-  ListOrdered,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
-import { slug as slugify } from "github-slugger";
 import {
   getProjectBySlug,
   getAllProjects,
   getAllProjectSlugsAllLocales,
 } from "../../../lib/projects";
+import { extractTocHeadings } from "../../../lib/toc";
 import MDXContent from "../../../components/MDXContent";
+import TableOfContents from "../../../components/TableOfContents";
 import {
   AnimatedContainer,
   AnimatedItem,
@@ -65,13 +65,8 @@ export default async function ProjectDetailPage({
       ? allProjects[currentIndex + 1]
       : null;
 
-  // Extract H2 sections for interactive Table of Contents
-  const headings = Array.from(project.content.matchAll(/^##\s+(.+)$/gm)).map(
-    (m) => {
-      const text = m[1].replace(/[*_`]/g, "").trim();
-      return { text, id: slugify(text) };
-    }
-  );
+  // Extract H2 and nested H3 sections for interactive Table of Contents
+  const headings = extractTocHeadings(project.content);
 
   const isRtl = locale === "ckb";
   const isPublicImage = project.image.startsWith("/");
@@ -194,39 +189,17 @@ export default async function ProjectDetailPage({
             )}
           </AnimatedItem>
 
-          {/* Table of Contents if article has sections */}
-          {headings.length > 2 && (
-            <AnimatedItem className="mb-14 p-6 sm:p-8 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
-              <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-black/8 dark:border-white/8">
-                <ListOrdered className="w-4 h-4 text-primary dark:text-indigo-400" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#09090f] dark:text-white font-medium">
-                  Table of Contents ({headings.length} Sections)
-                </span>
-              </div>
-              <nav className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2.5">
-                {headings.map((h, i) => (
-                  <a
-                    key={h.id + i}
-                    href={`#${h.id}`}
-                    className="group inline-flex items-baseline gap-2.5 text-xs sm:text-sm text-[#09090f]/75 dark:text-white/75 hover:text-primary dark:hover:text-white transition-colors"
-                  >
-                    <span className="font-mono text-[11px] text-black/40 dark:text-white/40 group-hover:text-primary dark:group-hover:text-indigo-400 shrink-0">
-                      {String(i + 1).padStart(2, "0")}.
-                    </span>
-                    <span className="truncate group-hover:underline underline-offset-4">
-                      {h.text}
-                    </span>
-                  </a>
-                ))}
-              </nav>
-            </AnimatedItem>
-          )}
-
-          {/* MDX Case Study Body */}
-          <AnimatedItem>
-            <article className="max-w-3xl mx-auto">
+          {/* MDX Case Study Body + Right Minimal TOC */}
+          <AnimatedItem className="relative">
+            <article id="mdx-article" className="max-w-3xl mx-auto">
               <MDXContent source={project.content} />
             </article>
+
+            {headings.length > 0 && (
+              <div className="hidden xl:block absolute top-0 bottom-0 left-[calc(50%+25.5rem)] w-44">
+                <TableOfContents items={headings} articleId="mdx-article" />
+              </div>
+            )}
           </AnimatedItem>
 
           {/* Bottom Navigation */}

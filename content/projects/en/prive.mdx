@@ -1,736 +1,161 @@
 ---
 num: "01"
 order: 1
-title: "Privé Lounge — BloomERP & Digital Ecosystem"
-excerpt: "An end-to-end digital ecosystem for a premium grooming business, featuring a lightweight BloomERP implementation, integrated POS, financial and inventory management, a multilingual website, and containerized cloud infrastructure."
+title: "Privé Lounge — Digital Business Ecosystem"
+excerpt: "An end-to-end digital transformation project combining business requirements engineering, a customized lightweight BloomERP, modern web technologies, and LogicBloom's cloud infrastructure."
 date: "2026-09-27"
-category: "ERP & Cloud Infrastructure"
+category: "Full-Stack & Cloud Engineering"
 role: "Full-Stack Engineer & Solutions Architect"
 tags:
   [
     "ASP.NET Core",
     "React",
+    "Next.js",
     "TypeScript",
     "PostgreSQL",
-    "Next.js",
     "Docker",
-    "Oracle Cloud",
-    "CI/CD",
+    "Cloudflare",
   ]
-image: "/images/projects/prive-architecture.svg"
-liveUrl: "https://prive.logicbloom.co"
+image: "/images/projects/prive-cover.webp"
+liveUrl: "https://privelounge.co"
 featured: true
 ---
 
-Privé Lounge is a premium men's grooming and wellness destination based in **Sulaymaniyah, Kurdistan Region, Iraq**. Its services include professional grooming, skincare, laser hair removal, and personal care treatments.
+Privé Lounge is a premium men's grooming and wellness destination located in Sulaymaniyah, Kurdistan Region, Iraq. The business combines traditional grooming with modern wellness and personal care services, offering a premium experience under its philosophy, **"In the Right Hands."**
 
-As part of **LogicBloom**, I worked on designing and implementing the technology ecosystem supporting Privé's operations, from its public-facing website and internal business management software to its cloud hosting infrastructure and deployment processes.
+Through **LogicBloom**, I worked on the planning, architectural design, development, and deployment of Privé's digital business ecosystem. The project involved building a professional online presence, adapting our proprietary business management platform to the client's operations, and connecting the applications to LogicBloom's cloud infrastructure.
 
-At the center of this project is **BloomERP for Privé**, a lightweight, industry-specific implementation of LogicBloom's proprietary BloomERP platform. Rather than introducing the complexity of a full enterprise resource planning system, this implementation focuses on practical business operations, connecting point-of-sale transactions, invoicing, inventory, payment processing, financial records, and professional performance reporting.
+Unlike a conventional website development project, Privé required an integrated approach that connected business requirements, software engineering, cloud services, and everyday operational workflows.
 
-The project combines **full-stack software engineering, business process modeling, relational database design, Linux administration, cloud infrastructure, and DevOps** into a real-world business solution.
+## Understanding the Business & Gathering Requirements
 
-<Callout title="Engineering Highlight">
-  Designed and deployed a customized ERP ecosystem built around unified
-  commercial documents, centralized payment and inventory workflows, reusable
-  frontend architecture, and a containerized ASP.NET Core backend hosted on
-  Oracle Cloud Infrastructure.
+The project began with understanding Privé's business model, its operational structure, and the challenges associated with managing a service-oriented establishment.
+
+Working with the business stakeholders, we gathered functional requirements, studied existing and expected workflows, and identified the essential capabilities required for daily operations. Particular attention was given to sales processing, employee responsibilities, inventory tracking, payment management, and managerial reporting.
+
+These requirements were translated into software specifications, application workflows, and implementation priorities.
+
+An important aspect of this process was avoiding unnecessary complexity. Although an ERP platform can support extensive enterprise functionality, Privé needed a solution that was practical for its employees and appropriate for the scale of its operations.
+
+<Callout title="Requirements-Driven Engineering">
+  The system was designed around the business's actual needs, combining
+  structured requirements analysis with continuous stakeholder feedback to
+  create an operationally practical solution.
 </Callout>
 
-## The Challenge
+## BloomERP — Customized Business Management Platform
 
-Launching a premium grooming business requires more than a digital storefront. Daily operations involve multiple interconnected processes, from collecting payments for services to recording product consumption, managing inventory, tracking employee performance, and reconciling financial transactions.
+At the center of the ecosystem is **BloomERP for Privé**, a lightweight implementation of LogicBloom's proprietary ERP and business management platform.
 
-Using disconnected software or spreadsheets for these processes creates unnecessary manual work and increases the risk of inconsistencies between operational and financial records.
+Rather than developing a completely separate application, we adapted BloomERP's existing architectural foundations and business capabilities to fit Privé's operational requirements.
 
-Privé needed a centralized system that could:
+The resulting platform brings together point-of-sale transactions, sales and purchasing, inventory and warehouse management, payment workflows, financial records, professional performance reporting, and administrative controls.
 
-- Process services and retail sales through a straightforward POS interface.
-- Track payments and outstanding balances accurately.
-- Manage products, warehouses, and internal material consumption.
-- Associate service revenue with individual grooming professionals.
-- Provide daily, weekly, and monthly operational reports.
-- Restrict access to sensitive business functionality through permissions.
-- Support English, Arabic, and Kurdish Sorani.
-- Operate reliably from the lounge's computers and tablets.
-- Support ongoing development without disrupting day-to-day operations.
-- Establish a foundation for customer-facing appointments and mobile applications.
+One of the main priorities was ensuring that these functions operated as part of a connected business system instead of independent modules requiring repetitive data entry.
 
-The primary architectural challenge was balancing **ERP-level transactional consistency with the simplicity expected from a service-oriented business application**.
+From the user's perspective, the application needed to remain straightforward and efficient, especially during busy service hours. This led to continued refinement of the interface and workflows based on feedback from the people using the system.
 
-## My Role & LogicBloom's Contribution
+### Application Technology
 
-LogicBloom acted as Privé's technology partner, contributing to both the development of its software products and the infrastructure required to operate them.
+The backend was developed using **ASP.NET Core and C#**, supported by **PostgreSQL** and **Entity Framework Core** for relational data persistence.
 
-My technical involvement covered several interconnected areas:
+The frontend was built using **React, TypeScript, and Vite**, with **Tailwind CSS and shadcn/ui** forming the UI foundation.
 
-- **Solution Architecture:** Translating business requirements into system architecture, data models, transactional rules, and application workflows.
-- **Backend Engineering:** Developing and customizing ASP.NET Core APIs, PostgreSQL persistence, business logic, and authorization mechanisms.
-- **Frontend Engineering:** Building and refining React-based management interfaces with reusable components and feature-oriented organization.
-- **ERP Customization:** Adapting BloomERP to Privé's service-based business model without unnecessary enterprise complexity.
-- **Cloud Engineering:** Provisioning Linux compute infrastructure, configuring network access, containerized services, and reverse-proxy routing.
-- **DevOps:** Establishing ARM64-compatible build and deployment workflows using GitHub Actions, GHCR, and Docker.
-- **Website Engineering:** Developing and deploying the multilingual public website using Next.js.
-- **Systems Integration:** Connecting commercial operations, financial processes, inventory records, and reporting within a coherent application.
-- **Technical Operations:** Supporting the physical IT environment and refining the deployed applications based on real operational feedback.
+The application follows a modular architecture with reusable components, clearly organized business functionality, and centralized API communication. These principles help maintain consistency across the platform and support future changes without unnecessary duplication.
 
-The result is not a collection of unrelated applications, but an interconnected technology foundation designed around the business's actual workflows.
-
-## System Architecture
-
-The ecosystem consists of multiple application layers with distinct responsibilities.
-
-**Public Website:** A Next.js application hosted on Vercel, providing the business's branded online presence and multilingual content.
-
-**ERP Frontend:** A React and TypeScript application responsible for administrative operations, point-of-sale workflows, and operational reporting.
-
-**Backend API:** An ASP.NET Core Web API implementing business rules, authorization, financial workflows, inventory operations, and application services.
-
-**Database:** PostgreSQL hosted on Neon, with Entity Framework Core handling relational data persistence.
-
-**Application Infrastructure:** An Oracle Cloud ARM64 Linux server running Dockerized services behind a Caddy HTTPS reverse proxy.
-
-**Customer Application:** A Flutter mobile application under development, designed to extend the ecosystem with booking and customer engagement capabilities.
-
-### Architectural Separation
-
-The architecture intentionally separates customer-facing presentation, internal business operations, application services, and database persistence.
-
-The public website can evolve independently from the management application, while transactional rules remain centralized in the backend rather than duplicated across client applications.
-
-This separation provides a foundation for future applications to reuse the same core operational services.
-
-### Core Technology Stack
-
-| Layer                  | Technology                                       |
-| ---------------------- | ------------------------------------------------ |
-| Public Website         | Next.js, React, TypeScript, Tailwind CSS         |
-| ERP Frontend           | React, Vite, TypeScript, shadcn/ui, Tailwind CSS |
-| Backend API            | ASP.NET Core, C#, .NET 10                        |
-| Persistence            | PostgreSQL, Entity Framework Core                |
-| Managed Database       | Neon                                             |
-| Cloud Compute          | Oracle Cloud Infrastructure                      |
-| Operating System       | Ubuntu 24.04 LTS, ARM64                          |
-| Containers             | Docker, Docker Compose                           |
-| Reverse Proxy          | Caddy                                            |
-| CI/CD                  | GitHub Actions, GitHub Container Registry        |
-| DNS & Media            | Cloudflare, Cloudflare R2                        |
-| Public Website Hosting | Vercel                                           |
-| Private Networking     | Tailscale, SSH                                   |
-| Mobile Development     | Flutter, Dart, Riverpod, Dio, go_router          |
-
-## BloomERP for Privé — A Lightweight ERP Implementation
-
-BloomERP is LogicBloom's proprietary enterprise resource planning and business management platform.
-
-For Privé, the platform was adapted into a **lightweight, specialized implementation**, retaining the architectural foundations of an ERP while concentrating on the features necessary for daily operations.
-
-This approach avoids introducing unrelated enterprise modules into a relatively focused service business.
-
-The implementation centers around several connected domains:
-
-- Point of Sale
-- Sales and Purchase Invoicing
-- Payment Processing
-- Money Accounts and Financial Records
-- Inventory and Warehouse Management
-- Internal Product Consumption
-- Professionals and Performance Reporting
-- User Management and Access Control
-- Localization and Operational Reporting
-
-An important engineering principle throughout the implementation was to **reuse shared business concepts instead of introducing separate implementations for every interface or workflow**.
-
-### Unified Sales Architecture
-
-One of the most important architectural decisions was consolidating POS transactions and manually entered sales invoices into a single commercial document model.
-
-Rather than maintaining separate entities and accounting logic for POS receipts and conventional sales, both workflows use the underlying `SalesInvoice` domain.
-
-Every sales document participates in the same numbering system, following a consistent format such as `SINV-000001`.
-
-POS transactions retain additional contextual information without becoming an entirely separate financial model.
-
-This includes metadata such as:
-
-- Associated sales invoice
-- Cashier identification
-- Completion timestamp
-- Client request identifier
-- Request fingerprint
-
-The request metadata also provides a foundation for identifying repeated submissions and protecting transaction-processing workflows.
-
-<Callout title="Architecture Decision — One Source of Truth">
-  POS is treated as a specialized workflow for creating and settling a Sales
-  Invoice, not an independent sales or accounting subsystem. This allows
-  reporting, payment calculations, invoice corrections, and financial
-  reconciliation to operate against the same underlying commercial records.
+<Callout title="Software Engineering">
+  BloomERP for Privé demonstrates how a general-purpose business management
+  platform can be customized for a specific industry while maintaining a
+  consistent technology foundation and a user-focused experience.
 </Callout>
 
-### Sessionless POS Design
+## Public Website & Brand Experience
 
-Traditional retail POS systems often rely on register-opening procedures, cashier sessions, and separate end-of-day closing documents.
+Alongside the management application, we developed Privé's official website using **Next.js, React, TypeScript, and Tailwind CSS**.
 
-For Privé's operational model, this would introduce unnecessary complexity.
+The website was designed to reflect the lounge's premium identity while providing visitors with a polished digital experience. Its visual design, content presentation, navigation, and responsive layouts were developed to complement the brand's physical environment.
 
-The implementation therefore uses a sessionless POS design. Transactions are posted directly as ordinary sales invoices, with the relevant cashier and payment information recorded through the existing business domains.
+The application supports multilingual experiences, including English and Kurdish Sorani, with consideration for right-to-left content and localization.
 
-Refunds and transaction corrections preserve their own audit-related information without depending on register sessions.
+Technical work also included search engine optimization, structured metadata, responsive design, and production deployment.
 
-The result is a simpler operational experience while preserving the financial records required by the system.
-
-## Centralized Payments & Financial Integrity
-
-A core engineering challenge in business management applications is ensuring that invoice state accurately reflects money movement.
-
-For example, changing an invoice after payment must not silently modify historical payment records or create a false impression that the transaction remains fully settled.
-
-BloomERP addresses this through a centralized payment and allocation architecture.
-
-### Payment Domain
-
-The payment model includes several related concepts:
-
-- **Payment:** Represents a recorded payment transaction.
-- **PaymentAllocation:** Connects a payment to the commercial document or balance it settles.
-- **PaymentMoneyLine:** Represents money movement through the selected payment accounts.
-- **MoneyLedger:** Maintains corresponding financial account movement records.
-
-Rather than relying on a manually maintained invoice status, payment status is derived from the relationship between the commercial amount and recorded financial allocations.
-
-The system distinguishes:
-
-| Status  | Meaning                                                         |
-| ------- | --------------------------------------------------------------- |
-| Unpaid  | No payment has been allocated                                   |
-| Partial | A portion of the balance remains outstanding                    |
-| Credit  | An outstanding amount is associated with an identified customer |
-| Paid    | The required amount has been settled                            |
-
-The model enforces additional rules based on transaction type.
-
-For example, ordinary walk-in transactions must be fully paid, while outstanding balances require an identified customer.
-
-### Commercial Corrections Without Rewriting Payment History
-
-Consider an invoice originally issued for **25,000 IQD** and fully paid.
-
-If the commercial invoice is later corrected to **30,000 IQD**, the system does not automatically alter the historical payment to match the new amount.
-
-Instead, the existing 25,000 IQD payment remains recorded, and the invoice reflects the additional 5,000 IQD outstanding balance.
-
-This distinction prevents commercial document changes from implicitly rewriting financial transactions.
-
-### Reversal Behavior
-
-The payment architecture also considers deletion and correction workflows.
-
-For example, removing a posted POS transaction requires corresponding payment reversals or appropriate soft-deletion behavior so that financial balances remain consistent.
-
-<Callout title="Engineering Highlight — Financial Consistency">
-  Commercial documents and money movements have distinct responsibilities.
-  Invoice corrections change commercial obligations, while payment allocations
-  and ledger records determine financial settlement. This separation helps
-  prevent inconsistent balances and hidden accounting side effects.
-</Callout>
-
-## Inventory & Warehouse Management
-
-Privé's operations require inventory control for both products sold to customers and materials consumed internally while delivering services.
-
-A traditional retail-only inventory model would not adequately represent this distinction.
-
-The lightweight BloomERP implementation therefore supports inventory workflows spanning:
-
-- Product catalog management
-- Warehouse-based stock tracking
-- Purchase-related inventory movements
-- Sales-related stock movements
-- Product usage and internal consumption
-- Units of measurement
-- Stock valuation
-- Operational stock exceptions
-
-### Internal Usage Invoices
-
-An important domain-specific feature is the **Usage Invoice**.
-
-Usage invoices allow the business to record products consumed internally without creating a customer sale.
-
-For example, a grooming product or consumable used by a professional during a service reduces available stock, but does not represent a separately billed retail transaction.
-
-The implementation supports:
-
-- Manual usage invoice creation and editing.
-- Source warehouse selection for individual lines.
-- Default warehouse selection for simplified data entry.
-- Product and unit selection.
-- Immediate posting behavior.
-- Inventory reconciliation when documents are edited.
-- Reversal of stock effects when applicable documents are deleted.
-
-This connects internal operational consumption to the inventory records.
-
-### Weighted-Average Costing
-
-Inventory valuation uses weighted-average costing principles.
-
-The system maintains cost information associated with stock movements rather than treating all inventory adjustments as quantity-only operations.
-
-### Configurable Negative Stock
-
-Some businesses need to continue operating even when physical inventory records are temporarily incomplete.
-
-The architecture supports configurable negative-stock handling at the branch level.
-
-Where negative stock is permitted, the system associates resulting cost differences with a configured variance account.
-
-Inventory transfers and physical counts retain their own restrictions to prevent the negative-stock option from becoming an unrestricted bypass of inventory controls.
-
-This offers operational flexibility while preserving the corresponding financial implications.
-
-## Professional Performance & Operational Reporting
-
-Unlike conventional retail businesses, Privé's revenue is substantially tied to services performed by individual grooming professionals.
-
-The ERP therefore includes professional attribution for service transactions.
-
-Service lines are associated with a professional, while ordinary product sales do not require that association.
-
-### Performance Metrics
-
-The reporting system supports analysis across different periods and operational dimensions.
-
-Available reporting dimensions include:
-
-- Today
-- This Week
-- This Month
-- Custom date range
-- Individual professional
-- Service
-- Transaction source, including POS and manual sales
-
-The reporting model includes service quantities, distinct customers, gross sales, refunds, and net sales.
-
-Refund reporting is associated with the applicable posting period, providing a more consistent representation of transactions within the selected reporting window.
-
-### Adapting Software to Real Employee Behavior
-
-One of the most valuable lessons from the project emerged after the system was introduced into daily operations.
-
-The original service model offered more detailed classification than the grooming professionals needed or wanted to record during busy working hours.
-
-Instead of requiring employees to classify every service in detail, we simplified the workflow through configurable service price tiers.
-
-This reduced the effort required to enter transactions while retaining the professional-level sales information management needed.
-
-<Callout title="Product Engineering Lesson">
-  Real-world software must adapt to the people operating it. A technically
-  comprehensive workflow is not necessarily a better workflow. Operational
-  feedback led to a simpler transaction experience without abandoning the
-  underlying reporting and financial architecture.
-</Callout>
-
-## Reusable Frontend Architecture
-
-The management application is built using **React, TypeScript, and Vite**, with Tailwind CSS and shadcn/ui providing the foundation for reusable interface elements.
-
-A major engineering focus was avoiding independently constructed screens for every commercial document.
-
-ERP applications frequently contain similar patterns across sales, purchases, usage documents, payments, and reports.
-
-Without architectural discipline, these patterns become duplicated implementations with inconsistent behavior.
-
-### Shared Document Components
-
-The frontend uses common building blocks around document management workflows, including concepts such as:
-
-- `DocumentWorkspace`
-- `DocumentFields`
-- `DocumentLinesTable`
-- Shared document header and action patterns
-- Common form and selection controls
-- Shared payment and allocation interfaces
-
-These components provide a consistent structure while allowing individual business modules to supply their own data and rules.
-
-### Feature-Oriented Organization
-
-Application functionality is grouped around business features rather than relying exclusively on generic component folders.
-
-Business-specific behavior remains within its corresponding feature, while genuinely reusable presentation and infrastructure components are extracted into shared layers.
-
-This architecture aims to balance reuse with clear ownership.
-
-### Consistent Data Management
-
-TanStack Query is used for frontend server-state management and cache behavior.
-
-Specific optimization work includes POS catalog freshness, query invalidation, and management of frequently accessed data.
-
-The objective is to keep user interactions responsive without compromising the accuracy of operational data.
-
-### Engineering Governance
-
-The development workflow also incorporates project architecture guidance, coding conventions, reusable frontend patterns, and AI-assisted implementation practices.
-
-These rules help reduce architectural drift, duplicated abstractions, and inconsistent frontend implementations as the application evolves.
-
-## Access Control & Localization
-
-### Role-Based Access Control
-
-The ERP uses permission-based authorization to distinguish the responsibilities of owners, managers, professionals, and other operational users.
-
-Permissions control access to sensitive business functions and information, rather than assuming every authenticated user requires unrestricted access.
-
-The authorization model also provides a foundation for professional-specific reporting and future integrations.
-
-### Multilingual Application Design
-
-The administrative interface supports:
-
-- English
-- Arabic
-- Kurdish Sorani
-
-The localization work includes operational terminology, interface actions, financial descriptions, and business reports.
-
-Supporting Kurdish Sorani required attention to right-to-left interfaces and terminology appropriate for local users.
-
-The public website also supports localized routing, with English and Kurdish Sorani experiences.
-
-## The Official Privé Website
+The public website operates independently from the internal business management platform, allowing both applications to evolve according to their respective requirements.
 
 **Live Website:** https://privelounge.co
 
-Alongside the business management system, LogicBloom developed Privé's public-facing website using **Next.js App Router, React, TypeScript, and Tailwind CSS**.
+## Cloud Infrastructure & Application Hosting
 
-The website functions as a digital introduction to the lounge, communicating its brand, services, and identity.
+An important part of the project was integrating Privé's applications with **LogicBloom's own cloud infrastructure**.
 
-Its design emphasizes a premium visual experience consistent with the lounge's positioning.
+Rather than establishing a dedicated infrastructure environment exclusively for Privé, the application was deployed using LogicBloom's existing infrastructure foundation, which we engineered to support our software products and client solutions.
 
-### Technical Features
+Our infrastructure uses **Oracle Cloud Infrastructure and Linux-based server environments**, with **Docker** providing containerized application hosting. Managed database services support application persistence, while secure networking and application delivery technologies connect the hosted services.
 
-- Responsive layouts for desktop and mobile.
-- Multilingual content and route handling.
-- Kurdish Sorani right-to-left considerations.
-- Search engine metadata.
-- Canonical URL configuration.
-- XML sitemap generation.
-- Open Graph metadata.
-- Search engine indexing controls.
-- Production and development environment separation.
-- Progressive Web App-related support and tablet experience considerations.
+For Privé, my responsibilities included preparing the application for cloud deployment, configuring its runtime environment, managing connectivity between services, and ensuring compatibility with the infrastructure's hosting architecture.
 
-### Deployment Strategy
+This approach allowed the business application to benefit from a centralized infrastructure environment maintained by LogicBloom, while keeping infrastructure administration and operational responsibilities within our engineering workflow.
 
-The public website is deployed on **Vercel**, separately from the ERP backend hosted within LogicBloom's own infrastructure.
-
-This separation allows website deployment and content-related changes to evolve without coupling them directly to internal business application releases.
-
-Development and production deployments use distinct hostnames, with development indexing restrictions to avoid unintended search engine exposure.
-
-## Cloud Infrastructure & Linux Server Engineering
-
-Beyond application development, the project included the deployment of LogicBloom's own cloud infrastructure for running its backend services.
-
-The infrastructure was designed as a shared hosting foundation for LogicBloom applications, with Privé among the deployed workloads.
-
-### Oracle Cloud Infrastructure
-
-The application server was provisioned using Oracle Cloud Infrastructure's ARM-based compute offering.
-
-| Resource          | Configuration               |
-| ----------------- | --------------------------- |
-| Cloud Provider    | Oracle Cloud Infrastructure |
-| Region            | Frankfurt, Germany          |
-| Instance          | VM.Standard.A1.Flex         |
-| Architecture      | ARM64                       |
-| CPU               | 2 OCPUs                     |
-| Memory            | 4 GB RAM                    |
-| Boot Volume       | 50 GB                       |
-| Operating System  | Ubuntu 24.04 Minimal        |
-| Swap              | 2 GB                        |
-| Reverse Proxy     | Caddy                       |
-| Container Runtime | Docker                      |
-| Database          | Neon PostgreSQL             |
-
-The server configuration was selected to provide a cost-conscious deployment platform while retaining control over runtime configuration and deployment processes.
-
-### Linux Administration & Networking
-
-Server provisioning included:
-
-- Installation and configuration of Ubuntu Linux.
-- SSH key-based access.
-- SSH security hardening.
-- Oracle virtual cloud network configuration.
-- Public subnet and internet gateway setup.
-- Network security rules for required services.
-- Docker installation.
-- Reverse-proxy configuration.
-- HTTPS application routing.
-- Environment and secret management.
-- Private administrative networking using Tailscale.
-
-### Reverse Proxy & HTTPS
-
-Caddy serves as the entry point for backend application traffic.
-
-It handles HTTPS termination and routes incoming requests to the relevant containerized application services.
-
-The deployed Privé backend is exposed through LogicBloom-controlled application infrastructure.
-
-### Managed PostgreSQL
-
-The application uses PostgreSQL hosted on Neon rather than running the primary database inside the same small compute instance.
-
-This separates database persistence from application containers and reduces the operational responsibilities placed on the application server.
-
-### Cloudflare Infrastructure
-
-Cloudflare is used for DNS management and related application infrastructure.
-
-LogicBloom also established Cloudflare R2-based object storage and media delivery foundations, including application-specific storage paths and controlled-access media design.
-
-### Operational Considerations
-
-Running application workloads on a compact ARM64 server required attention to:
-
-- ARM-compatible application builds.
-- Container image architecture.
-- Memory usage.
-- Persistent configuration.
-- Secure network exposure.
-- Reverse-proxy routing.
-- Application health checks.
-- Deployment and recovery procedures.
-
-<Callout title="Infrastructure Engineering">
-  The application backend runs on an ARM64 Ubuntu server using Docker and Caddy,
-  with PostgreSQL managed separately through Neon. This architecture provides
-  control over application deployment while keeping the initial infrastructure
-  footprint relatively small.
+<Callout title="Cloud Engineering">
+  Privé's business application is hosted through LogicBloom's own cloud
+  infrastructure, using containerized services and managed database
+  technologies. This approach allows us to centrally manage application hosting,
+  deployment, and ongoing technical operations.
 </Callout>
 
-## CI/CD & Automated Deployment
+## CDN & Media Infrastructure
 
-Application delivery was another central engineering component of the project.
+To support efficient delivery of digital assets, the ecosystem was integrated with **LogicBloom's Cloudflare-based CDN and object storage infrastructure**.
 
-Instead of manually building and publishing every backend release from a development workstation, LogicBloom established a repeatable container image workflow.
+This infrastructure provides a centralized approach to managing and delivering images and other application media without depending entirely on the application server.
 
-### Delivery Pipeline
+For a business management system that frequently displays product images and visual content, efficient media delivery is important for interface responsiveness and resource utilization.
 
-The deployment process uses:
+The CDN integration separates media delivery responsibilities from the primary application runtime, allowing each part of the ecosystem to serve its intended purpose.
 
-1. **GitHub** for source control and repository management.
-2. **GitHub Actions** for automated build and publishing workflows.
-3. **.NET container publishing** targeting the ARM64 deployment environment.
-4. **GitHub Container Registry (GHCR)** for image distribution.
-5. **Oracle Cloud Infrastructure** for application runtime hosting.
-6. **Docker Compose** for container configuration and lifecycle management.
-7. **Caddy** for HTTPS ingress and application routing.
+The result is a more maintainable approach to asset handling, built on infrastructure that can also support other LogicBloom projects.
 
-### ARM64 Compatibility
+## Deployment & DevOps
 
-Because the production host uses an ARM-based processor, backend images must be compatible with Linux ARM64.
+The development process was supported by automated build and deployment workflows using **GitHub Actions, Docker, and container-based delivery practices**.
 
-The automated build pipeline produces deployable artifacts targeting the server's processor architecture.
+These workflows help maintain consistency between development and production environments while reducing repetitive manual deployment tasks.
 
-This avoids relying on incompatible development-machine images or manual compilation on the production server.
+My responsibilities covered preparing applications for deployment, maintaining their compatibility with the hosting infrastructure, configuring the necessary application environments, and supporting production updates.
 
-### Server-Side Deployment
+Because the platform continued to evolve after its initial launch, having a structured deployment process was an important part of maintaining the system and delivering improvements.
 
-The deployment design allows the server to retrieve published application images and update its running containers.
+## Engineering Challenges & Practical Decisions
 
-Application-specific Docker Compose definitions, environment configuration, and secrets are organized within the server's deployment directory structure.
+One of the most significant challenges was translating business operations into a technical solution that remained both capable and easy to use.
 
-The infrastructure includes health-check support and deployment-management procedures.
+A conventional ERP interface could have introduced too much complexity for employees whose primary responsibilities involve serving customers rather than operating administrative software.
 
-### Why This Matters
+This required continuous communication with stakeholders, evaluation of actual usage patterns, and adjustments to the application's workflows.
 
-Automating the delivery process improves repeatability and reduces the amount of manual work required to deploy changes.
+Another important challenge was coordinating several different technologies and environments. The public website, management frontend, backend API, database, and media services each have different responsibilities, yet they must collectively provide a coherent user experience.
 
-More importantly, it creates a reusable DevOps foundation for additional applications developed under LogicBloom.
+The project also required balancing maintainability with practical development effort. Reusable components, modular organization, and established engineering conventions helped keep the software manageable as new requirements emerged.
 
-## Application Media & Performance Considerations
+These decisions were informed not only by software architecture principles but also by the realities of deploying and supporting an application used in a functioning business.
 
-Privé's management platform also handles product imagery and other media assets.
+## Outcome & Project Significance
 
-The media architecture incorporates Cloudflare R2 and a dedicated CDN hostname, with separation between public and controlled-access resources.
+Privé represents a complete software engineering engagement, beginning with requirements collection and extending through application development, infrastructure integration, deployment, and ongoing improvement.
 
-For assets requiring controlled access, the design supports signed URL delivery patterns.
+The project delivered a multilingual public website and a customized business management platform covering essential operational and administrative processes.
 
-To reduce unnecessary requests and improve responsiveness, performance work included:
+It also demonstrated the practical application of **BloomERP**, LogicBloom's proprietary business software, within a real service-oriented business.
 
-- Reuse of valid signed media URLs.
-- Short-lived server-side metadata caching.
-- Browser cache-control behavior.
-- Frontend query caching.
-- POS catalog freshness and garbage-collection configuration.
+By connecting the applications to LogicBloom's own infrastructure and media delivery services, we established a consistent technical environment for operating and maintaining the solution.
 
-These optimizations are especially relevant for touch-based POS interfaces that repeatedly load the same product catalog throughout daily operations.
+From a personal engineering perspective, the project brought together **business analysis, full-stack development, software architecture, cloud engineering, DevOps, and production support**.
 
-## Customer Mobile Application — In Development
+More importantly, it demonstrated the value of designing technology around actual business requirements and refining it through direct operational feedback.
 
-The next stage of the Privé ecosystem includes a Flutter application intended for iOS and Android.
+---
 
-The mobile application is designed to extend the existing backend with customer-facing interactions rather than maintain a disconnected set of operational data.
+**Technology Partner:** LogicBloom  
+**Official Website:** https://privelounge.co  
+**Business Management Platform:** BloomERP for Privé
 
-### Intended Features
-
-- Customer registration and authentication.
-- Professional selection.
-- Service selection.
-- Appointment scheduling.
-- Time-slot availability and conflict prevention.
-- Customer visit history.
-- Personalized service records.
-- Future loyalty and customer engagement features.
-- Potential before-and-after service media.
-
-The booking design considers 30-minute scheduling intervals, professional availability, and same-day appointment conflicts.
-
-### Mobile Technology Stack
-
-- Flutter and Dart
-- Riverpod for application state
-- Dio for HTTP API communication
-- go_router for navigation
-- Feature-oriented application modules
-
-The mobile application is a continuing development initiative and is not presented as a completed public release.
-
-## Operational Automation — Further Development
-
-Another area of development is automated operational reporting through Telegram.
-
-The designed integration uses backend background services to generate business summaries based on transactional records.
-
-The proposed capabilities include:
-
-- Scheduled owner summaries.
-- Professional-specific performance summaries.
-- Permission-controlled access.
-- English, Arabic, and Kurdish Sorani messages.
-- Account linking and approval mechanisms.
-- Configurable notification controls.
-
-This work illustrates how the ERP's centralized data model can support additional integrations without duplicating the underlying financial reporting logic.
-
-It remains distinct from the core deployed ERP capabilities.
-
-## Significant Engineering Decisions
-
-### 1. Extending BloomERP Instead of Building a Disconnected Application
-
-The system reuses the architecture and business concepts of LogicBloom's broader ERP product while customizing the interface and workflows for Privé.
-
-This avoids developing a separate solution with unrelated commercial and accounting rules.
-
-### 2. One Sales Invoice Domain for POS and Manual Sales
-
-A unified domain reduces duplication and provides consistent treatment of sales, payment allocation, and reporting.
-
-### 3. Financial Records Are Not Automatically Rewritten by Commercial Corrections
-
-Invoice revisions and payment changes are handled as distinct operations, preserving a clearer financial history.
-
-### 4. Internal Consumption Is Not a Customer Sale
-
-Usage invoices allow the system to represent stock consumed during service delivery without creating artificial retail transactions.
-
-### 5. Business Feedback Takes Priority Over Unnecessary Workflow Complexity
-
-Detailed service classifications were simplified after professionals indicated that fast transaction entry and daily totals were more useful to their operations.
-
-### 6. Reusable Frontend Components Without Excessive Abstraction
-
-Shared document components are used where workflows genuinely overlap, while feature-specific behavior remains within its domain.
-
-### 7. Application Hosting and Database Hosting Are Separated
-
-Containerized compute services run on Oracle Cloud, while PostgreSQL is managed through Neon.
-
-### 8. Public Website and Internal ERP Have Independent Deployment Environments
-
-This keeps the brand website from becoming tightly coupled to internal transactional application releases.
-
-## Challenges & Lessons Learned
-
-Working on a deployed business application presents challenges that do not always appear in purely academic or experimental software projects.
-
-### Transactional Integrity
-
-Financial and inventory workflows must remain correct when documents are edited, deleted, refunded, or partially paid.
-
-This required careful consideration of related records and side effects rather than relying on simplistic CRUD operations.
-
-### Operational Usability
-
-A workflow can be logically correct but still be unsuitable for daily use.
-
-Feedback from Privé's staff reinforced the importance of reducing unnecessary interactions, especially in high-frequency POS operations.
-
-### Software Modularity
-
-ERP applications contain many visually similar pages but different business rules.
-
-Developing reusable interface patterns required balancing consistency with clear domain boundaries.
-
-### Cloud Deployment
-
-Running a modern ASP.NET Core application on a small ARM64 Linux instance required container compatibility, secure networking, and a repeatable deployment process.
-
-### Evolving Requirements
-
-The requirements continued to change after the initial business launch.
-
-Maintaining extensible domain models and predictable component boundaries was important for introducing changes without rewriting unrelated features.
-
-## Delivered Outcomes
-
-The project established a functional digital technology foundation for Privé's business operations.
-
-Major delivered capabilities include:
-
-- A deployed multilingual public website.
-- A customized lightweight BloomERP implementation.
-- Unified POS and sales invoice workflows.
-- Purchase and inventory management functionality.
-- Internal consumption tracking through usage invoices.
-- Centralized payments, allocations, and financial records.
-- Professional performance reporting.
-- Role-based permissions and localized administrative interfaces.
-- An ASP.NET Core backend connected to managed PostgreSQL.
-- Containerized deployment on Oracle Cloud Infrastructure.
-- HTTPS application routing through Caddy.
-- GitHub Actions and container registry-based delivery.
-- Supporting IT infrastructure and operational refinements.
-
-The ecosystem also establishes a foundation for the customer mobile application, appointment booking, and future automation features.
-
-## Project Impact
-
-The significance of this project lies in connecting software architecture with real operational requirements.
-
-Instead of delivering an isolated website or administrative dashboard, LogicBloom developed a system that brings together commercial transactions, inventory operations, financial records, professional reporting, infrastructure, and deployment processes.
-
-For my engineering portfolio, Privé demonstrates experience across the entire software lifecycle:
-
-**Requirements analysis → Domain modeling → Full-stack development → Infrastructure provisioning → Automated deployment → Production operations → Continuous improvement.**
-
-It also represents a real-world implementation of BloomERP, showing how a reusable business management platform can be adapted to a specific industry while preserving its underlying engineering principles.
-
-The project continues to evolve alongside the business, with customer-facing mobile experiences and additional operational integrations forming part of its next development stages.
-
-## Project Links
-
-- **Official Privé Website:** https://privelounge.co
-- **BloomERP for Privé:** https://prive.logicbloom.co
-- **Technology Partner — LogicBloom:** https://logicbloom.co
-
-_The application source repository is private. The live BloomERP instance is an operational business system and requires authorized access._
+_Selected implementation and infrastructure details remain proprietary to LogicBloom._

@@ -15,6 +15,9 @@ export const fadeSlideUp: Variants = {
       duration: 0.85,
       ease: EASE_ELEGANT,
     },
+    transitionEnd: {
+      transform: "none",
+    },
   },
 };
 

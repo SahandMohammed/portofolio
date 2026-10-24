@@ -6,7 +6,9 @@ import {
   getBlogPostBySlug,
   getAllBlogSlugsAllLocales,
 } from "../../../lib/blog";
+import { extractTocHeadings } from "../../../lib/toc";
 import MDXContent from "../../../components/MDXContent";
+import TableOfContents from "../../../components/TableOfContents";
 import {
   AnimatedContainer,
   AnimatedItem,
@@ -47,6 +49,7 @@ export default async function BlogPost({
     notFound();
   }
 
+  const headings = extractTocHeadings(post.content);
   const isRtl = locale === "ckb";
   const isPublicImage = post.image.startsWith("/");
 
@@ -115,11 +118,17 @@ export default async function BlogPost({
             )}
           </AnimatedItem>
 
-          {/* MDX Article Body */}
-          <AnimatedItem>
-            <article className="max-w-3xl mx-auto">
+          {/* MDX Article Body + Right Minimal TOC */}
+          <AnimatedItem className="relative">
+            <article id="mdx-article" className="max-w-3xl mx-auto">
               <MDXContent source={post.content} />
             </article>
+
+            {headings.length > 0 && (
+              <div className="hidden xl:block absolute top-0 bottom-0 left-[calc(50%+25.5rem)] w-44">
+                <TableOfContents items={headings} articleId="mdx-article" />
+              </div>
+            )}
           </AnimatedItem>
 
           {/* Footer Strip */}
