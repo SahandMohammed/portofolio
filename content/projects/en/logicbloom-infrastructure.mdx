@@ -1,0 +1,49 @@
+---
+num: "07"
+order: 7
+title: "LogicBloom — Cloud & DevOps Infrastructure"
+excerpt: "Engineering and maintaining shared cloud infrastructure for LogicBloom applications, including container hosting, application delivery, and CDN integration."
+date: "2026-10-24"
+category: "Cloud & DevOps"
+role: "Cloud & Software Engineer"
+tags: ["Linux", "Oracle Cloud", "Docker", "Cloudflare", "GitHub Actions"]
+image: "/images/projects/logicbloom-infrastructure-cover.svg"
+featured: false
+---
+
+LogicBloom maintains its **own application infrastructure** to support software products and selected client solutions. I worked on building and operating this technical foundation alongside application development.
+
+The objective was to establish a practical hosting environment that the team could manage directly, rather than treating every new product as an isolated deployment with unrelated operational requirements.
+
+## Planning the Infrastructure
+
+Infrastructure decisions were informed by application requirements, operational costs, compatibility, and ongoing maintenance needs.
+
+The environment uses **Linux-based cloud compute on Oracle Cloud Infrastructure**, with **Docker** for application packaging and runtime management. Managed data services complement the application hosting environment where appropriate.
+
+This is shared LogicBloom infrastructure; Privé is one of the client projects that benefits from it.
+
+## Application Delivery
+
+Part of the engineering work involved creating repeatable build and deployment processes using **GitHub Actions** and container-based release practices.
+
+The focus was on making application delivery more consistent, reducing routine manual work, and ensuring that development changes could be introduced through an organized operational process.
+
+## CDN & Media Services
+
+The platform also uses **Cloudflare** for related web infrastructure and media delivery. Connecting object storage and content delivery to hosted applications provides a more consistent approach to serving assets without tightly coupling them to the main application runtime.
+
+<Callout title="Infrastructure as a Shared Capability">
+  Rather than building an unrelated server setup for each project, the infrastructure was developed as a common LogicBloom capability supporting multiple applications and ongoing engineering work.
+</Callout>
+
+## Engineering Experience
+
+This project combines software development with Linux administration, cloud resource planning, containerization, application delivery, and production support.
+
+The work reinforced the value of infrastructure that remains understandable and maintainable as the number of applications grows. Sensitive configuration, topology, deployment credentials, and internal procedures are intentionally omitted.
+
+---
+
+**Organization:** LogicBloom  
+**Scope:** Shared Application Infrastructure & DevOps
