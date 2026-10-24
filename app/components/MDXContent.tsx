@@ -1,7 +1,9 @@
 import React from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
+import "highlight.js/styles/github-dark.css";
 
 interface FigureProps {
   src: string;
@@ -56,11 +58,12 @@ function Callout({ title, children }: CalloutProps) {
   return (
     <div className="my-8 p-6 rounded-2xl border border-black/12 dark:border-white/12 bg-black/[0.02] dark:bg-white/[0.03]">
       {title && (
-        <div className="text-xs font-mono uppercase tracking-widest text-primary dark:text-indigo-400 mb-2">
+        <div className="text-xs font-mono uppercase tracking-widest text-primary dark:text-indigo-400 mb-2.5 font-medium flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary dark:bg-indigo-400 inline-block" />
           {title}
         </div>
       )}
-      <div className="text-sm md:text-base text-[#09090f]/85 dark:text-white/85 leading-relaxed [&>p]:mb-0">
+      <div className="text-sm md:text-base text-[#09090f]/85 dark:text-white/85 leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0">
         {children}
       </div>
     </div>
@@ -71,19 +74,25 @@ function Callout({ title, children }: CalloutProps) {
 const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className="text-3xl md:text-5xl font-medium tracking-[-0.03em] mb-6 mt-12 text-[#09090f] dark:text-white leading-tight"
+      className="text-3xl md:text-5xl font-medium tracking-[-0.03em] mb-6 mt-12 text-[#09090f] dark:text-white leading-tight scroll-mt-28"
       {...props}
     />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
-      className="text-2xl md:text-3xl font-medium tracking-[-0.025em] mb-4 mt-12 pt-4 border-t border-black/10 dark:border-white/10 text-[#09090f] dark:text-white"
+      className="text-2xl md:text-3xl font-medium tracking-[-0.025em] mb-4 mt-12 pt-4 border-t border-black/10 dark:border-white/10 text-[#09090f] dark:text-white scroll-mt-28"
       {...props}
     />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
-      className="text-xl md:text-2xl font-medium tracking-tight mb-3 mt-8 text-[#09090f] dark:text-white"
+      className="text-xl md:text-2xl font-medium tracking-tight mb-3 mt-8 text-[#09090f] dark:text-white scroll-mt-28"
+      {...props}
+    />
+  ),
+  h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h4
+      className="text-lg md:text-xl font-medium tracking-tight mb-2 mt-6 text-[#09090f] dark:text-white scroll-mt-28"
       {...props}
     />
   ),
@@ -122,9 +131,41 @@ const components = {
   ),
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
-      className="p-5 rounded-2xl mb-8 overflow-x-auto bg-[#09090f] text-white/90 border border-black/10 dark:border-white/10 text-sm leading-relaxed [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
+      className="p-5 rounded-2xl mb-8 overflow-x-auto bg-[#09090f] text-white/90 border border-black/10 dark:border-white/10 text-sm leading-relaxed [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit font-mono"
       {...props}
     />
+  ),
+  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
+    <div className="my-8 w-full overflow-x-auto rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.015] dark:bg-white/[0.02] shadow-xs">
+      <table className="w-full text-left rtl:text-right text-sm border-collapse" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead
+      className="bg-black/[0.035] dark:bg-white/[0.04] border-b border-black/10 dark:border-white/10 text-xs font-mono uppercase tracking-wider text-[#09090f] dark:text-white"
+      {...props}
+    />
+  ),
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody className="divide-y divide-black/5 dark:divide-white/5" {...props} />
+  ),
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr
+      className="transition-colors hover:bg-black/[0.02] dark:hover:bg-white/[0.03]"
+      {...props}
+    />
+  ),
+  th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
+    <th className="py-3.5 px-5 font-semibold text-[#09090f] dark:text-white whitespace-nowrap" {...props} />
+  ),
+  td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
+    <td
+      className="py-3.5 px-5 text-[#09090f]/80 dark:text-white/80 leading-relaxed align-top"
+      {...props}
+    />
+  ),
+  del: (props: React.HTMLAttributes<HTMLElement>) => (
+    <del className="line-through text-black/40 dark:text-white/40" {...props} />
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
@@ -174,6 +215,7 @@ export default function MDXContent({ source }: MDXContentProps) {
       components={components}
       options={{
         mdxOptions: {
+          remarkPlugins: [remarkGfm],
           rehypePlugins: [rehypeHighlight, rehypeSlug],
         },
       }}

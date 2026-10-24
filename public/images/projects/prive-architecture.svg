@@ -1,0 +1,85 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#070612"/>
+  <radialGradient id="priveGlow" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+    <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.35"/>
+    <stop offset="60%" stop-color="#1E1B4B" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#070612" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="675" fill="url(#priveGlow)"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="200" y1="0" x2="200" y2="675"/>
+    <line x1="400" y1="0" x2="400" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="800" y1="0" x2="800" y2="675"/>
+    <line x1="1000" y1="0" x2="1000" y2="675"/>
+  </g>
+
+  <!-- Top Badge -->
+  <rect x="440" y="60" width="320" height="36" rx="18" fill="rgba(99,102,241,0.12)" stroke="rgba(129,140,248,0.3)" stroke-width="1"/>
+  <text x="600" y="83" fill="#A5B4FC" font-family="monospace" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="2">PRIVÉ LOUNGE — SYSTEM ARCHITECTURE</text>
+
+  <!-- Node 1: Public Website & Client POS -->
+  <rect x="100" y="160" width="280" height="150" rx="16" fill="#0D0C1D" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <circle cx="132" cy="192" r="6" fill="#38BDF8"/>
+  <text x="148" y="196" fill="#F8FAFC" font-family="sans-serif" font-size="16" font-weight="600">Client Applications</text>
+  <text x="132" y="232" fill="#E2E8F0" font-family="monospace" font-size="13">Next.js Public Website</text>
+  <text x="132" y="254" fill="#94A3B8" font-family="monospace" font-size="12">React + Vite BloomERP POS</text>
+  <text x="132" y="276" fill="#64748B" font-family="monospace" font-size="11">Flutter Mobile App</text>
+
+  <!-- Connection: Clients to Reverse Proxy -->
+  <path d="M380 235 L470 235" stroke="#818CF8" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="470,235 460,230 460,240" fill="#818CF8"/>
+
+  <!-- Node 2: Gateway & Infrastructure -->
+  <rect x="470" y="160" width="280" height="150" rx="16" fill="#0D0C1D" stroke="#6366F1" stroke-width="1.5"/>
+  <circle cx="502" cy="192" r="6" fill="#818CF8"/>
+  <text x="518" y="196" fill="#F8FAFC" font-family="sans-serif" font-size="16" font-weight="600">Cloud Infrastructure</text>
+  <text x="502" y="232" fill="#E2E8F0" font-family="monospace" font-size="13">Oracle Cloud ARM64</text>
+  <text x="502" y="254" fill="#A5B4FC" font-family="monospace" font-size="12">Caddy HTTPS + Cloudflare</text>
+  <text x="502" y="276" fill="#64748B" font-family="monospace" font-size="11">Docker Compose Services</text>
+
+  <!-- Connection: Infrastructure to Backend Core -->
+  <path d="M750 235 L840 235" stroke="#818CF8" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="840,235 830,230 830,240" fill="#818CF8"/>
+
+  <!-- Node 3: Backend API -->
+  <rect x="840" y="160" width="280" height="150" rx="16" fill="#0D0C1D" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <circle cx="872" cy="192" r="6" fill="#34D399"/>
+  <text x="888" y="196" fill="#F8FAFC" font-family="sans-serif" font-size="16" font-weight="600">Backend Services</text>
+  <text x="872" y="232" fill="#E2E8F0" font-family="monospace" font-size="13">ASP.NET Core .NET 10</text>
+  <text x="872" y="254" fill="#94A3B8" font-family="monospace" font-size="12">Unified Invoicing Engine</text>
+  <text x="872" y="276" fill="#64748B" font-family="monospace" font-size="11">Money Ledger &amp; Auditing</text>
+
+  <!-- Down Connection from Backend to Data Layer -->
+  <path d="M980 310 L980 390" stroke="#34D399" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="980,390 975,380 985,380" fill="#34D399"/>
+
+  <!-- Node 4: Persistence Layer (Bottom Right) -->
+  <rect x="750" y="390" width="370" height="150" rx="16" fill="#0D0C1D" stroke="rgba(52,211,153,0.4)" stroke-width="1.5"/>
+  <circle cx="782" cy="422" r="6" fill="#34D399"/>
+  <text x="798" y="426" fill="#F8FAFC" font-family="sans-serif" font-size="16" font-weight="600">Persistence &amp; Media Storage</text>
+  <text x="782" y="462" fill="#E2E8F0" font-family="monospace" font-size="13">PostgreSQL on Neon (Serverless)</text>
+  <text x="782" y="484" fill="#94A3B8" font-family="monospace" font-size="12">Entity Framework Core 10 (ACID)</text>
+  <text x="782" y="506" fill="#64748B" font-family="monospace" font-size="11">Cloudflare R2 Object Storage</text>
+
+  <!-- Node 5: DevOps & CI/CD Pipeline (Bottom Left) -->
+  <rect x="100" y="390" width="580" height="150" rx="16" fill="#0D0C1D" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <circle cx="132" cy="422" r="6" fill="#F59E0B"/>
+  <text x="148" y="426" fill="#F8FAFC" font-family="sans-serif" font-size="16" font-weight="600">DevOps &amp; Continuous Deployment</text>
+  <text x="132" y="462" fill="#E2E8F0" font-family="monospace" font-size="13">GitHub Actions CI/CD (Multi-Platform ARM64 Buildx)</text>
+  <text x="132" y="484" fill="#94A3B8" font-family="monospace" font-size="12">GitHub Container Registry (GHCR) + Secure Webhook Deployment</text>
+  <text x="132" y="506" fill="#64748B" font-family="monospace" font-size="11">Tailscale WireGuard Mesh Network &amp; Zero-Downtime Hot Deploy</text>
+
+  <!-- Connecting Line from DevOps to Infrastructure -->
+  <path d="M470 390 L470 330 L520 330 L520 310" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <polygon points="520,310 516,318 524,318" fill="#F59E0B"/>
+
+  <!-- Bottom Spec Status -->
+  <text x="600" y="610" fill="#64748B" font-family="monospace" font-size="12" text-anchor="middle">LogicBloom Architecture Specification • High Availability • Isolated Domains</text>
+</svg>

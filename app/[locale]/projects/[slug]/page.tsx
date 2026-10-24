@@ -1,15 +1,19 @@
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
+  ArrowRight,
   ArrowUpRight,
   Calendar,
   Clock,
   Github,
+  ListOrdered,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import { slug as slugify } from "github-slugger";
 import {
   getProjectBySlug,
+  getAllProjects,
   getAllProjectSlugsAllLocales,
 } from "../../../lib/projects";
 import MDXContent from "../../../components/MDXContent";
@@ -52,6 +56,22 @@ export default async function ProjectDetailPage({
   if (!project) {
     notFound();
   }
+
+  const allProjects = getAllProjects(locale);
+  const currentIndex = allProjects.findIndex((p) => p.slug === slug);
+  const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
+  const nextProject =
+    currentIndex >= 0 && currentIndex < allProjects.length - 1
+      ? allProjects[currentIndex + 1]
+      : null;
+
+  // Extract H2 sections for interactive Table of Contents
+  const headings = Array.from(project.content.matchAll(/^##\s+(.+)$/gm)).map(
+    (m) => {
+      const text = m[1].replace(/[*_`]/g, "").trim();
+      return { text, id: slugify(text) };
+    }
+  );
 
   const isRtl = locale === "ckb";
   const isPublicImage = project.image.startsWith("/");
@@ -174,6 +194,34 @@ export default async function ProjectDetailPage({
             )}
           </AnimatedItem>
 
+          {/* Table of Contents if article has sections */}
+          {headings.length > 2 && (
+            <AnimatedItem className="mb-14 p-6 sm:p-8 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
+              <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-black/8 dark:border-white/8">
+                <ListOrdered className="w-4 h-4 text-primary dark:text-indigo-400" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#09090f] dark:text-white font-medium">
+                  Table of Contents ({headings.length} Sections)
+                </span>
+              </div>
+              <nav className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2.5">
+                {headings.map((h, i) => (
+                  <a
+                    key={h.id + i}
+                    href={`#${h.id}`}
+                    className="group inline-flex items-baseline gap-2.5 text-xs sm:text-sm text-[#09090f]/75 dark:text-white/75 hover:text-primary dark:hover:text-white transition-colors"
+                  >
+                    <span className="font-mono text-[11px] text-black/40 dark:text-white/40 group-hover:text-primary dark:group-hover:text-indigo-400 shrink-0">
+                      {String(i + 1).padStart(2, "0")}.
+                    </span>
+                    <span className="truncate group-hover:underline underline-offset-4">
+                      {h.text}
+                    </span>
+                  </a>
+                ))}
+              </nav>
+            </AnimatedItem>
+          )}
+
           {/* MDX Case Study Body */}
           <AnimatedItem>
             <article className="max-w-3xl mx-auto">
@@ -182,16 +230,61 @@ export default async function ProjectDetailPage({
           </AnimatedItem>
 
           {/* Bottom Navigation */}
-          <AnimatedItem className="mt-20 pt-8 border-t border-black/12 dark:border-white/12 flex justify-between items-center">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#09090f] dark:text-white hover:opacity-65 transition-opacity"
-            >
-              <ArrowLeft
-                className={`w-3.5 h-3.5 ${isRtl ? "rotate-180" : ""}`}
-              />
-              <span>{t("viewAllProjects")}</span>
-            </Link>
+          <AnimatedItem className="mt-20 pt-8 border-t border-black/12 dark:border-white/12 grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+            <div>
+              {prevProject ? (
+                <Link
+                  href={`/projects/${prevProject.slug}`}
+                  className="group inline-flex flex-col gap-1 text-left rtl:text-right"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-black/50 dark:text-white/50 inline-flex items-center gap-1.5 group-hover:text-[#09090f] dark:group-hover:text-white transition-colors">
+                    <ArrowLeft
+                      className={`w-3 h-3 transition-transform group-hover:-translate-x-1 ${
+                        isRtl ? "rotate-180 group-hover:translate-x-1" : ""
+                      }`}
+                    />
+                    Previous Project
+                  </span>
+                  <span className="text-sm font-medium text-[#09090f] dark:text-white group-hover:text-primary dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    {prevProject.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </div>
+
+            <div className="text-center">
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/15 dark:border-white/15 text-xs font-mono uppercase tracking-wider text-[#09090f] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+              >
+                <span>{t("viewAllProjects")}</span>
+              </Link>
+            </div>
+
+            <div className="text-right rtl:text-left">
+              {nextProject ? (
+                <Link
+                  href={`/projects/${nextProject.slug}`}
+                  className="group inline-flex flex-col gap-1 text-right rtl:text-left"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-black/50 dark:text-white/50 inline-flex items-center gap-1.5 justify-end rtl:justify-start group-hover:text-[#09090f] dark:group-hover:text-white transition-colors">
+                    Next Project
+                    <ArrowRight
+                      className={`w-3 h-3 transition-transform group-hover:translate-x-1 ${
+                        isRtl ? "rotate-180 group-hover:-translate-x-1" : ""
+                      }`}
+                    />
+                  </span>
+                  <span className="text-sm font-medium text-[#09090f] dark:text-white group-hover:text-primary dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    {nextProject.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </div>
           </AnimatedItem>
         </AnimatedContainer>
       </main>
