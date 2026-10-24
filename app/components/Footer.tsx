@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 
+import { fadeInUp, staggerContainer } from "../lib/animations";
+
 export default function Footer() {
   const t = useTranslations("Footer");
 
@@ -35,26 +37,32 @@ export default function Footer() {
 
   return (
     <footer className="snap-section oxaley-footer-bg flex flex-col justify-between relative z-10 overflow-hidden pt-24 pb-10">
-      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto border-t border-black/12 dark:border-white/12 pt-16">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto border-t border-black/12 dark:border-white/12 pt-16"
+      >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
           {/* Brand Column with user's SM Logo */}
-          <div className="md:col-span-6 space-y-6">
-            <Link href="#about" className="inline-block">
+          <motion.div variants={fadeInUp} className="md:col-span-6 space-y-6">
+            <Link href="#about" className="inline-block group">
               <Image
                 src="/sm-logo.png"
                 alt="Sahand Mohammed Logo"
-                width={64}
-                height={64}
-                className="h-14 w-auto object-contain invert dark:invert-0"
+                width={160}
+                height={160}
+                className="h-28 md:h-36 lg:h-40 w-auto object-contain invert dark:invert-0 transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
             <p className="text-muted text-lg md:text-2xl max-w-md leading-snug tracking-tight">
               {t("about")}
             </p>
-          </div>
+          </motion.div>
 
           {/* Navigation Column */}
-          <div className="md:col-span-3 lg:col-start-8">
+          <motion.div variants={fadeInUp} className="md:col-span-3 lg:col-start-8">
             <h3 className="text-xs font-mono text-black/45 dark:text-white/45 uppercase tracking-widest mb-5">
               {t("navigation")}
             </h3>
@@ -71,10 +79,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Social Column */}
-          <div className="md:col-span-3 lg:col-start-11">
+          <motion.div variants={fadeInUp} className="md:col-span-3 lg:col-start-11">
             <h3 className="text-xs font-mono text-black/45 dark:text-white/45 uppercase tracking-widest mb-5">
               {t("social")}
             </h3>
@@ -93,19 +101,19 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom Bar */}
-      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          {t("rights", { year: new Date().getFullYear() })}
-        </motion.p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted"
+      >
+        <p>{t("rights", { year: new Date().getFullYear() })}</p>
 
         <a
           href="#about"
@@ -113,7 +121,7 @@ export default function Footer() {
         >
           Back to top ↑
         </a>
-      </div>
+      </motion.div>
     </footer>
   );
 }

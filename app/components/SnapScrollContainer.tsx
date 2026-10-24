@@ -16,8 +16,8 @@ export default function SnapScrollContainer({
     if (!container) return;
 
     const handleScroll = () => {
-      // Notify Navbar whether the scroll position is within the top Hero area
-      const index = container.scrollTop > window.innerHeight * 0.65 ? 1 : 0;
+      // Notify Navbar once the scroll position has passed the Hero section
+      const index = container.scrollTop > container.clientHeight - 80 ? 1 : 0;
       window.dispatchEvent(
         new CustomEvent("sectionchange", { detail: { index } })
       );

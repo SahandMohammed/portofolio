@@ -38,27 +38,35 @@ export default function Hero() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.2 }}
         className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto z-10"
       >
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
           {/* Left - Monumental Stacked Typography (matching image copy.png) */}
-          <motion.div variants={fadeInUp} className="max-w-2xl">
+          <div className="max-w-2xl">
             <h1 className="text-5xl sm:text-7xl lg:text-[5.4rem] font-medium tracking-[-0.04em] leading-[0.98]">
-              <span className="block text-white">{t("greeting")}</span>
-              <span className="block text-white">{t("name")}</span>
-              <span className="block text-white/40 mt-1">Software</span>
-              <span className="block text-white/40">Engineer.</span>
+              <motion.span variants={fadeInUp} className="block text-white">
+                {t("greeting")}
+              </motion.span>
+              <motion.span variants={fadeInUp} className="block text-white">
+                {t("name")}
+              </motion.span>
+              <motion.span variants={fadeInUp} className="block text-white/40 mt-1">
+                Software
+              </motion.span>
+              <motion.span variants={fadeInUp} className="block text-white/40">
+                Engineer.
+              </motion.span>
             </h1>
 
             {/* Overlapping Circular Stack Badges (matching the 4 overlapping circles in image copy.png) */}
-            <div className="mt-9 flex items-center">
+            <motion.div variants={fadeInUp} className="mt-9 flex items-center">
               <div className="flex -space-x-2.5">
                 {stackAvatars.map((tech) => (
                   <div
                     key={tech.name}
                     title={tech.name}
-                    className="w-11 h-11 rounded-full bg-white border-2 border-[#1e1568] flex items-center justify-center shadow-md"
+                    className="w-11 h-11 rounded-full bg-white border-2 border-[#1e1568] flex items-center justify-center shadow-md transition-transform hover:-translate-y-1"
                   >
                     <img
                       src={tech.icon}
@@ -99,8 +107,8 @@ export default function Hero() {
                   </a>
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Right - Understated Editorial Statement */}
           <motion.div
@@ -121,7 +129,12 @@ export default function Hero() {
       </motion.div>
 
       {/* Bottom Bar - Anchored on the Horizon Glow (matching image copy.png) */}
-      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 z-10 pt-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 z-10 pt-6"
+      >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left - SEE OUR PORTFOLIO */}
           <a
@@ -168,7 +181,7 @@ export default function Hero() {
             </span>
           </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

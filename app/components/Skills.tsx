@@ -58,7 +58,7 @@ export default function Skills() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.15 }}
         className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
         {/* Editorial Header */}

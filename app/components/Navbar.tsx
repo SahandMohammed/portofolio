@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { flushSync } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -44,6 +45,57 @@ export default function Navbar() {
     { name: t("blog"), href: isHome ? "#blogs" : "/#blogs" },
   ];
 
+  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
+
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void | Promise<void>) => {
+        finished?: Promise<void>;
+      };
+    };
+
+    if (
+      typeof window === "undefined" ||
+      !doc.startViewTransition ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX || rect.left + rect.width / 2;
+    const y = e.clientY || rect.top + rect.height / 2;
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.documentElement.style.setProperty("--theme-x", `${x}px`);
+    document.documentElement.style.setProperty("--theme-y", `${y}px`);
+    document.documentElement.style.setProperty("--theme-r", `${endRadius}px`);
+
+    const transition = doc.startViewTransition(() => {
+      flushSync(() => {
+        setTheme(nextTheme);
+      });
+      if (nextTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    });
+
+    if (transition?.finished) {
+      transition.finished.finally(() => {
+        document.documentElement.style.removeProperty("--theme-x");
+        document.documentElement.style.removeProperty("--theme-y");
+        document.documentElement.style.removeProperty("--theme-r");
+      });
+    }
+  };
+
   if (!mounted) return null;
 
   // On Hero (index 0), the top is pure black from the Oxaley gradient
@@ -54,12 +106,12 @@ export default function Navbar() {
     <>
       {/* Desktop Navbar - Oxaley Minimalist Editorial Bar */}
       <header
-        className={`hidden md:block fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        className={`hidden md:block fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,color] duration-300 ease-out outline-none ring-0 py-5 ${
           isOnOxaleySection
-            ? "bg-transparent py-7"
+            ? "bg-transparent border-b border-transparent"
             : resolvedTheme === "dark"
-            ? "bg-[#03020a]/85 backdrop-blur-xl border-b border-white/10 py-4 isolate"
-            : "bg-white/90 backdrop-blur-xl border-b border-black/8 py-4 isolate"
+            ? "bg-[#03020a]/85 backdrop-blur-xl border-b border-white/10 isolate"
+            : "bg-white/90 backdrop-blur-xl border-b border-black/8 isolate"
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-8 lg:px-14 flex items-center justify-between">
@@ -68,10 +120,10 @@ export default function Navbar() {
             <Image
               src="/sm-logo.png"
               alt="Sahand Mohammed Logo"
-              width={44}
-              height={44}
+              width={72}
+              height={72}
               priority
-              className={`h-10 w-auto object-contain transition-all duration-300 ${
+              className={`h-14 lg:h-16 w-auto object-contain transition-all duration-300 group-hover:scale-105 ${
                 isOnDarkTop ? "invert-0" : "invert"
               }`}
             />
@@ -104,21 +156,31 @@ export default function Navbar() {
             </nav>
 
             <div className="flex items-center gap-5">
-              <button
-                onClick={() =>
-                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
-                }
-                className={`p-1.5 rounded-full transition-opacity hover:opacity-60 cursor-pointer ${
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.88 }}
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors hover:opacity-70 cursor-pointer flex items-center justify-center relative ${
                   isOnDarkTop ? "text-white" : "text-[#09090f]"
                 }`}
                 aria-label="Toggle Theme"
               >
-                {resolvedTheme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={resolvedTheme}
+                    initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  >
+                    {resolvedTheme === "dark" ? (
+                      <Sun className="w-4 h-4" />
+                    ) : (
+                      <Moon className="w-4 h-4" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.button>
 
               <a
                 href={isHome ? "#contact" : "/#contact"}
@@ -136,13 +198,11 @@ export default function Navbar() {
 
       {/* Mobile Navbar */}
       <div className="md:hidden fixed top-0 w-full z-50 p-4">
-        <motion.div
-          layout
-          transition={{ type: "spring", bounce: 0, duration: 0.35 }}
-          className={`flex flex-col rounded-2xl border backdrop-blur-xl isolate ${
+        <div
+          className={`flex flex-col rounded-2xl border transition-[background-color,border-color,color] duration-300 isolate ${
             isOnDarkTop
-              ? "bg-[#050314]/85 border-white/15 text-white"
-              : "bg-white/92 border-black/10 text-[#09090f]"
+              ? "bg-black/40 border-transparent backdrop-blur-md text-white"
+              : "bg-white/92 border-black/10 backdrop-blur-xl text-[#09090f]"
           }`}
         >
           <div className="flex justify-between items-center px-4 py-3">
@@ -150,28 +210,38 @@ export default function Navbar() {
               <Image
                 src="/sm-logo.png"
                 alt="Sahand Logo"
-                width={34}
-                height={34}
-                className={`h-8 w-auto object-contain ${
+                width={48}
+                height={48}
+                className={`h-11 w-auto object-contain ${
                   isOnDarkTop ? "invert-0" : "invert"
                 }`}
               />
             </Link>
 
             <div className="flex items-center gap-2">
-              <button
-                onClick={() =>
-                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
-                }
-                className="p-2 rounded-full hover:opacity-70 transition-opacity cursor-pointer"
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.88 }}
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:opacity-70 transition-colors cursor-pointer flex items-center justify-center relative"
                 aria-label="Toggle Theme"
               >
-                {resolvedTheme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={resolvedTheme}
+                    initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  >
+                    {resolvedTheme === "dark" ? (
+                      <Sun className="w-4 h-4" />
+                    ) : (
+                      <Moon className="w-4 h-4" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-1.5 rounded-full hover:opacity-70 transition-opacity cursor-pointer"
@@ -228,7 +298,7 @@ export default function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </>
   );

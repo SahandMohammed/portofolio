@@ -25,7 +25,7 @@ export default function Contact() {
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.15 }}
         >
           <motion.div
             variants={fadeInUp}

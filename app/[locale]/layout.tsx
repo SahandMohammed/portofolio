@@ -27,6 +27,17 @@ export const metadata: Metadata = {
   title: "Sahand Mohammed | Software Engineer",
   description:
     "Portfolio of Sahand Mohammed, a Software Engineer specializing in Web and Mobile Applications.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png" },
+    ],
+  },
+  manifest: "/manifest.json",
 };
 
 export default async function RootLayout({
