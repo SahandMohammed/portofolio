@@ -198,7 +198,7 @@ export default function TableOfContents({
   if (items.length === 0) return null;
 
   return (
-    <aside className="sticky top-32">
+    <aside className="sticky top-32 w-48">
       <div className="text-[10px] font-mono uppercase tracking-widest text-black/40 dark:text-white/40 mb-2.5 pl-3">
         On this page
       </div>

@@ -58,7 +58,7 @@ export default async function BlogPost({
       <div className="unified-bg" />
       <div className="bg-glow" />
 
-      <main className="min-h-screen pt-32 pb-24 px-8 lg:px-14 max-w-5xl mx-auto relative z-10">
+      <main className="min-h-screen pt-32 pb-24 px-8 lg:px-14 max-w-7xl mx-auto relative z-10">
         <AnimatedContainer>
           {/* Back Navigation */}
           <AnimatedItem>
@@ -96,7 +96,7 @@ export default async function BlogPost({
               {post.title}
             </h1>
 
-            <p className="text-lg md:text-xl text-[#09090f]/75 dark:text-white/75 leading-relaxed mb-10 max-w-3xl">
+            <p className="text-lg md:text-xl text-[#09090f]/75 dark:text-white/75 leading-relaxed mb-10 max-w-4xl">
               {post.excerpt}
             </p>
           </AnimatedItem>
@@ -119,16 +119,21 @@ export default async function BlogPost({
           </AnimatedItem>
 
           {/* MDX Article Body + Right Minimal TOC */}
-          <AnimatedItem className="relative">
-            <article id="mdx-article" className="max-w-3xl mx-auto">
-              <MDXContent source={post.content} />
-            </article>
+          <AnimatedItem>
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-12 xl:gap-16 items-start justify-center">
+              <article
+                id="mdx-article"
+                className="w-full max-w-4xl mx-auto xl:mx-0 min-w-0"
+              >
+                <MDXContent source={post.content} />
+              </article>
 
-            {headings.length > 0 && (
-              <div className="hidden xl:block absolute top-0 bottom-0 left-[calc(50%+25.5rem)] w-44">
-                <TableOfContents items={headings} articleId="mdx-article" />
-              </div>
-            )}
+              {headings.length > 0 && (
+                <div className="hidden xl:block w-48 shrink-0">
+                  <TableOfContents items={headings} articleId="mdx-article" />
+                </div>
+              )}
+            </div>
           </AnimatedItem>
 
           {/* Footer Strip */}
