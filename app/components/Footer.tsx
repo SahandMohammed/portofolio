@@ -111,7 +111,7 @@ export default function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted"
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 mt-16 md:mt-24 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted"
       >
         <p>{t("rights", { year: new Date().getFullYear() })}</p>
 
