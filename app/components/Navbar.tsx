@@ -12,8 +12,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -21,11 +20,6 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
@@ -64,7 +58,7 @@ export default function Navbar() {
           },
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 justify-between items-center px-8 py-4 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg dark:bg-white/5 dark:border-white/10 ring-1 ring-black/5 cursor-pointer hover:shadow-xl hover:shadow-primary/10 hover:border-white/20 active:shadow-2xl active:shadow-primary/20 hover:backdrop-blur-2xl transition-shadow"
+        className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 justify-between items-center px-8 py-4 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#030014]/75 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 cursor-pointer hover:shadow-xl hover:shadow-primary/10 hover:border-black/15 dark:hover:border-white/20 active:shadow-2xl active:shadow-primary/20 hover:backdrop-blur-2xl transition-shadow isolate"
       >
         {/* Left group - Logo */}
         <Link href="/" className="flex items-center gap-2 group">
@@ -82,7 +76,7 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-full transition-all"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-all"
             >
               {link.name}
             </a>
@@ -95,7 +89,7 @@ export default function Navbar() {
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
-            className="p-2.5 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+            className="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             aria-label="Toggle Theme"
           >
             {resolvedTheme === "dark" ? (
@@ -111,7 +105,7 @@ export default function Navbar() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#contact"
+            href={isHome ? "#contact" : "/#contact"}
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
           >
             {t("contact")} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -124,7 +118,7 @@ export default function Navbar() {
         <motion.div
           layout
           transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-          className="flex flex-col rounded-3xl border border-white/10 bg-black/50 backdrop-blur-xl shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:border-white/10"
+          className="flex flex-col rounded-3xl border border-black/10 dark:border-white/10 bg-white/85 dark:bg-[#030014]/80 backdrop-blur-xl shadow-lg ring-1 ring-black/5 dark:ring-white/5 isolate"
         >
           <div className="flex justify-between items-center p-4">
             <Link href="/" className="flex items-center gap-2">
@@ -139,7 +133,7 @@ export default function Navbar() {
                 onClick={() =>
                   setTheme(resolvedTheme === "dark" ? "light" : "dark")
                 }
-                className="p-2 rounded-full hover:bg-white/10 text-foreground transition-colors cursor-pointer"
+                className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-foreground transition-colors cursor-pointer"
               >
                 {resolvedTheme === "dark" ? (
                   <Sun className="w-5 h-5" />
@@ -149,7 +143,7 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-foreground p-1 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                className="text-foreground p-1 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors cursor-pointer"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -180,21 +174,21 @@ export default function Navbar() {
                 className="overflow-hidden"
               >
                 <div className="px-4 pb-4 flex flex-col gap-2">
-                  <div className="h-px bg-white/10 my-1" />
+                  <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
                   {navLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}
-                      className="p-3 rounded-xl hover:bg-white/10 transition-colors text-muted-foreground hover:text-foreground font-medium flex items-center justify-between group"
+                      className="p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-muted-foreground hover:text-foreground font-medium flex items-center justify-between group"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.name}
                       <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" />
                     </a>
                   ))}
-                  <div className="h-px bg-white/10 my-2" />
+                  <div className="h-px bg-black/10 dark:bg-white/10 my-2" />
                   <a
-                    href="#contact"
+                    href={isHome ? "#contact" : "/#contact"}
                     className="p-3 text-center rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                     onClick={() => setIsOpen(false)}
                   >

@@ -6,6 +6,7 @@ import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import Blogs from "../components/Blogs";
+import SnapScrollContainer from "../components/SnapScrollContainer";
 import { getAllBlogPosts } from "../lib/blog";
 
 interface PageProps {
@@ -22,8 +23,8 @@ export default async function Home({ params }: PageProps) {
       <div className="unified-bg" />
       <div className="bg-glow" />
 
-      {/* Scroll Snap Container */}
-      <div className="scroll-container">
+      {/* Controlled Section-Snap Container */}
+      <SnapScrollContainer>
         <Hero />
         <Skills />
         <CloudServices />
@@ -32,7 +33,7 @@ export default async function Home({ params }: PageProps) {
         <Blogs posts={posts} />
         <Contact />
         <Footer />
-      </div>
+      </SnapScrollContainer>
     </>
   );
 }
