@@ -1,149 +1,174 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
-import SectionBackground from "./SectionBackground";
-import TypeWriter from "./TypeWriter";
 
 export default function Hero() {
   const t = useTranslations("Hero");
 
-  // Magnetic/Parallax Effect
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const springConfig = { stiffness: 100, damping: 20 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  function handleMouseMove(event: React.MouseEvent<HTMLElement>) {
-    const { clientX, clientY } = event;
-    const { innerWidth, innerHeight } = window;
-
-    // Calculate distance from center
-    const centerX = innerWidth / 2;
-    const centerY = innerHeight / 2;
-
-    // Move content slightly towards mouse (magnetic feel)
-    // Adjust divisor to control sensitivity (higher = less movement)
-    x.set((clientX - centerX) / 25);
-    y.set((clientY - centerY) / 25);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
+  const stackAvatars = [
+    {
+      name: "Next.js",
+      icon: "https://cdn.simpleicons.org/nextdotjs/000000",
+    },
+    {
+      name: "React",
+      icon: "https://cdn.simpleicons.org/react/087ea4",
+    },
+    {
+      name: "Node.js",
+      icon: "https://cdn.simpleicons.org/nodedotjs/339933",
+    },
+    {
+      name: "NestJS",
+      icon: "https://cdn.simpleicons.org/nestjs/e0234e",
+    },
+  ];
 
   return (
     <section
       id="about"
-      className="snap-section relative flex items-center justify-center min-h-[100dvh]"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      className="snap-section oxaley-hero-bg relative flex flex-col justify-between min-h-[100dvh] pt-28 pb-8 md:pb-10"
     >
-      {/* Section-specific decorative elements */}
-      <SectionBackground variant="hero" />
-
+      {/* Main Editorial Split Area */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        style={{ x: springX, y: springY }}
-        className="container mx-auto px-6 z-10 text-center"
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto z-10"
       >
-        <motion.div variants={fadeInUp}>
-          {/* <span className="inline-block py-1 px-3 rounded-full bg-surface text-sm font-medium text-primary mb-6">
-            {t("available")}
-          </span> */}
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">
-            {t("greeting")} <TypeWriter text={t("name")} delay={80} />
-          </h1>
-          <p className="text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-8 leading-relaxed">
-            {t("role")}
-          </p>
-        </motion.div>
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
+          {/* Left - Monumental Stacked Typography (matching image copy.png) */}
+          <motion.div variants={fadeInUp} className="max-w-2xl">
+            <h1 className="text-5xl sm:text-7xl lg:text-[5.4rem] font-medium tracking-[-0.04em] leading-[0.98]">
+              <span className="block text-white">{t("greeting")}</span>
+              <span className="block text-white">{t("name")}</span>
+              <span className="block text-white/40 mt-1">Software</span>
+              <span className="block text-white/40">Engineer.</span>
+            </h1>
 
-        <motion.div
-          variants={fadeInUp}
-          className="flex flex-col md:flex-row items-center justify-center gap-4"
-        >
+            {/* Overlapping Circular Stack Badges (matching the 4 overlapping circles in image copy.png) */}
+            <div className="mt-9 flex items-center">
+              <div className="flex -space-x-2.5">
+                {stackAvatars.map((tech) => (
+                  <div
+                    key={tech.name}
+                    title={tech.name}
+                    className="w-11 h-11 rounded-full bg-white border-2 border-[#1e1568] flex items-center justify-center shadow-md"
+                  >
+                    <img
+                      src={tech.icon}
+                      alt={tech.name}
+                      className="w-5 h-5 object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="ml-5 flex items-center gap-3 text-white/70">
+                {[
+                  {
+                    Icon: Github,
+                    href: "https://github.com/sahandmohammed",
+                    label: "GitHub",
+                  },
+                  {
+                    Icon: Linkedin,
+                    href: "https://www.linkedin.com/in/sahandmohammed/",
+                    label: "LinkedIn",
+                  },
+                  {
+                    Icon: Mail,
+                    href: "mailto:sahandmohammed.a@gmail.com",
+                    label: "Email",
+                  },
+                ].map(({ Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="hover:text-white transition-colors"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right - Understated Editorial Statement */}
+          <motion.div
+            variants={fadeInUp}
+            className="md:max-w-xs md:text-right md:pt-4"
+          >
+            <p className="text-sm md:text-base text-white/65 leading-snug tracking-tight">
+              {t("role")}
+            </p>
+            <a
+              href="/resume.pdf"
+              className="inline-block mt-4 text-xs uppercase tracking-widest text-white/80 hover:text-white border-b border-white/30 pb-0.5 transition-colors"
+            >
+              {t("downloadCv")}
+            </a>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Bottom Bar - Anchored on the White Horizon Glow (matching image copy.png) */}
+      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 z-10 pt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Left - SEE OUR PORTFOLIO */}
           <a
             href="#projects"
-            className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full btn-gradient-loop px-8 font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]"
+            className="text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] hover:opacity-60 transition-opacity"
           >
-            <span className="mr-2">{t("viewProjects")}</span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+            {t("viewProjects")}
           </a>
+
+          {/* Center - 3 Sleek Dark Rounded-XL Preview Tiles */}
+          <div className="hidden lg:flex items-center gap-3">
+            {[
+              { label: "Web Platforms", sub: "Next.js / NestJS", href: "#projects" },
+              { label: "Mobile Apps", sub: "Flutter / Dart", href: "#projects" },
+              { label: "Cloud & DevOps", sub: "Linux / Docker", href: "#cloud-services" },
+            ].map((item, idx) => (
+              <a
+                key={idx}
+                href={item.href}
+                className="group w-40 h-20 rounded-xl bg-[#070612] text-white p-3.5 flex flex-col justify-between overflow-hidden relative shadow-lg hover:-translate-y-0.5 transition-transform"
+              >
+                <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-indigo-500/25 blur-xl group-hover:bg-indigo-400/40 transition-colors" />
+                <span className="text-[10px] font-mono text-white/45">
+                  0{idx + 1}
+                </span>
+                <div>
+                  <div className="text-xs font-medium tracking-tight text-white">
+                    {item.label}
+                  </div>
+                  <div className="text-[10px] text-white/50">{item.sub}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Right - SCROLL NOW + Circular Down Arrow */}
           <a
-            href="/resume.pdf" // Placeholder
-            className="group inline-flex h-12 items-center justify-center rounded-full border border-[var(--surface-border)] bg-surface px-8 font-medium text-foreground transition-all duration-300 hover:bg-[var(--surface-border)] hover:scale-105"
+            href="#skills"
+            className="group inline-flex items-center gap-4 text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] hover:opacity-70 transition-opacity"
           >
-            <Download className="mr-2 h-4 w-4" />
-            {t("downloadCv")}
+            <span>Scroll Now</span>
+            <span className="w-9 h-9 rounded-full border border-[#09090f]/40 flex items-center justify-center group-hover:translate-y-0.5 transition-transform">
+              <ArrowDown className="w-4 h-4" />
+            </span>
           </a>
-        </motion.div>
-
-        {/* Tech Stack Icons */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-12 flex items-center justify-center gap-8 md:gap-12 opacity-80"
-        >
-          {[
-            {
-              name: "Next.js",
-              icon: "https://cdn.simpleicons.org/nextdotjs/000000/ffffff",
-            },
-            {
-              name: "React",
-              icon: "https://cdn.simpleicons.org/react",
-            },
-            {
-              name: "Node.js",
-              icon: "https://cdn.simpleicons.org/nodedotjs",
-            },
-            {
-              name: "NestJS",
-              icon: "https://cdn.simpleicons.org/nestjs",
-            },
-          ].map((tech) => (
-            <img
-              key={tech.name}
-              src={tech.icon}
-              alt={tech.name}
-              title={tech.name}
-              className="h-8 w-8 md:h-10 md:w-10 hover:scale-110 transition-transform duration-300"
-            />
-          ))}
-        </motion.div>
-
-        <motion.div
-          variants={fadeInUp}
-          className="mt-12 flex items-center justify-center gap-6"
-        >
-          {[
-            { Icon: Github, href: "https://github.com/sahandmohammed" },
-            {
-              Icon: Linkedin,
-              href: "https://www.linkedin.com/in/sahandmohammed/",
-            },
-            { Icon: Mail, href: "mailto:sahandmohammed.a@gmail.com" },
-          ].map(({ Icon, href }, i) => (
-            <a
-              key={i}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted hover:text-foreground hover:scale-110 transition-all p-2"
-            >
-              <Icon className="h-6 w-6" />
-            </a>
-          ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

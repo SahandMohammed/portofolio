@@ -1,80 +1,72 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cloud, Server, Shield, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
-import SectionBackground from "./SectionBackground";
 
 export default function CloudServices() {
   const t = useTranslations("CloudServices");
 
   const services = [
-    {
-      key: "infrastructure",
-      icon: Cloud,
-    },
-    {
-      key: "server",
-      icon: Server,
-    },
-    {
-      key: "environment",
-      icon: Settings,
-    },
-    {
-      key: "security",
-      icon: Shield,
-    },
+    { key: "infrastructure", num: "01" },
+    { key: "server", num: "02" },
+    { key: "environment", num: "03" },
+    { key: "security", num: "04" },
   ];
 
   return (
     <section
       id="cloud-services"
-      className="snap-section py-20 relative block md:flex md:items-center"
+      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
     >
-      <SectionBackground variant="cloud" />
-
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6 w-full"
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
-        <motion.div variants={fadeInUp} className="mb-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            {t.rich("title", {
-              gradient: (chunks) => (
-                <span className="text-gradient">{chunks}</span>
-              ),
-            })}
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Editorial Statement */}
+          <motion.div variants={fadeInUp} className="lg:col-span-5">
+            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.035em] text-[#09090f] dark:text-white leading-[1.02] mb-6">
+              {t.rich("title", {
+                gradient: (chunks) => (
+                  <span className="text-black/40 dark:text-white/40 block">
+                    {chunks}
+                  </span>
+                ),
+              })}
+            </h2>
+            <p className="text-muted text-sm md:text-base max-w-sm leading-relaxed">
+              {t("subtitle")}
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, idx) => (
-            <motion.div
-              key={idx}
-              variants={fadeInUp}
-              className="glass p-8 rounded-2xl border-l-4 border-l-primary hover:bg-surface transition-all group"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                  <service.icon className="w-8 h-8" />
+          {/* Right Architectural Hairline Grid (No boxy AI cards) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 border-t border-black/12 dark:border-white/12">
+            {services.map((service, idx) => (
+              <motion.div
+                key={service.key}
+                variants={fadeInUp}
+                className={`py-8 sm:p-8 border-b border-black/12 dark:border-white/12 ${
+                  idx % 2 === 1
+                    ? "sm:border-l sm:border-black/12 dark:sm:border-white/12"
+                    : "sm:pl-0"
+                }`}
+              >
+                <div className="text-xs font-mono text-black/40 dark:text-white/40 mb-6">
+                  ({service.num})
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
-                    {t(`services.${service.key}.title`)}
-                  </h3>
-                  <p className="text-muted leading-relaxed">
-                    {t(`services.${service.key}.description`)}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                <h3 className="text-xl md:text-2xl font-medium tracking-tight text-[#09090f] dark:text-white mb-3">
+                  {t(`services.${service.key}.title`)}
+                </h3>
+                <p className="text-muted text-sm leading-relaxed">
+                  {t(`services.${service.key}.description`)}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>

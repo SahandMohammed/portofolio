@@ -1,10 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
-import SectionBackground from "./SectionBackground";
 
 export default function Education() {
   const t = useTranslations("Education");
@@ -12,80 +10,66 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="snap-section py-20 relative block md:flex md:items-center"
+      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
     >
-      <SectionBackground variant="education" />
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6 w-full"
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
-        <motion.div variants={fadeInUp} className="mb-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            {t.rich("title", {
-              gradient: (chunks) => (
-                <span className="text-gradient">{chunks}</span>
-              ),
-            })}
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-t border-black/12 dark:border-white/12 pt-12">
+          {/* Left Editorial Heading */}
+          <motion.div variants={fadeInUp} className="lg:col-span-5">
+            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.035em] text-[#09090f] dark:text-white leading-[1.02] mb-6">
+              {t.rich("title", {
+                gradient: (chunks) => (
+                  <span className="text-black/40 dark:text-white/40 block">
+                    {chunks}
+                  </span>
+                ),
+              })}
+            </h2>
+            <p className="text-muted text-sm md:text-base max-w-sm leading-relaxed">
+              {t("subtitle")}
+            </p>
+          </motion.div>
 
-        <div className="w-full">
-          <motion.div
-            variants={fadeInUp}
-            className="glass p-8 rounded-2xl border-l-4 border-l-primary hover:bg-surface transition-all group relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <GraduationCap className="w-32 h-32 text-primary" />
+          {/* Right Clean Editorial Specification (No boxy AI card) */}
+          <motion.div variants={fadeInUp} className="lg:col-span-7">
+            <div className="text-xs font-mono uppercase tracking-widest text-black/45 dark:text-white/45 mb-3">
+              {t("location")}
             </div>
 
-            <div className="flex flex-col md:flex-row gap-6 items-start relative z-10">
-              <div className="p-4 rounded-xl bg-primary/10 text-primary">
-                <GraduationCap className="w-8 h-8" />
-              </div>
+            <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-[#09090f] dark:text-white mb-2">
+              {t("degree")}
+            </h3>
 
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-foreground mb-2">
-                  {t("degree")}
-                </h3>
-                <h4 className="text-xl text-primary font-medium mb-4">
-                  {t("university")}
-                </h4>
+            <div className="text-lg md:text-xl text-black/55 dark:text-white/55 mb-8">
+              {t("university")}
+            </div>
 
-                <div className="flex flex-wrap gap-4 text-muted text-sm mb-6">
-                  {/* <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>Graduated 20XX</span> 
-                  </div> */}
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    <span>{t("location")}</span>
-                  </div>
-                </div>
+            <p className="text-muted text-base leading-relaxed max-w-2xl mb-10">
+              {t("description")}
+            </p>
 
-                <p className="text-muted leading-relaxed mb-6">
-                  {t("description")}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Software Engineering",
-                    "System Analysis",
-                    "Data Structures",
-                    "Algorithms",
-                  ].map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-xs rounded-full bg-surface border border-[var(--surface-border)] text-muted"
-                    >
-                      {tag}
+            <div className="pt-6 border-t border-black/12 dark:border-white/12 flex flex-wrap gap-x-6 gap-y-2 text-sm text-black/60 dark:text-white/60">
+              {[
+                "Software Engineering",
+                "System Analysis",
+                "Data Structures",
+                "Algorithms",
+              ].map((tag, idx, arr) => (
+                <span key={tag}>
+                  {tag}
+                  {idx < arr.length - 1 && (
+                    <span className="ml-6 text-black/20 dark:text-white/20">
+                      ,
                     </span>
-                  ))}
-                </div>
-              </div>
+                  )}
+                </span>
+              ))}
             </div>
           </motion.div>
         </div>

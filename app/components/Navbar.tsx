@@ -2,16 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, Sun, Moon, ArrowRight } from "lucide-react";
+import { Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/routing";
 import Link from "next/link";
-// Language switcher hidden for now - uncomment when ready
-// import LanguageSwitcher from "./LanguageSwitcher";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [sectionIndex, setSectionIndex] = useState(0);
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -20,6 +20,17 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
+
+    const handleSectionChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ index: number }>;
+      if (typeof customEvent.detail?.index === "number") {
+        setSectionIndex(customEvent.detail.index);
+      }
+    };
+
+    window.addEventListener("sectionchange", handleSectionChange);
+    return () =>
+      window.removeEventListener("sectionchange", handleSectionChange);
   }, []);
 
   const navLinks = [
@@ -35,97 +46,116 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
+  // On Hero (index 0) and Footer (index 7), the top is pure black from the Oxaley gradient
+  const isOnOxaleySection = isHome && (sectionIndex === 0 || sectionIndex === 7);
+  const isOnDarkTop = isOnOxaleySection || resolvedTheme === "dark";
+
   return (
     <>
-      {/* Desktop Floating Navbar */}
-      <motion.nav
-        initial={{ y: -100, opacity: 0, width: 780 }}
-        animate={{ y: 0, opacity: 1, width: 780 }}
-        whileHover={{
-          width: 850,
-          transition: {
-            type: "spring",
-            stiffness: 400,
-            damping: 25,
-          },
-        }}
-        whileTap={{
-          width: 820,
-          transition: {
-            type: "spring",
-            stiffness: 300,
-            damping: 20,
-          },
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 justify-between items-center px-8 py-4 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-[#030014]/75 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 cursor-pointer hover:shadow-xl hover:shadow-primary/10 hover:border-black/15 dark:hover:border-white/20 active:shadow-2xl active:shadow-primary/20 hover:backdrop-blur-2xl transition-shadow isolate"
+      {/* Desktop Navbar - Oxaley Minimalist Editorial Bar */}
+      <header
+        className={`hidden md:block fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          isOnOxaleySection
+            ? "bg-transparent py-7"
+            : resolvedTheme === "dark"
+            ? "bg-[#03020a]/85 backdrop-blur-xl border-b border-white/10 py-4 isolate"
+            : "bg-white/90 backdrop-blur-xl border-b border-black/8 py-4 isolate"
+        }`}
       >
-        {/* Left group - Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
-            <Code2 className="text-primary group-hover:text-white w-5 h-5 transition-colors" />
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-14 flex items-center justify-between">
+          {/* Left - User's SM Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <Image
+              src="/sm-logo.png"
+              alt="Sahand Mohammed Logo"
+              width={44}
+              height={44}
+              priority
+              className={`h-10 w-auto object-contain transition-all duration-300 ${
+                isOnDarkTop ? "invert-0" : "invert"
+              }`}
+            />
+          </Link>
+
+          {/* Right Group - Comma-separated links + CONTACT US -> (matching image copy.png) */}
+          <div className="flex items-center gap-12 lg:gap-20">
+            <nav className="flex items-center text-sm tracking-tight">
+              {navLinks.map((link, idx) => (
+                <React.Fragment key={link.name}>
+                  <a
+                    href={link.href}
+                    className={`transition-opacity hover:opacity-60 ${
+                      isOnDarkTop ? "text-white" : "text-[#09090f]"
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                  {idx < navLinks.length - 1 && (
+                    <span
+                      className={`mx-2 select-none ${
+                        isOnDarkTop ? "text-white/50" : "text-black/40"
+                      }`}
+                    >
+                      ,
+                    </span>
+                  )}
+                </React.Fragment>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-5">
+              <button
+                onClick={() =>
+                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                }
+                className={`p-1.5 rounded-full transition-opacity hover:opacity-60 cursor-pointer ${
+                  isOnDarkTop ? "text-white" : "text-[#09090f]"
+                }`}
+                aria-label="Toggle Theme"
+              >
+                {resolvedTheme === "dark" ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+              </button>
+
+              <a
+                href={isHome ? "#contact" : "/#contact"}
+                className={`group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest transition-opacity hover:opacity-70 ${
+                  isOnDarkTop ? "text-white" : "text-[#09090f]"
+                }`}
+              >
+                <span>{t("contact")}</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+              </a>
+            </div>
           </div>
-          <span className="font-syne font-bold text-lg tracking-tight text-foreground">
-            Sahand
-          </span>
-        </Link>
-
-        {/* Center group - Nav Links */}
-        <div className="flex items-center gap-1 relative z-10">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-all"
-            >
-              {link.name}
-            </a>
-          ))}
         </div>
-
-        {/* Right group - Actions */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-            className="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-            aria-label="Toggle Theme"
-          >
-            {resolvedTheme === "dark" ? (
-              <Sun className="w-4 h-4" />
-            ) : (
-              <Moon className="w-4 h-4" />
-            )}
-          </button>
-
-          {/* Language switcher hidden for now - uncomment when ready */}
-          {/* <LanguageSwitcher /> */}
-
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href={isHome ? "#contact" : "/#contact"}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
-          >
-            {t("contact")} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-          </motion.a>
-        </div>
-      </motion.nav>
+      </header>
 
       {/* Mobile Navbar */}
       <div className="md:hidden fixed top-0 w-full z-50 p-4">
         <motion.div
           layout
-          transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-          className="flex flex-col rounded-3xl border border-black/10 dark:border-white/10 bg-white/85 dark:bg-[#030014]/80 backdrop-blur-xl shadow-lg ring-1 ring-black/5 dark:ring-white/5 isolate"
+          transition={{ type: "spring", bounce: 0, duration: 0.35 }}
+          className={`flex flex-col rounded-2xl border backdrop-blur-xl isolate ${
+            isOnDarkTop
+              ? "bg-[#050314]/85 border-white/15 text-white"
+              : "bg-white/92 border-black/10 text-[#09090f]"
+          }`}
         >
-          <div className="flex justify-between items-center p-4">
+          <div className="flex justify-between items-center px-4 py-3">
             <Link href="/" className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <Code2 className="text-primary w-5 h-5" />
-              </div>
-              <span className="font-syne font-bold text-lg">Sahand</span>
+              <Image
+                src="/sm-logo.png"
+                alt="Sahand Logo"
+                width={34}
+                height={34}
+                className={`h-8 w-auto object-contain ${
+                  isOnDarkTop ? "invert-0" : "invert"
+                }`}
+              />
             </Link>
 
             <div className="flex items-center gap-2">
@@ -133,30 +163,32 @@ export default function Navbar() {
                 onClick={() =>
                   setTheme(resolvedTheme === "dark" ? "light" : "dark")
                 }
-                className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-foreground transition-colors cursor-pointer"
+                className="p-2 rounded-full hover:opacity-70 transition-opacity cursor-pointer"
+                aria-label="Toggle Theme"
               >
                 {resolvedTheme === "dark" ? (
-                  <Sun className="w-5 h-5" />
+                  <Sun className="w-4 h-4" />
                 ) : (
-                  <Moon className="w-5 h-5" />
+                  <Moon className="w-4 h-4" />
                 )}
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-foreground p-1 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                className="p-1.5 rounded-full hover:opacity-70 transition-opacity cursor-pointer"
+                aria-label="Toggle Menu"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={isOpen ? "close" : "open"}
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
                   >
                     {isOpen ? (
-                      <X className="w-6 h-6" />
+                      <X className="w-5 h-5" />
                     ) : (
-                      <Menu className="w-6 h-6" />
+                      <Menu className="w-5 h-5" />
                     )}
                   </motion.div>
                 </AnimatePresence>
@@ -170,29 +202,27 @@ export default function Navbar() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div className="px-4 pb-4 flex flex-col gap-2">
-                  <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+                <div className="px-4 pb-4 flex flex-col gap-1">
+                  <div className="h-px bg-current/10 my-1" />
                   {navLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}
-                      className="p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-muted-foreground hover:text-foreground font-medium flex items-center justify-between group"
+                      className="px-2 py-2.5 text-sm font-medium hover:opacity-60 transition-opacity"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.name}
-                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" />
                     </a>
                   ))}
-                  <div className="h-px bg-black/10 dark:bg-white/10 my-2" />
                   <a
                     href={isHome ? "#contact" : "/#contact"}
-                    className="p-3 text-center rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+                    className="mt-2 py-2.5 text-center rounded-xl bg-current/10 text-xs font-semibold uppercase tracking-widest"
                     onClick={() => setIsOpen(false)}
                   >
-                    {t("contact")}
+                    {t("contact")} →
                   </a>
                 </div>
               </motion.div>

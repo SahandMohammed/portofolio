@@ -1,10 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Server, Terminal, Cpu, Globe, Database } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer } from "../lib/animations";
-import SectionBackground from "./SectionBackground";
 
 export default function Skills() {
   const t = useTranslations("Skills");
@@ -12,7 +10,7 @@ export default function Skills() {
   const skills = [
     {
       key: "frontend",
-      icon: Globe,
+      num: "01",
       items: [
         "Next.js",
         "React",
@@ -22,12 +20,10 @@ export default function Skills() {
         "Flutter",
         "Dart",
       ],
-      gradient: "from-blue-500/20 to-cyan-500/20",
-      border: "group-hover:border-blue-500/50",
     },
     {
       key: "backend",
-      icon: Server,
+      num: "02",
       items: [
         "Node.js",
         "NestJS",
@@ -37,12 +33,10 @@ export default function Skills() {
         "PostgreSQL",
         "Firebase",
       ],
-      gradient: "from-purple-500/20 to-pink-500/20",
-      border: "group-hover:border-purple-500/50",
     },
     {
       key: "devops",
-      icon: Terminal,
+      num: "03",
       items: [
         "Git",
         "Docker",
@@ -52,69 +46,73 @@ export default function Skills() {
         "Linux",
         "AWS Basics",
       ],
-      gradient: "from-orange-500/20 to-red-500/20",
-      border: "group-hover:border-orange-500/50",
     },
   ];
 
   return (
     <section
       id="skills"
-      className="snap-section py-20 relative block md:flex md:items-center"
+      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
     >
-      <SectionBackground variant="skills" />
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container mx-auto px-6 w-full"
+        className="w-full max-w-[1400px] mx-auto px-8 lg:px-14"
       >
-        <motion.div variants={fadeInUp} className="mb-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
+        {/* Editorial Header */}
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
+        >
+          <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.035em] text-[#09090f] dark:text-white leading-[1.02]">
             {t.rich("title", {
               gradient: (chunks) => (
-                <span className="text-gradient">{chunks}</span>
+                <span className="text-black/40 dark:text-white/40 block">
+                  {chunks}
+                </span>
               ),
             })}
           </h2>
-          <p className="text-muted max-w-2xl mx-auto">{t("subtitle")}</p>
+          <p className="text-muted max-w-sm text-sm md:text-base leading-snug">
+            {t("subtitle")}
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skills.map((skill, idx) => (
+        {/* Clean Editorial Hairline Rows (No boxy AI cards) */}
+        <div className="border-t border-black/12 dark:border-white/12">
+          {skills.map((skill) => (
             <motion.div
               key={skill.key}
               variants={fadeInUp}
-              className={`group relative p-8 rounded-3xl border border-[var(--surface-border)] bg-[var(--card-bg)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 ${skill.border}`}
+              className="group py-8 md:py-10 border-b border-black/12 dark:border-white/12 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline transition-colors"
             >
-              {/* Gradient Background Effect on Hover */}
-              <div
-                className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10`}
-              />
-
-              <div className="flex items-center gap-4 mb-6">
-                <div
-                  className={`p-3 rounded-2xl bg-surface border border-[var(--surface-border)]`}
-                >
-                  <skill.icon className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground">
-                  {t(`${skill.key}.title`)}
-                </h3>
+              <div className="md:col-span-1 text-xs font-mono text-black/40 dark:text-white/40">
+                ({skill.num})
               </div>
 
-              <p className="text-muted text-sm mb-6 leading-relaxed">
-                {t(`${skill.key}.description`)}
-              </p>
+              <div className="md:col-span-4">
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-[#09090f] dark:text-white mb-1.5">
+                  {t(`${skill.key}.title`)}
+                </h3>
+                <p className="text-muted text-sm leading-relaxed">
+                  {t(`${skill.key}.description`)}
+                </p>
+              </div>
 
-              <div className="flex flex-wrap gap-2">
-                {skill.items.map((item) => (
+              <div className="md:col-span-7 flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
+                {skill.items.map((item, i) => (
                   <span
                     key={item}
-                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-surface border border-[var(--surface-border)] text-muted-foreground group-hover:text-foreground group-hover:border-primary/20 transition-all cursor-default"
+                    className="text-sm md:text-base text-[#09090f]/80 dark:text-white/80 font-normal"
                   >
                     {item}
+                    {i < skill.items.length - 1 && (
+                      <span className="ml-6 text-black/20 dark:text-white/20">
+                        /
+                      </span>
+                    )}
                   </span>
                 ))}
               </div>

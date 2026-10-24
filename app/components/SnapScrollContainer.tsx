@@ -28,6 +28,16 @@ export default function SnapScrollContainer({
   const rafIdRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
 
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-section-index",
+      String(activeIndex)
+    );
+    window.dispatchEvent(
+      new CustomEvent("sectionchange", { detail: { index: activeIndex } })
+    );
+  }, [activeIndex]);
+
   const getSections = useCallback((): HTMLElement[] => {
     if (!containerRef.current) return [];
     return Array.from(
