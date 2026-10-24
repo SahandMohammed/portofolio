@@ -11,11 +11,11 @@ export default function Hero() {
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string
+    targetId: string,
   ) => {
     e.preventDefault();
     const container = document.querySelector(
-      ".scroll-container"
+      ".scroll-container",
     ) as HTMLElement | null;
     const target = document.querySelector(targetId);
     if (!target) return;
@@ -173,7 +173,7 @@ export default function Hero() {
               {t("role")}
             </p>
             <a
-              href="/resume.pdf"
+              href="/files/resume.pdf"
               className="inline-block mt-4 text-xs uppercase tracking-widest text-white/80 hover:text-white border-b border-white/30 pb-0.5 transition-colors"
             >
               {t("downloadCv")}
