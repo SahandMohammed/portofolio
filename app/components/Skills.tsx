@@ -52,7 +52,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
+      className="snap-section py-24 relative flex items-center bg-transparent"
     >
       <motion.div
         variants={staggerContainer}
@@ -92,7 +92,7 @@ export default function Skills() {
                 ({skill.num})
               </div>
 
-              <div className="md:col-span-4">
+              <div className="md:col-span-4 lg:col-span-3">
                 <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-[#09090f] dark:text-white mb-1.5">
                   {t(`${skill.key}.title`)}
                 </h3>
@@ -101,15 +101,15 @@ export default function Skills() {
                 </p>
               </div>
 
-              <div className="md:col-span-7 flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
+              <div className="md:col-span-7 lg:col-span-8 flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
                 {skill.items.map((item, i) => (
                   <span
                     key={item}
-                    className="text-sm md:text-base text-[#09090f]/80 dark:text-white/80 font-normal"
+                    className="inline-flex items-center text-sm md:text-base text-[#09090f]/85 dark:text-white/85 font-normal whitespace-nowrap"
                   >
-                    {item}
+                    <span>{item}</span>
                     {i < skill.items.length - 1 && (
-                      <span className="ml-6 text-black/20 dark:text-white/20">
+                      <span className="ml-3.5 text-black/20 dark:text-white/20 select-none font-light">
                         /
                       </span>
                     )}

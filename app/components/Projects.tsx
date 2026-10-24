@@ -35,7 +35,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
+      className="snap-section py-24 relative flex items-center bg-transparent"
     >
       <motion.div
         variants={staggerContainer}

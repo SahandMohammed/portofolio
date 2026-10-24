@@ -17,7 +17,7 @@ export default function Blogs({ posts }: BlogsProps) {
   return (
     <section
       id="blogs"
-      className="snap-section py-20 relative flex items-center bg-white dark:bg-[#03020a]"
+      className="snap-section py-24 relative flex items-center bg-transparent"
     >
       <motion.div
         variants={staggerContainer}

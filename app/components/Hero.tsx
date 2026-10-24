@@ -120,13 +120,13 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Bottom Bar - Anchored on the White Horizon Glow (matching image copy.png) */}
+      {/* Bottom Bar - Anchored on the Horizon Glow (matching image copy.png) */}
       <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 z-10 pt-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left - SEE OUR PORTFOLIO */}
           <a
             href="#projects"
-            className="text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] hover:opacity-60 transition-opacity"
+            className="text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-60 transition-opacity"
           >
             {t("viewProjects")}
           </a>
@@ -141,7 +141,7 @@ export default function Hero() {
               <a
                 key={idx}
                 href={item.href}
-                className="group w-40 h-20 rounded-xl bg-[#070612] text-white p-3.5 flex flex-col justify-between overflow-hidden relative shadow-lg hover:-translate-y-0.5 transition-transform"
+                className="group w-40 h-20 rounded-xl bg-[#070612] border border-white/10 text-white p-3.5 flex flex-col justify-between overflow-hidden relative shadow-lg hover:-translate-y-0.5 transition-transform"
               >
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-indigo-500/25 blur-xl group-hover:bg-indigo-400/40 transition-colors" />
                 <span className="text-[10px] font-mono text-white/45">
@@ -160,10 +160,10 @@ export default function Hero() {
           {/* Right - SCROLL NOW + Circular Down Arrow */}
           <a
             href="#skills"
-            className="group inline-flex items-center gap-4 text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] hover:opacity-70 transition-opacity"
+            className="group inline-flex items-center gap-4 text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-70 transition-opacity"
           >
             <span>Scroll Now</span>
-            <span className="w-9 h-9 rounded-full border border-[#09090f]/40 flex items-center justify-center group-hover:translate-y-0.5 transition-transform">
+            <span className="w-9 h-9 rounded-full border border-[#09090f]/40 dark:border-white/40 flex items-center justify-center group-hover:translate-y-0.5 transition-transform">
               <ArrowDown className="w-4 h-4" />
             </span>
           </a>

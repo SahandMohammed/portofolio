@@ -18,7 +18,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="snap-section relative flex items-center justify-center min-h-[100dvh] py-20 overflow-hidden bg-white dark:bg-[#03020a]"
+      className="snap-section relative flex items-center justify-center min-h-[100dvh] py-24 overflow-hidden bg-transparent"
     >
       <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 z-10">
         <motion.div

@@ -34,8 +34,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="snap-section oxaley-hero-bg flex flex-col justify-between relative z-10 overflow-hidden pt-28 pb-10">
-      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto">
+    <footer className="snap-section oxaley-footer-bg flex flex-col justify-between relative z-10 overflow-hidden pt-24 pb-10">
+      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 my-auto border-t border-black/12 dark:border-white/12 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
           {/* Brand Column with user's SM Logo */}
           <div className="md:col-span-6 space-y-6">
@@ -45,17 +45,17 @@ export default function Footer() {
                 alt="Sahand Mohammed Logo"
                 width={64}
                 height={64}
-                className="h-14 w-auto object-contain"
+                className="h-14 w-auto object-contain invert dark:invert-0"
               />
             </Link>
-            <p className="text-white/70 text-lg md:text-2xl max-w-md leading-snug tracking-tight">
+            <p className="text-muted text-lg md:text-2xl max-w-md leading-snug tracking-tight">
               {t("about")}
             </p>
           </div>
 
           {/* Navigation Column */}
           <div className="md:col-span-3 lg:col-start-8">
-            <h3 className="text-xs font-mono text-white/45 uppercase tracking-widest mb-5">
+            <h3 className="text-xs font-mono text-black/45 dark:text-white/45 uppercase tracking-widest mb-5">
               {t("navigation")}
             </h3>
             <ul className="space-y-3">
@@ -63,7 +63,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-1.5 text-sm text-white/85 hover:text-white transition-colors"
+                    className="group inline-flex items-center gap-1.5 text-sm text-[#09090f]/80 dark:text-white/80 hover:text-[#09090f] dark:hover:text-white transition-colors"
                   >
                     <span>{t(`links.${link.name}`)}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -75,7 +75,7 @@ export default function Footer() {
 
           {/* Social Column */}
           <div className="md:col-span-3 lg:col-start-11">
-            <h3 className="text-xs font-mono text-white/45 uppercase tracking-widest mb-5">
+            <h3 className="text-xs font-mono text-black/45 dark:text-white/45 uppercase tracking-widest mb-5">
               {t("social")}
             </h3>
             <ul className="space-y-3">
@@ -85,7 +85,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1.5 text-sm text-white/85 hover:text-white transition-colors"
+                    className="group inline-flex items-center gap-1.5 text-sm text-[#09090f]/80 dark:text-white/80 hover:text-[#09090f] dark:hover:text-white transition-colors"
                   >
                     <span>{link.name}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -97,8 +97,8 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar on the White Horizon */}
-      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#09090f]/75">
+      {/* Bottom Bar */}
+      <div className="w-full max-w-[1400px] mx-auto px-8 lg:px-14 pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -109,7 +109,7 @@ export default function Footer() {
 
         <a
           href="#about"
-          className="uppercase tracking-widest font-medium text-[#09090f] hover:opacity-60 transition-opacity"
+          className="uppercase tracking-widest font-medium text-[#09090f] dark:text-white hover:opacity-60 transition-opacity"
         >
           Back to top ↑
         </a>

@@ -46,8 +46,8 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
-  // On Hero (index 0) and Footer (index 7), the top is pure black from the Oxaley gradient
-  const isOnOxaleySection = isHome && (sectionIndex === 0 || sectionIndex === 7);
+  // On Hero (index 0), the top is pure black from the Oxaley gradient
+  const isOnOxaleySection = isHome && sectionIndex === 0;
   const isOnDarkTop = isOnOxaleySection || resolvedTheme === "dark";
 
   return (
