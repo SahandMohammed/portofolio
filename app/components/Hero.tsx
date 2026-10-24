@@ -139,7 +139,7 @@ export default function Hero() {
           {/* Left - SEE OUR PORTFOLIO */}
           <a
             href="#projects"
-            className="text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-60 transition-opacity"
+            className="text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-60 transition-[color,opacity] duration-500 ease-out"
           >
             {t("viewProjects")}
           </a>
@@ -173,10 +173,10 @@ export default function Hero() {
           {/* Right - SCROLL NOW + Circular Down Arrow */}
           <a
             href="#skills"
-            className="group inline-flex items-center gap-4 text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-70 transition-opacity"
+            className="group inline-flex items-center gap-4 text-xs md:text-sm font-medium uppercase tracking-wider text-[#09090f] dark:text-white hover:opacity-70 transition-[color,opacity] duration-500 ease-out"
           >
             <span>Scroll Now</span>
-            <span className="w-9 h-9 rounded-full border border-[#09090f]/40 dark:border-white/40 flex items-center justify-center group-hover:translate-y-0.5 transition-transform">
+            <span className="w-9 h-9 rounded-full border border-[#09090f]/40 dark:border-white/40 flex items-center justify-center group-hover:translate-y-0.5 transition-[color,border-color,transform] duration-500 ease-out">
               <ArrowDown className="w-4 h-4" />
             </span>
           </a>

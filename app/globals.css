@@ -119,11 +119,20 @@ body {
 
 /*
  * Oxaley Hero Background (from image copy.png):
- * Seamlessly fades into --background (#ffffff in light mode, #03020a in dark mode)
- * at the bottom edge so there is NEVER a cut between Hero and the next section.
+ * Seamlessly crossfades between Light Mode (white bottom horizon) and Dark Mode (dark bottom horizon)
+ * using dual GPU-accelerated opacity layers so the gradient transition is silky-smooth.
  */
 .oxaley-hero-bg {
+  position: relative;
   background-color: #000000;
+  overflow: hidden;
+}
+
+/* Light Mode Horizon Gradient */
+.oxaley-hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image:
     linear-gradient(
       to bottom,
@@ -140,10 +149,17 @@ body {
       #0c0636 84%,
       #000000 100%
     );
+  opacity: 1;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.dark .oxaley-hero-bg {
-  background-color: #000000;
+/* Dark Mode Horizon Gradient */
+.oxaley-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image:
     linear-gradient(
       to bottom,
@@ -159,25 +175,64 @@ body {
       #0a052e 82%,
       #000000 100%
     );
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .oxaley-hero-bg::before {
+  opacity: 0;
+}
+
+.dark .oxaley-hero-bg::after {
+  opacity: 1;
 }
 
 /* Continuous Footer Horizon Glow - starts from transparent (--background) with zero top seam */
 .oxaley-footer-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.oxaley-footer-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: radial-gradient(
     90% 70% at 50% 115%,
     rgba(89, 70, 232, 0.18) 0%,
     rgba(185, 176, 255, 0.12) 40%,
     transparent 75%
   );
+  opacity: 1;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.dark .oxaley-footer-bg {
+.dark .oxaley-footer-bg::after {
+  opacity: 1;
+}
+
+.dark .oxaley-footer-bg::before {
+  opacity: 0;
+}
+
+.oxaley-footer-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: radial-gradient(
     90% 75% at 50% 115%,
     rgba(110, 90, 255, 0.32) 0%,
     rgba(39, 25, 140, 0.22) 45%,
     transparent 80%
   );
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .unified-bg {
@@ -186,6 +241,7 @@ body {
   z-index: -2;
   background: var(--background);
   pointer-events: none;
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bg-glow {
@@ -195,52 +251,15 @@ body {
   pointer-events: none;
 }
 
-/* ==========================================================================
-   Theme Transition Styles (Circular Reveal View Transition)
-   ========================================================================== */
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-@keyframes theme-reveal {
-  from {
-    clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
-  }
-  to {
-    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%));
-  }
-}
-
-::view-transition-new(root) {
-  animation: theme-reveal 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-new(root) {
-    animation: none;
-  }
-}
-
-/* Fallback smooth transition for browsers without View Transitions */
-@supports not (view-transition-name: root) {
-  body,
-  header,
-  .scroll-container,
-  .snap-section,
-  .unified-bg,
-  .glass {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
+/* Smooth color and background transitions across theme changes */
+body,
+header,
+.scroll-container,
+.snap-section,
+.glass,
+.bg-surface {
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

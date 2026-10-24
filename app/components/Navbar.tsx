@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { flushSync } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -45,55 +44,8 @@ export default function Navbar() {
     { name: t("blog"), href: isHome ? "#blogs" : "/#blogs" },
   ];
 
-  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
-
-    const doc = document as Document & {
-      startViewTransition?: (callback: () => void | Promise<void>) => {
-        finished?: Promise<void>;
-      };
-    };
-
-    if (
-      typeof window === "undefined" ||
-      !doc.startViewTransition ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setTheme(nextTheme);
-      return;
-    }
-
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX || rect.left + rect.width / 2;
-    const y = e.clientY || rect.top + rect.height / 2;
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-
-    document.documentElement.style.setProperty("--theme-x", `${x}px`);
-    document.documentElement.style.setProperty("--theme-y", `${y}px`);
-    document.documentElement.style.setProperty("--theme-r", `${endRadius}px`);
-
-    const transition = doc.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(nextTheme);
-      });
-      if (nextTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    });
-
-    if (transition?.finished) {
-      transition.finished.finally(() => {
-        document.documentElement.style.removeProperty("--theme-x");
-        document.documentElement.style.removeProperty("--theme-y");
-        document.documentElement.style.removeProperty("--theme-r");
-      });
-    }
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   if (!mounted) return null;
