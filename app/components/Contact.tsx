@@ -9,7 +9,7 @@ export default function Contact() {
   const t = useTranslations("Contact");
 
   const contactInfo = {
-    email: "sahandmohammed.a@gmail.com",
+    email: "sahand@logicbloom.co",
     phone: "+964 771 157 4683",
     location: "Sulaymaniyah, Iraq",
     maps: "https://maps.google.com/?q=Sulaymaniyah,Iraq",
